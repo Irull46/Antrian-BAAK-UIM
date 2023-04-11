@@ -1,23 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<h5 class="">Ini adalah Halaman Home1</h5>
+<h5 class="">Ini adalah Halaman Home2</h5>
+<h5 class="">Ini adalah Halaman Home3</h5>
+<h5 class="">Ini adalah Halaman Home4</h5>
+<h5 class="">Ini adalah Halaman Home5</h5>
+<h5 class="">Ini adalah Halaman Home6</h5>
+<h5 class="">Ini adalah Halaman Home7</h5>
+<h5 class="">Ini adalah Halaman Home8</h5>
 @endsection
