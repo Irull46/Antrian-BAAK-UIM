@@ -19,10 +19,16 @@
 <body>
     <div id="app">
         @include('partials.navbar')
-
+        
         <main style="margin-top: 80px;">
             @yield('content')
         </main>
     </div>
+
+    {{-- Page level plugins --}}
+    <script src="{{ asset('js/Chart.min.js') }}"></script>
+    
+    {{-- Page level custom scripts --}}
+    <script src="{{ asset('js/chart-area-demo.js') }}"></script>
 </body>
 </html>
