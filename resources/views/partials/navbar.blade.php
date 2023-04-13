@@ -1,4 +1,4 @@
-<nav class="navbar bg-white border-bottom shadow-sm fixed-top">
+<nav class="navbar navbar-dark bg-success border-bottom shadow-sm fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><img src="{{ asset('images/BAAK Logo.png') }}" alt="BAAK Logo" height="40"></a>
 
@@ -6,7 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="offcanvas offcanvas-end bg-white" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="offcanvas offcanvas-end bg-success" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Antrian BAAK</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
