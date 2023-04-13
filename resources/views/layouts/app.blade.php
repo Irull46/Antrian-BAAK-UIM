@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -20,7 +20,7 @@
     <div id="app">
         @include('partials.navbar')
 
-        <main class="mt-5 pt-5 px-3">
+        <main style="margin-top: 80px;">
             @yield('content')
         </main>
     </div>
