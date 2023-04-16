@@ -57,6 +57,13 @@
                     <span class="fs-4 text-muted fst-italic">Orang</span>
                 </h1>
             </div>
+
+            <div class="mt-3 h-75 d-flex flex-column justify-content-evenly">
+                <button type="button" class="btn btn-outline-success btn-lg">LANJUT</button>
+                <button type="button" class="btn btn-outline-success btn-lg">PANGGIL</button>
+                <button type="button" class="btn btn-outline-success btn-lg">SELESAI</button>
+                <button type="button" class="btn btn-outline-success btn-lg">KELUAR</button>
+            </div>
         </div>
     </div>
 </div>

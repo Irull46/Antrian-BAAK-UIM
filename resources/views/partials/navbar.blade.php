@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-success border-bottom shadow-sm fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img src="{{ asset('images/BAAK Logo.png') }}" alt="BAAK Logo" height="40"></a>
+    <a class="navbar-brand" href="{{ asset('/') }}"><img src="{{ asset('images/BAAK Logo.png') }}" alt="BAAK Logo" height="40"></a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -14,7 +14,7 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Home</a>
+            <a class="nav-link" aria-current="page" href="{{ asset('/') }}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Role Manajemen</a>
@@ -23,7 +23,7 @@
             <a class="nav-link" href="#">Cetak Antrian</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Panggil Antrian</a>
+            <a class="nav-link" href="{{ asset('/panggil') }}">Panggil Antrian</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Traffic</a>
