@@ -23,7 +23,7 @@
             <a class="nav-link" href="#">Cetak Antrian</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/panggil">Panggil Antrian</a>
+            <a class="nav-link" href="{{ route('panggil.index') }}">Panggil Antrian</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Traffic</a>
