@@ -20,7 +20,7 @@
             <a class="nav-link" href="{{ route('role.index') }}">Role Manajemen</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Cetak Antrian</a>
+            <a class="nav-link" href="{{ route('cetak.index') }}">Cetak Antrian</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('panggil.index') }}">Panggil Antrian</a>
