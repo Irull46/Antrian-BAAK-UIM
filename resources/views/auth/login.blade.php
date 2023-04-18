@@ -3,8 +3,8 @@
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card p-5">
+            <div class="col-sm-7 col-md-6 col-lg-5 col-xl-4">
+                <div class="card p-sm-4 p-lg-5">
                     <div class="card-body">
                         <div class="text-center">
                             <img src="{{ asset('images/BAAK Logo.png') }}" alt="BAAK Logo" height="70" class="mb-2">
