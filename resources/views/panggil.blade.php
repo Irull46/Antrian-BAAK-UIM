@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="row">
         {{-- Grid Kiri --}}
-        <div class="col-md-9">
+        <div class="col-md-9 col-lg-10">
             {{-- Nomor Antrian --}}
             <div class="bg-success py-4 py-sm-5 mb-2">
                 <h1 class="fw-bold text-center text-light">Nomor Antrian</h1>
@@ -45,7 +45,7 @@
         </div>
         
         {{-- Grid Kanan --}}
-        <div class="col-md-3">
+        <div class="col-md-3 col-lg-2">
             {{-- Head --}}
             <div class="bg-success pt-3 pb-1 px-2">
                 <h4 class="fw-bold text-center text-light">Sisa Antrian</h4>
