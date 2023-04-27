@@ -16,18 +16,19 @@
           <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('role.index') }}">Role Manajemen</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('cetak.index') }}">Cetak Antrian</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('panggil.index') }}">Panggil Antrian</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Traffic</a>
-          </li>
+          @role('admin')
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('role.index') }}">Role Manajemen</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('cetak.index') }}">Cetak Antrian</a>
+            </li>
+          @endrole
+          @role('teller')
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('panggil.index') }}">Panggil Antrian</a>
+            </li>
+          @endrole
           @guest
           @if (Route::has('login'))
               <li class="nav-item">
