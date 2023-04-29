@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use DataTables;
 
 class RoleController extends Controller
 {
@@ -16,33 +19,17 @@ class RoleController extends Controller
         return view('role');
     }
 
-    public function create()
+    public function datatable()
     {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
+        return DataTables::of(User::query())->toJson();
     }
 
     public function update(Request $request, $id)
     {
-        //
-    }
+        $user = User::findOrFail($id);
+        $role = Role::findOrFail($request->input('role_id'));
+        $user->syncRoles($role);
 
-    public function destroy($id)
-    {
-        //
+        $role->save();
     }
 }

@@ -11,10 +11,13 @@ Auth::routes();
 
 Route::get('/', HomeController::class);
 
-Route::middleware(['role:admin'])->group(function () {
-    Route::resource('role', RoleController::class);
-    Route::resource('cetak', CetakController::class);
+Route::group(['prefix' => 'role', 'middleware' => ['role:admin']], function () {
+    Route::get('/', [RoleController::class, 'index'])->name('role.index');
+    Route::patch('/datatable', [RoleController::class, 'datatable'])->name('role.datatable');
+    Route::patch('/update', [RoleController::class, 'update'])->name('role.update');
 });
+
+Route::resource('cetak', CetakController::class);
 
 Route::middleware(['role:teller'])->group(function () {
     Route::resource('panggil', PanggilController::class);
