@@ -60,4 +60,10 @@
         </div>
     </div>
 </div>
+
+{{-- Page level plugins --}}
+<script src="{{ asset('js/Chart.min.js') }}"></script>
+
+{{-- Page level custom scripts --}}
+<script src="{{ asset('js/chart-area-demo.js') }}"></script>
 @endsection
