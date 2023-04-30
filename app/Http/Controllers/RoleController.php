@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use DataTables;
+use Yajra\DataTables\DataTables;
 
 class RoleController extends Controller
 {
@@ -21,15 +21,16 @@ class RoleController extends Controller
 
     public function datatable()
     {
-        return DataTables::of(User::query())->toJson();
+        $data = User::select(['id', 'name', 'email']);
+        return DataTables::of($data)->make(true);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $user = User::findOrFail($id);
-        $role = Role::findOrFail($request->input('role_id'));
+        $user = User::findOrFail($request->input('user_id'));
+        $role = Role::where('name', $request->input('role'))->first();
+        
         $user->syncRoles($role);
-
-        $role->save();
+        return redirect()->back()->with('success', 'Role pengguna berhasil diperbarui!');
     }
 }
