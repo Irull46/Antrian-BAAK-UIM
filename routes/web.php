@@ -3,6 +3,7 @@
 use App\Http\Controllers\CetakController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PanggilController;
+use App\Http\Controllers\PenggunaAntrianController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
@@ -10,7 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get('/', HomeController::class);
+Route::group(['prefix' => '/'], function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
+    Route::get('/ajax', [HomeController::class, 'ajax'])->name('home.ajax');
+});
 
 Route::group(['prefix' => 'profil'], function () {
     Route::get('/', [ProfilController::class, 'index'])->name('profil.index');
@@ -28,6 +32,11 @@ Route::group(['prefix' => 'cetak', 'middleware' => ['role:admin']], function () 
     Route::post('/cetak', [CetakController::class, 'cetak'])->name('cetak.cetak');
 });
 
-Route::middleware(['role:teller'])->group(function () {
-    Route::resource('panggil', PanggilController::class);
+Route::group(['prefix' => 'panggil', 'middleware' => ['role:teller']], function () {
+    Route::get('/', [PanggilController::class, 'index'])->name('panggil.index');
+    Route::get('/ajax', [PanggilController::class, 'ajax'])->name('panggil.ajax');
+});
+
+Route::group(['prefix' => 'pengguna-antrian', 'middleware' => ['role:teller']], function () {
+    Route::get('/', [PenggunaAntrianController::class, 'panggil'])->name('pengguna.panggil');
 });
