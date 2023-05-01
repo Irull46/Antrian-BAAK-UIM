@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Antrian;
 use Illuminate\Http\Request;
 
 class PanggilController extends Controller
@@ -18,7 +19,8 @@ class PanggilController extends Controller
      */
     public function index()
     {
-        return view('panggil');
+        $antrian = Antrian::count();
+        return view('panggil', compact('antrian'));
     }
 
     /**

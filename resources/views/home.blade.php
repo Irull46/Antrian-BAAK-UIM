@@ -53,7 +53,7 @@
             
             {{-- Body --}}
             <div class="bg-white px-3 py-3 d-flex justify-content-center">
-                <h1 class="fw-bold text-center">34
+                <h1 class="fw-bold text-center">{{ $antrian }}
                     <span class="fs-4 text-muted fst-italic">Orang</span>
                 </h1>
             </div>
