@@ -13,13 +13,14 @@ class HomeController extends Controller
 
     public function ajax()
     {
-        $sisa = Antrian::count();
+        $sisa = Antrian::where(function($query) {
+            $query->where('status', 'menunggu')
+                ->orWhere('status', 'terlambat');
+        })->count();
         
         $antrian = Antrian::where('status', 'proses')
         ->latest('updated_at')
         ->first();
-
-        $sisa = $sisa - ($antrian ? $antrian->nomor_antrian : 0);
 
         $nomor_antrian = $antrian ? $antrian->nomor_antrian : '-';
 
