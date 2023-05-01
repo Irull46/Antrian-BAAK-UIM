@@ -12,78 +12,49 @@ class PanggilController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $antrian = Antrian::count();
-        return view('panggil', compact('antrian'));
+        return view('panggil');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function ajax()
     {
-        //
+        $sisa = Antrian::count();
+        
+        $antrian = Antrian::where('status', 'proses')
+        ->latest('updated_at')
+        ->first();
+
+        $sisa = $sisa - ($antrian ? $antrian->nomor_antrian : 0);
+
+        $nomor_antrian = $antrian ? $antrian->nomor_antrian : '-';
+
+        return response()->json([
+            'sisa' => $sisa,
+            'nomor_antrian' => $nomor_antrian,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

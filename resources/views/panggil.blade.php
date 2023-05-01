@@ -9,7 +9,7 @@
             <div class="bg-success py-4 py-sm-5 mb-2">
                 <h1 class="fw-bold text-center text-light">Nomor Antrian</h1>
                 <div class="mx-5 bg-white border border-5">
-                    <h1 class="fw-bold text-center m-0 py-3 py-sm-4 py-md-5">006</h1>
+                    <h1 class="fw-bold text-center m-0 py-3 py-sm-4 py-md-5" id="antrian"></h1>
                 </div>
             </div>
             
@@ -53,20 +53,50 @@
             
             {{-- Body --}}
             <div class="bg-white px-3 py-3 d-flex justify-content-center">
-                <h1 class="fw-bold text-center">{{ $antrian }}
-                    <span class="fs-4 text-muted fst-italic">Orang</span>
-                </h1>
+                <h1 class="fw-bold text-center" id="sisa"></h1>
             </div>
 
             <div class="mt-2 d-flex flex-column">
-                <button type="button" class="btn btn-outline-success btn-lg mb-2">LANJUT</button>
-                <button type="button" class="btn btn-outline-success btn-lg mb-2">PANGGIL</button>
-                <button type="button" class="btn btn-outline-success btn-lg mb-2">SELESAI</button>
-                <button type="button" class="btn btn-outline-success btn-lg mb-2">KELUAR</button>
+                <button id="btnLanjut" class="btn btn-outline-success btn-lg mb-2">LANJUT</button>
+                <button id="btnPanggil" class="btn btn-outline-success btn-lg mb-2">PANGGIL</button>
+                <button id="btnSelesai" class="btn btn-outline-success btn-lg mb-2">SELESAI</button>
+                <button id="btnKeluar" class="btn btn-outline-success btn-lg mb-2">KELUAR</button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        setInterval(function() {
+            $.ajax({
+                url: "{{ route('panggil.ajax') }}",
+                type: 'GET',
+                success: function(response) {
+                    $('#antrian').text(response.nomor_antrian);
+                    $('#sisa').text(response.sisa);
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText)
+                }
+            });
+        }, 1000);
+
+        $('#btnLanjut').click(function() {
+            $.ajax({
+                url: "{{ route('pengguna.panggil') }}",
+                type: 'GET',
+                success: function(response) {
+                    console.log('Berhasil!')
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText)
+                }
+            });
+        });
+    });
+</script>
+
 
 {{-- Page level plugins --}}
 <script src="{{ asset('js/Chart.min.js') }}"></script>
