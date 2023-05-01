@@ -29,6 +29,11 @@ class User extends Authenticatable
         return $this->hasOne(Profil::class);
     }
 
+    public function penggunaAntrian()
+    {
+        return $this->hasMany(PenggunaAntrian::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

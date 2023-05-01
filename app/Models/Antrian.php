@@ -18,4 +18,9 @@ class Antrian extends Model
     {
         return $this->hasOne(Traffic::class);
     }
+
+    public function penggunaAntrian()
+    {
+        return $this->hasOne(PenggunaAntrian::class);
+    }
 }
