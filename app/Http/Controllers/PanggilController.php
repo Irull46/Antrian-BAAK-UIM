@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Antrian;
+use App\Models\PenggunaAntrian;
 use Illuminate\Http\Request;
 
 class PanggilController extends Controller
@@ -36,19 +37,23 @@ class PanggilController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
-        //
-    }
+    public function lanjut(Request $request){
+        // $teller = User::findOrFail($request->user_id);
+        $teller = 2;
 
-    public function show($id)
-    {
-        //
-    }
+        $antrian = Antrian::where('status', 'menunggu')->first();
 
-    public function edit($id)
-    {
-        //
+        if ($antrian) {
+            $antrian->status = 'proses';
+            $antrian->save();
+            
+            $penggunaAntrian = new PenggunaAntrian();
+            $penggunaAntrian->user_id = $teller;
+            $penggunaAntrian->antrian_id = $antrian->id;
+            $penggunaAntrian->save();
+        } else {
+            return response()->json(['message' => 'Tidak ada antrian yang tersedia'], 404);
+        }
     }
 
     public function update(Request $request, $id)

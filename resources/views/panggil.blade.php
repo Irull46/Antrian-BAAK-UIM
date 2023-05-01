@@ -84,7 +84,7 @@
 
         $('#btnLanjut').click(function() {
             $.ajax({
-                url: "{{ route('pengguna.panggil') }}",
+                url: "{{ route('panggil.lanjut') }}",
                 type: 'GET',
                 success: function(response) {
                     console.log('Berhasil!')

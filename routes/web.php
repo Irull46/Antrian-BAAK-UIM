@@ -35,8 +35,5 @@ Route::group(['prefix' => 'cetak', 'middleware' => ['role:admin']], function () 
 Route::group(['prefix' => 'panggil', 'middleware' => ['role:teller']], function () {
     Route::get('/', [PanggilController::class, 'index'])->name('panggil.index');
     Route::get('/ajax', [PanggilController::class, 'ajax'])->name('panggil.ajax');
-});
-
-Route::group(['prefix' => 'pengguna-antrian', 'middleware' => ['role:teller']], function () {
-    Route::get('/', [PenggunaAntrianController::class, 'panggil'])->name('pengguna.panggil');
+    Route::get('/lanjut', [PanggilController::class, 'lanjut'])->name('panggil.lanjut');
 });
