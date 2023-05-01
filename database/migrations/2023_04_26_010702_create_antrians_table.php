@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrafficsTable extends Migration
+class CreateAntriansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateTrafficsTable extends Migration
      */
     public function up()
     {
-        Schema::create('traffics', function (Blueprint $table) {
+        Schema::create('antrians', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('mulai_pelayanan');
-            $table->dateTime('selesai_pelayanan')->nullable();
-            $table->dateTime('durasi_pelayanan')->nullable();
+            $table->string('nomor_antrian', 20)->unique();
             $table->timestamps();
+            $table->enum('status', ['menunggu', 'proses', 'terlambat', 'selesai'])->default('menunggu');
         });
     }
 
@@ -29,6 +28,6 @@ class CreateTrafficsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('traffics');
+        Schema::dropIfExists('antrians');
     }
 }

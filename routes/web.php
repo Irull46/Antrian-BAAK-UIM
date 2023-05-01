@@ -23,7 +23,10 @@ Route::group(['prefix' => 'role', 'middleware' => ['role:admin']], function () {
     Route::patch('/update', [RoleController::class, 'update'])->name('role.update');
 });
 
-Route::resource('cetak', CetakController::class);
+Route::group(['prefix' => 'cetak', 'middleware' => ['role:admin']], function () {
+    Route::get('/', [CetakController::class, 'index'])->name('cetak.index');
+    Route::post('/cetak', [CetakController::class, 'cetak'])->name('cetak.cetak');
+});
 
 Route::middleware(['role:teller'])->group(function () {
     Route::resource('panggil', PanggilController::class);

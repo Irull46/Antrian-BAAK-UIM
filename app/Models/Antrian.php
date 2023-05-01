@@ -16,6 +16,6 @@ class Antrian extends Model
 
     public function traffic()
     {
-        return $this->belongsTo(Traffic::class);
+        return $this->hasOne(Traffic::class);
     }
 }

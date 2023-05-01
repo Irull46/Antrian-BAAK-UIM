@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Antrian;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\CapabilityProfile;
 
 class CetakController extends Controller
 {
@@ -16,33 +21,37 @@ class CetakController extends Controller
         return view('cetak');
     }
 
-    public function create()
+    public function cetak(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'jumlah_antrian' => 'required|numeric'
+        ], [
+            'jumlah_antrian.required' => 'Kolom input tidak boleh kosong.',
+            'jumlah_antrian.numeric' => 'Kolom input hanya boleh angka.',
+        ]);
 
-    public function store(Request $request)
-    {
-        //
-    }
+        $jumlahAntrian = $request->input('jumlah_antrian');
 
-    public function show($id)
-    {
-        //
-    }
+        $sisa = Antrian::count();
 
-    public function edit($id)
-    {
-        //
-    }
+        if($sisa == 0){
+            for ($i = 1; $i <= $jumlahAntrian; $i++) {
+                $antrian = Antrian::create([
+                    'nomor_antrian' => $i,
+                ]);
+                $antrian->save();
+            }
+        } else if ($sisa > 0) {
+            $sisa += 1;
+            $jumlahAntrians = $jumlahAntrian + $sisa;
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
+            for ($i = $sisa; $i <= $jumlahAntrians; $i++) {
+                $antrian = Antrian::create([
+                    'nomor_antrian' => $i,
+                ]);
+                $antrian->save();
+            }
+            return redirect()->back()->with('success', 'Nomor antrian berhasil dibuat.');
+        }
     }
 }
