@@ -60,7 +60,7 @@
                 <button id="btnLanjut" class="btn btn-outline-success btn-lg mb-2">LANJUT</button>
                 <button id="btnPanggil" class="btn btn-outline-success btn-lg mb-2">PANGGIL</button>
                 <button id="btnSelesai" class="btn btn-outline-success btn-lg mb-2">SELESAI</button>
-                <button id="btnKeluar" class="btn btn-outline-success btn-lg mb-2">KELUAR</button>
+                <a href="{{ route('home.index') }}" class="btn btn-outline-success btn-lg mb-2">KELUAR</a>
             </div>
         </div>
     </div>

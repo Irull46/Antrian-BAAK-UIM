@@ -38,5 +38,4 @@ Route::group(['prefix' => 'panggil', 'middleware' => ['role:teller']], function 
     Route::get('/lanjut', [PanggilController::class, 'lanjut'])->name('panggil.lanjut');
     Route::get('/panggil', [PanggilController::class, 'panggil'])->name('panggil.panggil');
     Route::post('/selesai', [PanggilController::class, 'selesai'])->name('panggil.selesai');
-    Route::get('/keluar', [PanggilController::class, 'keluar'])->name('panggil.keluar');
 });

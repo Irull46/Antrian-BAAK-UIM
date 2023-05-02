@@ -52,6 +52,7 @@ class CetakController extends Controller
                 $antrian->save();
             }
         }
+        
         return redirect()->back()->with('success', 'Nomor antrian berhasil dibuat.');
     }
 }
