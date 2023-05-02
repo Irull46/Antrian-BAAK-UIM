@@ -94,6 +94,25 @@
                 }
             });
         });
+
+        $('#btnSelesai').click(function() {
+            let antrian = $("#antrian").text();
+            $.ajax({
+                url: "{{ route('panggil.selesai') }}",
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    antrian: antrian
+                },
+                success: function(response) {
+                    console.log('Berhasil!')
+                    console.log(response.antrian)
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText)
+                }
+            });
+        });
     });
 </script>
 

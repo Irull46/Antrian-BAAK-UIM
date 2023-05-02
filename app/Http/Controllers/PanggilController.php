@@ -65,9 +65,19 @@ class PanggilController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function panggil(Request $request, $id)
     {
         //
+    }
+
+    public function selesai()
+    {
+        $antrian = $_POST['antrian'];
+        $nomorAntrian = Antrian::where('nomor_antrian', $antrian)->first();
+        $nomorAntrian->status = 'selesai';
+        $nomorAntrian->save();
+        
+        return response()->json(['antrian' => $antrian]);
     }
 
     public function destroy($id)
