@@ -17,7 +17,7 @@ class CreateProfilsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('foto')->default('avatar.jpg');
-            $table->dateTime('tanggal_lahir');
+            $table->date('tanggal_lahir');
             $table->string('alamat', 100);
             $table->enum('jenis_kelamin', ['laki-laki', 'perempuan']);
             $table->timestamps();

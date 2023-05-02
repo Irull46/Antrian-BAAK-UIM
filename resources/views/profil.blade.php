@@ -47,50 +47,60 @@
                             </div>
                         </div>
                         <div class="mt-2">
-                            <button class="btn btn-light">Edit</button>
+                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#form">Edit</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        {{-- <div class="container px-4 py-5" id="featured-3">
-            <h2 class="pb-2 border-bottom">Columns with icons</h2>
-            <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-            <div class="feature col">
-                <div class="feature-icon bg-primary bg-gradient">
-                <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"/></svg>
+        <div class="modal fade" id="form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-success">
+                        <h5 class="modal-title text-white" id="exampleModalLabel">Edit Profil</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" action="{{ route('profil.update') }}">
+                        @method("patch")
+                        @csrf
+                        <div class="modal-body">
+                            <div class="mb-2">
+                                <input value="{{ old('id', Auth::user()->id) }}" id="id" type="hidden" class="form-control" name="id" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="name">Nama Lengkap</label>
+                                <input value="{{ old('name', Auth::user()->name) }}" id="name" type="text" class="form-control" name="name" required disabled>
+                            </div>
+                            <div class="mb-2">
+                                <label for="tanggal_lahir">Tanggal Lahir</label>
+                                <input id="tanggal_lahir" type="date" class="form-control" name="tanggal_lahir" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="alamat">Alamat</label>
+                                <input id="alamat" type="text" class="form-control" name="alamat" required>
+                            </div>
+                            <div class="mb-2">
+                                <label>Jenis Kelamin</label>
+                                <div class="d-flex">
+                                    <div class="form-check me-3">
+                                        <input class="form-check-input" type="radio" value="laki-laki" name="jenis_kelamin" id="Laki-Laki">
+                                        <label class="form-check-label" for="Laki-Laki">Laki-Laki</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="perempuan" name="jenis_kelamin" id="Perempuan">
+                                        <label class="form-check-label" for="Perempuan">Perempuan</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+                            <button type="submit" class="btn btn-success">Simpan</button>
+                        </div>
+                    </form>
                 </div>
-                <h2>Featured title</h2>
-                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-                <a href="#" class="icon-link">
-                Call to action
-                <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
-                </a>
             </div>
-            <div class="feature col">
-                <div class="feature-icon bg-primary bg-gradient">
-                <svg class="bi" width="1em" height="1em"><use xlink:href="#people-circle"/></svg>
-                </div>
-                <h2>Featured title</h2>
-                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-                <a href="#" class="icon-link">
-                Call to action
-                <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
-                </a>
-            </div>
-            <div class="feature col">
-                <div class="feature-icon bg-primary bg-gradient">
-                <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
-                </div>
-                <h2>Featured title</h2>
-                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-                <a href="#" class="icon-link">
-                Call to action
-                <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
-                </a>
-            </div>
-            </div>
-        </div> --}}
+        </div>
     </div>
 @endsection
