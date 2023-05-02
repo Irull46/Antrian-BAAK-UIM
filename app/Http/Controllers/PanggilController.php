@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Antrian;
 use App\Models\PenggunaAntrian;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PanggilController extends Controller
@@ -38,8 +39,7 @@ class PanggilController extends Controller
     }
 
     public function lanjut(Request $request){
-        // $teller = User::findOrFail($request->user_id);
-        $teller = 2;
+        $teller = $_POST['id'];
 
         $antrian = Antrian::where('status', 'menunggu')->first();
         $antrianTerlambat = Antrian::where('status', 'terlambat')->first();

@@ -106,9 +106,14 @@
         }, 1000);
 
         $('#btnLanjut').click(function() {
+            let user_id = "{{ Auth::user()->id }}"
             $.ajax({
                 url: "{{ route('panggil.lanjut') }}",
-                type: 'GET',
+                type: 'POST',
+                data:{
+                    _token: "{{ csrf_token() }}",
+                    id: user_id
+                },
                 success: function(response) {
                     console.log('Berhasil!')
                 },
