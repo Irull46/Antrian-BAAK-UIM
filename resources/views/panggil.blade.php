@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid" id="text-to-speech">
     <div class="row">
         {{-- Grid Kiri --}}
         <div class="col-md-9 col-lg-10">
@@ -58,13 +58,36 @@
 
             <div class="mt-2 d-flex flex-column">
                 <button id="btnLanjut" class="btn btn-outline-success btn-lg mb-2">LANJUT</button>
-                <button id="btnPanggil" class="btn btn-outline-success btn-lg mb-2">PANGGIL</button>
+                <button id="speak" class="btn btn-outline-success btn-lg mb-2">PANGGIL</button>
                 <button id="btnSelesai" class="btn btn-outline-success btn-lg mb-2">SELESAI</button>
                 <a href="{{ route('home.index') }}" class="btn btn-outline-success btn-lg mb-2">KELUAR</a>
             </div>
         </div>
     </div>
+
+    <div style="display: none">
+        <select id="voices"></select>
+        <select id="speed">
+            <option value="0.5">0.5x</option>
+            <option value="1.0" selected>1.0x</option>
+            <option value="1.5">1.5x</option>
+            <option value="2.0">2.0x</option>
+            <option value="4.0">4.0x</option>
+            <option value="10.0">10.0x</option>
+        </select>
+        <select id="pitch">
+            <option value="0.0">Pitch - 0</option>
+            <option value="0.5">Pitch - 0.5</option>
+            <option value="1.0" selected>Pitch - 1</option>
+            <option value="1.5">Pitch - 1.5</option>
+            <option value="2.0">Pitch - 2</option>
+        </select>
+        <button id="pause">Pause</button>
+        <button id="cancel">Cancel</button>
+    </div>
 </div>
+
+<script src="{{ asset('js/text-to-speech.js') }}"></script>
 
 <script>
     $(document).ready(function() {
@@ -115,7 +138,6 @@
         });
     });
 </script>
-
 
 {{-- Page level plugins --}}
 <script src="{{ asset('js/Chart.min.js') }}"></script>

@@ -65,11 +65,6 @@ class PanggilController extends Controller
         }
     }
 
-    public function panggil(Request $request, $id)
-    {
-        //
-    }
-
     public function selesai()
     {
         $antrian = $_POST['antrian'];
@@ -78,10 +73,5 @@ class PanggilController extends Controller
         $nomorAntrian->save();
         
         return response()->json(['antrian' => $antrian]);
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }
