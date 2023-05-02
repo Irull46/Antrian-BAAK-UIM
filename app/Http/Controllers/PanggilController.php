@@ -42,14 +42,23 @@ class PanggilController extends Controller
         $teller = 2;
 
         $antrian = Antrian::where('status', 'menunggu')->first();
+        $antrianTerlambat = Antrian::where('status', 'terlambat')->first();
 
-        if ($antrian) {
+        if ($antrian !== null) {
             $antrian->status = 'proses';
             $antrian->save();
             
             $penggunaAntrian = new PenggunaAntrian();
             $penggunaAntrian->user_id = $teller;
             $penggunaAntrian->antrian_id = $antrian->id;
+            $penggunaAntrian->save();
+        } else if ($antrian === null && $antrianTerlambat !== null) {
+            $antrianTerlambat->status = 'proses';
+            $antrianTerlambat->save();
+            
+            $penggunaAntrian = new PenggunaAntrian();
+            $penggunaAntrian->user_id = $teller;
+            $penggunaAntrian->antrian_id = $antrianTerlambat->id;
             $penggunaAntrian->save();
         } else {
             return response()->json(['message' => 'Tidak ada antrian yang tersedia'], 404);
