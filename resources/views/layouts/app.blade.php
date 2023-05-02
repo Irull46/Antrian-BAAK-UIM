@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 </head>
 <body>
     <div id="app">
@@ -24,11 +25,5 @@
             @yield('content')
         </main>
     </div>
-
-    {{-- Page level plugins --}}
-    <script src="{{ asset('js/Chart.min.js') }}"></script>
-    
-    {{-- Page level custom scripts --}}
-    <script src="{{ asset('js/chart-area-demo.js') }}"></script>
 </body>
 </html>
