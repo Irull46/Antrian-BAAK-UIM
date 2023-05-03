@@ -11,6 +11,7 @@ class Profil extends Model
 
     protected $fillable = [
         'foto',
+        'user_id',
         'tanggal_lahir',
         'alamat',
         'jenis_kelamin',

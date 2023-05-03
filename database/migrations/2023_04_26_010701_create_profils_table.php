@@ -19,7 +19,7 @@ class CreateProfilsTable extends Migration
             $table->string('foto')->default('avatar.jpg');
             $table->date('tanggal_lahir');
             $table->string('alamat', 100);
-            $table->enum('jenis_kelamin', ['laki-laki', 'perempuan']);
+            $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan']);
             $table->timestamps();
         });
     }

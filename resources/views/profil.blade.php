@@ -19,7 +19,7 @@
                                 <h6 class="text-light fw-bold">Nama Lengkap</h6>
                             </div>
                             <div class="col-md-8 col-lg-9">
-                                <h6 class="text-light">: Jhon Doe</h6>
+                                <h6 class="text-light">: {{ old('name', Auth::user()->name) }}</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -27,7 +27,7 @@
                                 <h6 class="text-light fw-bold">Tanggal lahir</h6>
                             </div>
                             <div class="col-md-8 col-lg-9">
-                                <h6 class="text-light">: 05 Februari 1999</h6>
+                                <h6 class="text-light">: <span id="h6_tanggal_lahir"></span></h6>
                             </div>
                         </div>
                         <div class="row">
@@ -35,7 +35,7 @@
                                 <h6 class="text-light fw-bold">Alamat</h6>
                             </div>
                             <div class="col-md-8 col-lg-9">
-                                <h6 class="text-light">: Pakamban Daya</h6>
+                                <h6 class="text-light">: <span id="h6_alamat"></span></h6>
                             </div>
                         </div>
                         <div class="row">
@@ -43,11 +43,11 @@
                                 <h6 class="text-light fw-bold">Jenis kelamin</h6>
                             </div>
                             <div class="col-md-8 col-lg-9">
-                                <h6 class="text-light">: Laki-laki</h6>
+                                <h6 class="text-light">: <span id="h6_jenis_kelamin"></span></h6>
                             </div>
                         </div>
                         <div class="mt-2">
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#form">Edit</button>
+                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#form" id="edit">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -65,12 +65,10 @@
                         @method("patch")
                         @csrf
                         <div class="modal-body">
-                            <div class="mb-2">
-                                <input value="{{ old('id', Auth::user()->id) }}" id="id" type="hidden" class="form-control" name="id" required>
-                            </div>
+                            <input value="{{ old('id', Auth::user()->id) }}" type="hidden" class="form-control" name="id" required>
                             <div class="mb-2">
                                 <label for="name">Nama Lengkap</label>
-                                <input value="{{ old('name', Auth::user()->name) }}" id="name" type="text" class="form-control" name="name" required disabled>
+                                <input value="{{ old('name', Auth::user()->name) }}" id="name" type="text" class="form-control" name="name" required>
                             </div>
                             <div class="mb-2">
                                 <label for="tanggal_lahir">Tanggal Lahir</label>
@@ -84,12 +82,12 @@
                                 <label>Jenis Kelamin</label>
                                 <div class="d-flex">
                                     <div class="form-check me-3">
-                                        <input class="form-check-input" type="radio" value="laki-laki" name="jenis_kelamin" id="Laki-Laki">
-                                        <label class="form-check-label" for="Laki-Laki">Laki-Laki</label>
+                                        <input class="form-check-input" type="radio" value="Laki-Laki" name="jenis_kelamin" id="laki-laki">
+                                        <label class="form-check-label" for="laki-laki">Laki-Laki</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="perempuan" name="jenis_kelamin" id="Perempuan">
-                                        <label class="form-check-label" for="Perempuan">Perempuan</label>
+                                        <input class="form-check-input" type="radio" value="Perempuan" name="jenis_kelamin" id="perempuan">
+                                        <label class="form-check-label" for="perempuan">Perempuan</label>
                                     </div>
                                 </div>
                             </div>
@@ -103,4 +101,33 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "{{ route('profil.ajax') }}",
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    id: "{{ Auth::user()->id }}"
+                },
+                success: function(response) {
+                        $('#h6_tanggal_lahir').text(response.tanggal_lahir);
+                        $('#h6_alamat').text(response.alamat);
+                        $('#h6_jenis_kelamin').text(response.jenis_kelamin);
+
+                        $('#tanggal_lahir').val(response.tanggal_lahir);
+                        $('#alamat').val(response.alamat);
+                        if (response.jenis_kelamin === 'laki-laki') {
+                            $('#laki-laki').prop('checked', true);
+                        } else if (response.jenis_kelamin === 'perempuan') {
+                            $('#perempuan').prop('checked', true);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText)
+                    }
+                });
+            });
+    </script>
 @endsection

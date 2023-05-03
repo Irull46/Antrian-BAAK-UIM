@@ -18,6 +18,8 @@ Route::group(['prefix' => '/'], function () {
 
 Route::group(['prefix' => 'profil'], function () {
     Route::get('/', [ProfilController::class, 'index'])->name('profil.index');
+    Route::post('/ajax', [ProfilController::class, 'ajax'])->name('profil.ajax');
+    Route::post('/ajax-form', [ProfilController::class, 'ajaxForm'])->name('profil.ajaxForm');
     Route::patch('/update', [ProfilController::class, 'update'])->name('profil.update');
 });
 
