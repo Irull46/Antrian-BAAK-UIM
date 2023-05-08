@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrafficsTable extends Migration
+class CreateTrafficTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTrafficsTable extends Migration
      */
     public function up()
     {
-        Schema::create('traffics', function (Blueprint $table) {
+        Schema::create('traffic', function (Blueprint $table) {
             $table->id();
             $table->foreignId('antrian_id')->constrained('antrians')->onDelete('cascade');
             $table->dateTime('mulai_pelayanan');
