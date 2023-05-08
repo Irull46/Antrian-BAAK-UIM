@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Antrian;
 use App\Models\PenggunaAntrian;
+use App\Models\Traffic;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -48,6 +49,11 @@ class PanggilController extends Controller
             $antrian->status = 'proses';
             $antrian->save();
             
+            $traffic = new Traffic();
+            $traffic->antrian_id = $antrian->id;
+            $traffic->mulai_pelayanan = now();
+            $traffic->save();
+
             $penggunaAntrian = new PenggunaAntrian();
             $penggunaAntrian->user_id = $teller;
             $penggunaAntrian->antrian_id = $antrian->id;
