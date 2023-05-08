@@ -38,13 +38,14 @@ class ProfilController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
-            'alamat' => 'required|string|max:255',
+            'alamat' => 'required|alpha|max:255',
             'jenis_kelamin' => 'required',
         ], [
-            'name.required' => 'Kolom input tidak boleh kosong.',
-            'tanggal_lahir.required' => 'Kolom input tidak boleh kosong.',
-            'alamat.required' => 'Kolom input tidak boleh kosong.',
-            'jenis_kelamin.required' => 'Kolom input tidak boleh kosong.',
+            'name.required' => 'Kolom :attribute tidak boleh kosong.',
+            'tanggal_lahir.required' => 'Kolom :attribute tidak boleh kosong.',
+            'alamat.required' => 'Kolom :attribute tidak boleh kosong.',
+            'alamat.alpha' => 'Kolom :attribute hanya boleh huruf.',
+            'jenis_kelamin.required' => 'Kolom :attribute tidak boleh kosong.',
         ]);
 
         $profil = Profil::where('user_id', $request->id)->first();

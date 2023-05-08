@@ -26,8 +26,8 @@ class CetakController extends Controller
         $request->validate([
             'jumlah_antrian' => 'required|numeric'
         ], [
-            'jumlah_antrian.required' => 'Kolom input tidak boleh kosong.',
-            'jumlah_antrian.numeric' => 'Kolom input hanya boleh angka.',
+            'jumlah_antrian.required' => 'Kolom :attribute tidak boleh kosong.',
+            'jumlah_antrian.numeric' => 'Kolom :attribute hanya boleh angka.',
         ]);
 
         $jumlahAntrian = $request->input('jumlah_antrian');
