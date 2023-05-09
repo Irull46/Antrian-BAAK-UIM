@@ -46,22 +46,32 @@ class PanggilController extends Controller
         $antrianTerlambat = Antrian::where('status', 'terlambat')->first();
 
         if ($antrian !== null) {
+            // Mengubah status menunggu menjadi proses
             $antrian->status = 'proses';
             $antrian->save();
             
+            // Mulai pelayanan
             $traffic = new Traffic();
             $traffic->antrian_id = $antrian->id;
             $traffic->mulai_pelayanan = now();
             $traffic->save();
-
+            
+            // Menyimpaan data teller dan nomor antrian yang dilayani
             $penggunaAntrian = new PenggunaAntrian();
             $penggunaAntrian->user_id = $teller;
             $penggunaAntrian->antrian_id = $antrian->id;
             $penggunaAntrian->save();
         } else if ($antrian === null && $antrianTerlambat !== null) {
+            // Mengubah status terlambat menjadi proses
             $antrianTerlambat->status = 'proses';
             $antrianTerlambat->save();
             
+            // Update mulai pelayanan
+            $traffic = Traffic::find($antrianTerlambat->id);
+            $traffic->mulai_pelayanan = now();
+            $traffic->update();
+            
+            // Menyimpaan data teller dan nomor antrian yang dilayani
             $penggunaAntrian = new PenggunaAntrian();
             $penggunaAntrian->user_id = $teller;
             $penggunaAntrian->antrian_id = $antrianTerlambat->id;
@@ -77,6 +87,11 @@ class PanggilController extends Controller
         $nomorAntrian = Antrian::where('nomor_antrian', $antrian)->first();
         $nomorAntrian->status = 'selesai';
         $nomorAntrian->save();
+
+        $traffic = Traffic::find($antrian);
+        $traffic->selesai_pelayanan = now();
+        // $traffic->durasi_pelayanan = $traffic->mulai_pelayanan->diffInMinutes($traffic->selesai_pelayanan);
+        $traffic->update();
         
         return response()->json(['antrian' => $antrian]);
     }
