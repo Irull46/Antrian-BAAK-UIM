@@ -14,13 +14,13 @@ class Antrian extends Model
         'status',
     ];
 
+    public function panggilan()
+    {
+        return $this->hasOne(Panggilan::class);
+    }
+
     public function traffic()
     {
         return $this->hasOne(Traffic::class);
-    }
-
-    public function penggunaAntrian()
-    {
-        return $this->hasOne(PenggunaAntrian::class);
     }
 }

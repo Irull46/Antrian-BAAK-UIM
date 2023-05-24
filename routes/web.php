@@ -3,9 +3,9 @@
 use App\Http\Controllers\CetakController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PanggilController;
-use App\Http\Controllers\PenggunaAntrianController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PanggilanController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,7 +36,7 @@ Route::group(['prefix' => 'cetak', 'middleware' => ['role:admin']], function () 
 
 Route::group(['prefix' => 'panggil', 'middleware' => ['role:teller']], function () {
     Route::get('/', [PanggilController::class, 'index'])->name('panggil.index');
-    Route::get('/ajax', [PanggilController::class, 'ajax'])->name('panggil.ajax');
+    Route::post('/ajax', [PanggilController::class, 'ajax'])->name('panggil.ajax');
     Route::post('/lanjut', [PanggilController::class, 'lanjut'])->name('panggil.lanjut');
     Route::post('/selesai', [PanggilController::class, 'selesai'])->name('panggil.selesai');
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Profil;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ProfilController extends Controller
 {
@@ -22,14 +23,10 @@ class ProfilController extends Controller
     {
         $profil = Profil::where('user_id', $request->id)->first();
 
-        $tanggal_lahir = $profil ? $profil->tanggal_lahir : null;
-        $alamat = $profil ? $profil->alamat : null;
-        $jenis_kelamin = $profil ? $profil->jenis_kelamin : null;
-
         return response()->json([
-            'tanggal_lahir' => $tanggal_lahir,
-            'alamat' => $alamat,
-            'jenis_kelamin' => $jenis_kelamin,
+            'tanggal_lahir' => isset($profil->tanggal_lahir) ? Carbon::createFromFormat('Y-m-d', $profil->tanggal_lahir)->format('d-m-Y') : 'zonk',
+            'alamat' => isset($profil->alamat) ? $profil->alamat : 'zonk',
+            'jenis_kelamin' => isset($profil->jenis_kelamin) ? $profil->jenis_kelamin : 'zonk',
         ]);
     }
 
@@ -38,13 +35,12 @@ class ProfilController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
-            'alamat' => 'required|alpha|max:255',
+            'alamat' => 'required|max:255',
             'jenis_kelamin' => 'required',
         ], [
             'name.required' => 'Kolom :attribute tidak boleh kosong.',
             'tanggal_lahir.required' => 'Kolom :attribute tidak boleh kosong.',
             'alamat.required' => 'Kolom :attribute tidak boleh kosong.',
-            'alamat.alpha' => 'Kolom :attribute hanya boleh huruf.',
             'jenis_kelamin.required' => 'Kolom :attribute tidak boleh kosong.',
         ]);
 
@@ -59,7 +55,6 @@ class ProfilController extends Controller
             ]);
             return redirect()->back()->with('success', 'Profil berhasil dibuat!');
         } else {
-            $profil->user_id = $request->id;
             $profil->tanggal_lahir = $request->tanggal_lahir;
             $profil->alamat = $request->alamat;
             $profil->jenis_kelamin = $request->jenis_kelamin;

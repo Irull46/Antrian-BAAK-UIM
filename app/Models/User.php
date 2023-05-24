@@ -29,9 +29,14 @@ class User extends Authenticatable
         return $this->hasOne(Profil::class);
     }
 
-    public function penggunaAntrian()
+    public function posisiTeller()
     {
-        return $this->hasMany(PenggunaAntrian::class);
+        return $this->hasOne(PosisiTeller::class);
+    }
+
+    public function panggilan()
+    {
+        return $this->hasMany(Panggilan::class);
     }
 
     /**

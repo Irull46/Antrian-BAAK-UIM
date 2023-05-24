@@ -24,35 +24,76 @@ class CetakController extends Controller
     public function cetak(Request $request)
     {
         $request->validate([
-            'jumlah_antrian' => 'required|numeric'
+            'jumlah_antrian' => 'required|numeric',
+            'bagian' => 'in:A,B,AB'
         ], [
             'jumlah_antrian.required' => 'Kolom :attribute tidak boleh kosong.',
             'jumlah_antrian.numeric' => 'Kolom :attribute hanya boleh angka.',
+            'bagian.in' => 'Pilih BAAK, BAUK atau SEMUA.',
         ]);
 
-        $jumlahAntrian = $request->input('jumlah_antrian');
+        $jumlah_antrian = $request->input('jumlah_antrian');
+        $bagian = $request->input('bagian');
 
-        $sisa = Antrian::count();
-
-        if($sisa == 0){
-            for ($i = 1; $i <= $jumlahAntrian; $i++) {
-                $antrian = Antrian::create([
-                    'nomor_antrian' => $i,
-                ]);
-                $antrian->save();
+        $total = Antrian::count();
+        
+        if ($total == null) {
+            if ($bagian === 'A' || $bagian === 'B') {
+                for ($i = 1; $i <= $jumlah_antrian; $i++) {
+                    $antrian = Antrian::create([
+                        'nomor_antrian' => $bagian . $i,
+                    ]);
+                }
+            } else {
+                for ($i = 1; $i <= $jumlah_antrian; $i++) {
+                    $antrian = Antrian::create([
+                        'nomor_antrian' => 'A' . $i,
+                    ]);
+                    $antrian = Antrian::create([
+                        'nomor_antrian' => 'B' . $i,
+                    ]);
+                }
             }
-        } else if ($sisa > 0) {
-            $sisa += 1;
-            $jumlahAntrians = $jumlahAntrian + $sisa;
+        } else {
+            if ($bagian === 'A' || $bagian === 'B') {
+                if ($bagian === 'A') {
+                    $antrianTerakhir = Antrian::orderByRaw('CAST(SUBSTRING_INDEX(nomor_antrian, "A", -1) AS UNSIGNED) DESC')->first();
+                } else {
+                    $antrianTerakhir = Antrian::orderByRaw('CAST(SUBSTRING_INDEX(nomor_antrian, "B", -1) AS UNSIGNED) DESC')->first();
+                }
 
-            for ($i = $sisa; $i <= $jumlahAntrians; $i++) {
-                $antrian = Antrian::create([
-                    'nomor_antrian' => $i,
-                ]);
-                $antrian->save();
+                $antrianTerakhir = substr($antrianTerakhir->nomor_antrian, 1); // Mengambil nilai setelah karakter (jika A99 maka hasilnya 99)
+
+                $jumlah_antrian = $jumlah_antrian + $antrianTerakhir;
+
+                for ($i = $antrianTerakhir + 1; $i <= $jumlah_antrian; $i++) {
+                    Antrian::create([
+                        'nomor_antrian' => $bagian . $i,
+                    ]);
+                }
+            } else {
+                $antrianTerakhirA = Antrian::orderByRaw('CAST(SUBSTRING_INDEX(nomor_antrian, "A", -1) AS UNSIGNED) DESC')->first();
+                $antrianTerakhirB = Antrian::orderByRaw('CAST(SUBSTRING_INDEX(nomor_antrian, "B", -1) AS UNSIGNED) DESC')->first();
+
+                $antrianTerakhirA = substr($antrianTerakhirA->nomor_antrian, 1);
+                $antrianTerakhirB = substr($antrianTerakhirB->nomor_antrian, 1);
+
+                $jumlah_antrianA = $jumlah_antrian + $antrianTerakhirA;
+                $jumlah_antrianB = $jumlah_antrian + $antrianTerakhirB;
+
+                for ($i = $antrianTerakhirA + 1; $i <= $jumlah_antrianA; $i++) {
+                    Antrian::create([
+                        'nomor_antrian' => 'A' . $i,
+                    ]);
+                }
+                for ($i = $antrianTerakhirB + 1; $i <= $jumlah_antrianB; $i++) {
+                    Antrian::create([
+                        'nomor_antrian' => 'B' . $i,
+                    ]);
+                }
             }
         }
         
-        return redirect()->back()->with('success', 'Nomor antrian berhasil dibuat.');
+        return redirect()->back()->with('message', 'Nomor antrian berhasil dibuat.');
     }
 }

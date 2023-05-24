@@ -4,82 +4,136 @@
 <div class="container-fluid">
     <div class="row">
         {{-- Grid Kiri --}}
-        <div class="col-md-9 col-lg-10">
+        <div class="col-md-8 col-lg-9">
             {{-- Nomor Antrian --}}
-            <div class="bg-success py-4 py-sm-5 mb-2">
-                <h1 class="fw-bold text-center text-light">Nomor Antrian</h1>
-                <div class="mx-5 bg-white border border-5">
-                    <h1 class="fw-bold text-center m-0 py-3 py-sm-4 py-md-5" id="antrian"></h1>
-                </div>
-            </div>
-            
-            {{-- Cart --}}
-            <div class="">
-                <div class="card mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 fw-bold">Performa pelayanan</h6>
-                        <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Dropdown Header:</div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
+            <div class="container-fluid">
+                <div class="row bg-dark py-4 py-sm-5 mb-4">
+                    <div class="col-md-8 pb-3 pb-md-0">
+                        <div class="ms-md-5 bg-white border border-5">
+                            <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Nomor Antrian</h2>
+                            <div class="text-center m-0 py-3 py-sm-4 py-md-5 d-flex justify-content-center">
+                                <h1 class="fw-bold" id="nomor_antrian">-</h1>
                             </div>
                         </div>
                     </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="myAreaChart"></canvas>
+                    <div class="col-md-4">
+                        <div class="me-md-5 bg-white border border-5">
+                            <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Teller</h2>
+                            <h1 class="fw-bold text-center m-0 py-3 py-sm-4 py-md-5" id="posisi">-</h1>
                         </div>
+                    </div>
+                </div>
+            </div>
+            
+            {{-- 5 Teller --}}
+            <div class="row mb-4">
+                <div class="col-md">
+                    <div class="bg-dark pt-3 pb-1 px-2">
+                        <h4 class="fw-bold text-center text-light">Teller 1</h4>
+                    </div>
+                    <div class="bg-secondary px-3 py-3">
+                        <div class="fw-bold text-center d-flex justify-content-center">
+                            <h1 id="nomor_antrian1">-</h1>
+                        </div>
+                        <h5 class="fw-bold text-center" id="nama1">-</h3>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="bg-dark pt-3 pb-1 px-2">
+                        <h4 class="fw-bold text-center text-light">Teller 2</h4>
+                    </div>
+                    <div class="bg-secondary px-3 py-3">
+                        <div class="fw-bold text-center d-flex justify-content-center">
+                            <h1 id="nomor_antrian2">-</h1>
+                        </div>
+                        <h5 class="fw-bold text-center" id="nama2">-</h3>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="bg-dark pt-3 pb-1 px-2">
+                        <h4 class="fw-bold text-center text-light">Teller 3</h4>
+                    </div>
+                    <div class="bg-secondary px-3 py-3">
+                        <div class="fw-bold text-center d-flex justify-content-center">
+                            <h1 id="nomor_antrian3">-</h1>
+                        </div>
+                        <h5 class="fw-bold text-center" id="nama3">-</h3>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="bg-dark pt-3 pb-1 px-2">
+                        <h4 class="fw-bold text-center text-light">Teller 4</h4>
+                    </div>
+                    <div class="bg-secondary px-3 py-3">
+                        <div class="fw-bold text-center d-flex justify-content-center">
+                            <h1 id="nomor_antrian4">-</h1>
+                        </div>
+                        <h5 class="fw-bold text-center" id="nama4">-</h3>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="bg-dark pt-3 pb-1 px-2">
+                        <h4 class="fw-bold text-center text-light">Teller 5</h4>
+                    </div>
+                    <div class="bg-secondary px-3 py-3">
+                        <div class="fw-bold text-center d-flex justify-content-center">
+                            <h1 id="nomor_antrian5">-</h1>
+                        </div>
+                        <h5 class="fw-bold text-center" id="nama5">-</h3>
                     </div>
                 </div>
             </div>
         </div>
         
         {{-- Grid Kanan --}}
-        <div class="col-md-3 col-lg-2">
-            {{-- Head --}}
-            <div class="bg-success pt-3 pb-1 px-2">
-                <h4 class="fw-bold text-center text-light">Sisa Antrian</h4>
+        <div class="col-md-4 col-lg-3">
+            <div class="bg-dark pt-3 pb-1 px-2">
+                <h4 class="fw-bold text-center text-light">Sisa Antrian A</h4>
             </div>
-            
-            {{-- Body --}}
-            <div class="bg-white px-3 py-3 d-flex justify-content-center">
-                <h1 class="fw-bold text-center" id="sisa"></h1>
+            <div class="bg-secondary px-3 py-3 mb-md-4">
+                <h1 class="fw-bold text-center" id="sisaA">-</h1>
+            </div>
+            <div class="bg-dark pt-3 pb-1 px-2">
+                <h4 class="fw-bold text-center text-light">Sisa Antrian B</h4>
+            </div>
+            <div class="bg-secondary px-3 py-3">
+                <h1 class="fw-bold text-center" id="sisaB">-</h1>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    $(document).ready(function() {
-        setInterval(function() {
-            $.ajax({
-                url: "{{ route('home.ajax') }}",
-                type: 'GET',
-                success: function(response) {
-                    $('#antrian').text(response.nomor_antrian);
-                    $('#sisa').text(response.sisa);
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText)
-                }
+    setInterval(async function() {
+        try {
+            const response = await fetch('{{ route('home.ajax') }}', {
+                method: 'GET'
             });
-        }, 1000);
-    });
+            if (response.ok) {
+                const responseData = await response.json();
+
+                document.getElementById("nomor_antrian").innerHTML = responseData.nomor_antrian;
+                document.getElementById("posisi").innerHTML = responseData.posisi;
+                document.getElementById("sisaA").innerHTML = responseData.sisaA;
+                document.getElementById("sisaB").innerHTML = responseData.sisaB;
+                
+                document.getElementById("nomor_antrian1").innerHTML = responseData.nomor_antrian1;
+                document.getElementById("nomor_antrian2").innerHTML = responseData.nomor_antrian2;
+                document.getElementById("nomor_antrian3").innerHTML = responseData.nomor_antrian3;
+                document.getElementById("nomor_antrian4").innerHTML = responseData.nomor_antrian4;
+                document.getElementById("nomor_antrian5").innerHTML = responseData.nomor_antrian5;
+
+                document.getElementById("nama1").innerHTML = responseData.nama1;
+                document.getElementById("nama2").innerHTML = responseData.nama2;
+                document.getElementById("nama3").innerHTML = responseData.nama3;
+                document.getElementById("nama4").innerHTML = responseData.nama4;
+                document.getElementById("nama5").innerHTML = responseData.nama5;
+            } else {
+                console.log('Data tidak ditemukan!');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }, 1000);
 </script>
-
-{{-- Page level plugins --}}
-<script src="{{ asset('js/Chart.min.js') }}"></script>
-
-{{-- Page level custom scripts --}}
-<script src="{{ asset('js/chart-area-demo.js') }}"></script>
 @endsection

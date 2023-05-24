@@ -1,0 +1,17 @@
+.click1:hover {
+    background: linear-gradient(to bottom, #259c41 5%, #198754 100%);
+}
+
+.click1:active {
+    background: linear-gradient(to top, #259c41 5%, #198754 100%);
+    transform: translateY(1px);
+}
+
+.click2:hover {
+    background: linear-gradient(to bottom, #dbdada 5%, #ffffff 100%);
+}
+
+.click2:active {
+    background: linear-gradient(to top, #dbdada 5%, #ffffff 100%);
+    transform: translateY(1px);
+}

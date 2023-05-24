@@ -1,43 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid" id="text-to-speech">
+<div class="container-fluid">
     <div class="row">
         {{-- Grid Kiri --}}
-        <div class="col-md-9 col-lg-10">
+        <div class="col-md-8 col-lg-9">
             {{-- Nomor Antrian --}}
-            <div class="bg-success py-4 py-sm-5 mb-2">
-                <h1 class="fw-bold text-center text-light">Nomor Antrian</h1>
-                <div class="mx-5 bg-white border border-5">
-                    <h1 class="fw-bold text-center m-0 py-3 py-sm-4 py-md-5" id="antrian"></h1>
-                </div>
-            </div>
-            
-            {{-- Cart --}}
-            <div class="">
-                <div class="card mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 fw-bold">Performa pelayanan</h6>
-                        <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Dropdown Header:</div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
+            <div class="container-fluid">
+                <div class="row bg-dark py-4 py-sm-5 mb-4">
+                    <div class="col-md-8 pb-3 pb-md-0">
+                        <div class="ms-md-5 bg-white border border-5">
+                            <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Nomor Antrian</h2>
+                            <div class="text-center m-0 py-3 py-sm-4 py-md-5 d-flex justify-content-center">
+                                <h1 class="fw-bold" id="nomor_antrian">-</h1>
                             </div>
                         </div>
                     </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="myAreaChart"></canvas>
+                    <div class="col-md-4">
+                        <div class="me-md-5 bg-white border border-5">
+                            <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Teller</h2>
+                            <h1 class="fw-bold text-center m-0 py-3 py-sm-4 py-md-5" id="posisi">-</h1>
                         </div>
                     </div>
                 </div>
@@ -45,108 +27,145 @@
         </div>
         
         {{-- Grid Kanan --}}
-        <div class="col-md-3 col-lg-2">
-            {{-- Head --}}
-            <div class="bg-success pt-3 pb-1 px-2">
-                <h4 class="fw-bold text-center text-light">Sisa Antrian</h4>
+        <div class="col-md-4 col-lg-3">
+            <div class="bg-dark pt-3 pb-1 px-2">
+                <h4 class="fw-bold text-center text-light">Sisa Antrian <span id="bagian"></span></h4>
             </div>
-            
-            {{-- Body --}}
-            <div class="bg-white px-3 py-3 d-flex justify-content-center">
-                <h1 class="fw-bold text-center" id="sisa"></h1>
+            <div class="bg-secondary px-3 py-3 mb-md-4">
+                <h1 class="fw-bold text-center" id="sisa">-</h1>
             </div>
 
             <div class="mt-2 d-flex flex-column">
-                <button id="btnLanjut" class="btn btn-outline-success btn-lg mb-2">LANJUT</button>
-                <button id="speak" class="btn btn-outline-success btn-lg mb-2">PANGGIL</button>
-                <button id="btnSelesai" class="btn btn-outline-success btn-lg mb-2">SELESAI</button>
-                <a href="{{ route('home.index') }}" class="btn btn-outline-success btn-lg mb-2">KELUAR</a>
+                <button ondblclick="btnLanjuts()" onclick="btnLanjut()" class="btn btn-outline-success btn-lg click1 mb-2">LANJUT</button>
+                <button onclick="panggil()" class="btn btn-outline-success btn-lg click1 mb-2">PANGGIL</button>
+                <button onclick="btnSelesai()" class="btn btn-outline-success btn-lg click1 mb-2">SELESAI</button>
+                <a href="{{ route('home.index') }}" class="btn btn-outline-success btn-lg click1 mb-2">KELUAR</a>
             </div>
         </div>
     </div>
-
-    <div style="display: none">
-        <select id="voices"></select>
-        <select id="speed">
-            <option value="0.5">0.5x</option>
-            <option value="1.0" selected>1.0x</option>
-            <option value="1.5">1.5x</option>
-            <option value="2.0">2.0x</option>
-            <option value="4.0">4.0x</option>
-            <option value="10.0">10.0x</option>
-        </select>
-        <select id="pitch">
-            <option value="0.0">Pitch - 0</option>
-            <option value="0.5">Pitch - 0.5</option>
-            <option value="1.0" selected>Pitch - 1</option>
-            <option value="1.5">Pitch - 1.5</option>
-            <option value="2.0">Pitch - 2</option>
-        </select>
-        <button id="pause">Pause</button>
-        <button id="cancel">Cancel</button>
-    </div>
 </div>
 
-<script src="{{ asset('js/text-to-speech.js') }}"></script>
+<div class="audio">
+    <audio id="bell_in" src="{{ asset('audio/in.mp3') }}"></audio>
+    <audio id="bell_out" src="{{ asset('audio/out.mp3') }}"></audio>
+    <audio id="nomorAntrian" src="{{ asset('audio/nomor antrian.mp3') }}"></audio>
+    <audio id="bagian_A" src="{{ asset('audio/a.mp3') }}"></audio>
+    <audio id="bagian_B" src="{{ asset('audio/b.mp3') }}"></audio>
+    <audio id="nomor1" src="{{ asset('audio/1.mp3') }}"></audio>
+    <audio id="nomor2" src="{{ asset('audio/2.mp3') }}"></audio>
+    <audio id="nomor3" src="{{ asset('audio/3.mp3') }}"></audio>
+    <audio id="nomor4" src="{{ asset('audio/4.mp3') }}"></audio>
+    <audio id="nomor5" src="{{ asset('audio/5.mp3') }}"></audio>
+    <audio id="nomor6" src="{{ asset('audio/6.mp3') }}"></audio>
+    <audio id="nomor7" src="{{ asset('audio/7.mp3') }}"></audio>
+    <audio id="nomor8" src="{{ asset('audio/8.mp3') }}"></audio>
+    <audio id="nomor9" src="{{ asset('audio/9.mp3') }}"></audio>
+    <audio id="nomor10" src="{{ asset('audio/10.mp3') }}"></audio>
+    <audio id="nomor11" src="{{ asset('audio/11.mp3') }}"></audio>
+    <audio id="nomor100" src="{{ asset('audio/100.mp3') }}"></audio>
+    <audio id="belas" src="{{ asset('audio/belas.mp3') }}"></audio>
+    <audio id="puluh" src="{{ asset('audio/puluh.mp3') }}"></audio>
+    <audio id="ratus" src="{{ asset('audio/ratus.mp3') }}"></audio>
+    <audio id="teller1" src="{{ asset('audio/teller1.mp3') }}"></audio>
+    <audio id="teller2" src="{{ asset('audio/teller2.mp3') }}"></audio>
+    <audio id="teller3" src="{{ asset('audio/teller3.mp3') }}"></audio>
+    <audio id="teller4" src="{{ asset('audio/teller4.mp3') }}"></audio>
+    <audio id="teller5" src="{{ asset('audio/teller5.mp3') }}"></audio>
+</div>
 
 <script>
-    $(document).ready(function() {
-        setInterval(function() {
-            $.ajax({
-                url: "{{ route('panggil.ajax') }}",
-                type: 'GET',
-                success: function(response) {
-                    $('#antrian').text(response.nomor_antrian);
-                    $('#sisa').text(response.sisa);
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText)
-                }
-            });
-        }, 1000);
+    setInterval(async function() {
+        const user_id = "{{ Auth::user()->id }}";
 
-        $('#btnLanjut').click(function() {
-            let user_id = "{{ Auth::user()->id }}"
-            $.ajax({
-                url: "{{ route('panggil.lanjut') }}",
-                type: 'POST',
-                data:{
+        try {
+            const response = await fetch('{{ route('panggil.ajax') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
                     _token: "{{ csrf_token() }}",
-                    id: user_id
-                },
-                success: function(response) {
-                    console.log('Berhasil!')
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText)
-                }
+                    id: user_id,
+                }),
             });
-        });
+            if (response.ok) {
+                const responseData = await response.json();
 
-        $('#btnSelesai').click(function() {
-            let antrian = $("#antrian").text();
-            $.ajax({
-                url: "{{ route('panggil.selesai') }}",
-                type: 'POST',
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    antrian: antrian
-                },
-                success: function(response) {
-                    console.log('Berhasil!')
-                    console.log(response.antrian)
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText)
+                document.getElementById("nomor_antrian").innerHTML = responseData.nomor_antrian;
+                document.getElementById("bagian").innerHTML = responseData.bagian;
+                document.getElementById("posisi").innerHTML = responseData.posisi;
+
+                if (responseData.bagian === 'A'){
+                    document.getElementById("sisa").innerHTML = responseData.sisaA;
+                } else {
+                    document.getElementById("sisa").innerHTML = responseData.sisaB;
                 }
+            } else {
+                console.log('Data tidak ditemukan!');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }, 1000);
+
+    async function btnLanjut() {
+        const user_id = "{{ Auth::user()->id }}";
+        let nomor_antrian = document.getElementById('nomor_antrian').innerText;
+
+        try {
+            const response = await fetch("{{ route('panggil.lanjut') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    _token: "{{ csrf_token() }}",
+                    id: user_id,
+                    nomor_antrian: nomor_antrian,
+                }),
             });
-        });
-    });
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log(responseData.message);
+            } else {
+                const errorText = await response.text();
+                console.log(errorText);
+            }
+        } catch (error) {
+            console.error('Terjadi kesalahan:', error);
+        }
+    }
+
+    function btnLanjuts() {
+        console.log('');
+    }
+
+    async function btnSelesai() {
+        let nomor_antrian = document.getElementById('nomor_antrian').textContent;
+
+        try {
+            const response = await fetch('{{ route('panggil.selesai') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    _token: "{{ csrf_token() }}",
+                    nomor_antrian: nomor_antrian,
+                 })
+            });
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log(responseData.nomor_antrian);
+            } else {
+                const errorText = await response.text();
+                console.log(errorText);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 </script>
 
-{{-- Page level plugins --}}
-<script src="{{ asset('js/Chart.min.js') }}"></script>
-
-{{-- Page level custom scripts --}}
-<script src="{{ asset('js/chart-area-demo.js') }}"></script>
+<script src="{{ asset('js/call.js') }}"></script>
 @endsection

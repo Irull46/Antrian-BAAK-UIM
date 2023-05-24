@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PosisiTeller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -31,6 +32,26 @@ class RoleController extends Controller
         $role = Role::where('name', $request->input('role'))->first();
         
         $user->syncRoles($role);
+
+        $posisi = $request->input('posisi');
+        $bagian = $request->input('bagian');
+        $PosisiTeller = PosisiTeller::where('user_id', $request['user_id'])->first();
+        
+        if ($bagian !== 'Pilih' && $posisi !== 'Pilih') {
+            if ($PosisiTeller === null) {
+                PosisiTeller::create([
+                    'user_id' => $request['user_id'],
+                    'posisi' => $request['posisi'],
+                    'bagian' => $request['bagian'],
+                ]);
+            } else if ($PosisiTeller !== null) {
+                $PosisiTeller->user_id = $request['user_id'];
+                $PosisiTeller->posisi = $request['posisi'];
+                $PosisiTeller->bagian = $request['bagian'];
+                $PosisiTeller->save();
+            }
+        }
+        
         return redirect()->back()->with('success', 'Role pengguna berhasil diperbarui!');
     }
 }

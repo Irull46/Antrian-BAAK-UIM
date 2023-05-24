@@ -66,13 +66,36 @@
                             </div>
                             <div class="mb-2">
                                 <label for="role">Role</label>
-                                <select class="form-select" name="role" id="role">
+                                <select class="form-select" name="role" id="role" onchange="toggleSecondSelect()">
+                                    <option selected>Pilih</option>
                                     <option value="admin">Admin</option>
                                     <option value="teller">Teller</option>
                                     <option value="pengunjung">Pengunjung</option>
                                 </select>
                             </div>
-                        </div>
+
+                            <div class="row mb-2 d-none" id="show-hide">
+                                <div class="col-md-6 pe-md-1 mb-2 mb-md-0">
+                                    <label for="posisi">Posisi</label>
+                                    <select class="form-select" name="posisi" id="posisi">
+                                        <option selected>Pilih</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 ps-md-1">
+                                    <label for="bagian">Bagian</label>
+                                    <select class="form-select" name="bagian" id="bagian">
+                                        <option selected>Pilih</option>
+                                        <option value="A">BAAK</option>
+                                        <option value="B">BAUK</option>
+                                    </select>
+                                </div>
+                            </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
                             <button type="submit" class="btn btn-success">Simpan</button>
@@ -99,7 +122,7 @@
                         searchable: false,
                         orderable: false,
                         render: function(data, type, row) {
-                            let link = '<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#form" data-id="' + row.id + '" data-nama="' + row.name + '" data-email="' + row.email + '">Edit Role</button>';
+                            let link = '<button type="button" class="btn btn-outline-success click1" data-bs-toggle="modal" data-bs-target="#form" data-id="' + row.id + '" data-nama="' + row.name + '" data-email="' + row.email + '">Edit Role</button>';
                             return link;
                         }
                     }
@@ -120,5 +143,17 @@
             modal.find('#email').val(email);
         });
 
+        function toggleSecondSelect() {
+            const role = document.getElementById('role');
+            const show_hide = document.getElementById('show-hide');
+
+            if (role.value === 'teller') {
+                show_hide.classList.remove('d-none');
+                console.log('remove display node')
+            } else {
+                show_hide.classList.add('d-none');
+                console.log('add display node')
+            }
+        }
     </script>
 @endsection

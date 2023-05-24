@@ -15,6 +15,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 </head>
 <body>

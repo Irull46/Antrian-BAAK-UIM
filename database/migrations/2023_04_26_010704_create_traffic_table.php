@@ -15,7 +15,7 @@ class CreateTrafficTable extends Migration
     {
         Schema::create('traffic', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('antrian_id')->constrained('antrians')->onDelete('cascade');
+            $table->foreignId('antrian_id')->nullable()->constrained('antrians')->onDelete('set null');
             $table->dateTime('mulai_pelayanan');
             $table->dateTime('selesai_pelayanan')->nullable();
             $table->dateTime('durasi_pelayanan')->nullable();

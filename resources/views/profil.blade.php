@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <div class="mt-2">
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#form" id="edit">Edit</button>
+                            <button type="button" class="btn btn-light click2" data-bs-toggle="modal" data-bs-target="#form" id="edit">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -102,32 +102,49 @@
         </div>
     </div>
 
-    <script>
+    <script>        
         $(document).ready(function() {
-            $.ajax({
-                url: "{{ route('profil.ajax') }}",
-                type: 'POST',
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    id: "{{ Auth::user()->id }}"
-                },
-                success: function(response) {
-                        $('#h6_tanggal_lahir').text(response.tanggal_lahir);
-                        $('#h6_alamat').text(response.alamat);
-                        $('#h6_jenis_kelamin').text(response.jenis_kelamin);
+            async function profil() {
+                const user_id = "{{ Auth::user()->id }}";
 
-                        $('#tanggal_lahir').val(response.tanggal_lahir);
-                        $('#alamat').val(response.alamat);
-                        if (response.jenis_kelamin === 'laki-laki') {
-                            $('#laki-laki').prop('checked', true);
-                        } else if (response.jenis_kelamin === 'perempuan') {
-                            $('#perempuan').prop('checked', true);
+                try {
+                    const response = await fetch("{{ route('profil.ajax') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams({
+                            _token: "{{ csrf_token() }}",
+                            id: user_id,
+                        }),
+                    });
+                    if (response.ok) {
+                        const responseData = await response.json();
+
+                        // Halaman Profil
+                        document.getElementById("h6_tanggal_lahir").innerHTML = responseData.tanggal_lahir;
+                        document.getElementById("h6_alamat").innerHTML = responseData.alamat;
+                        document.getElementById("h6_jenis_kelamin").innerHTML = responseData.jenis_kelamin;
+
+                        // Form edit profil
+                        if (responseData.jenis_kelamin === 'Laki-Laki') {
+                            document.querySelector('input[value="Laki-Laki"]').checked = true;
+                        } else {
+                            document.querySelector('input[value="Perempuan"]').checked = true;
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(xhr.responseText)
+
+                        document.getElementById('tanggal_lahir').value = responseData.tanggal_lahir;
+                        document.getElementById('alamat').value = responseData.alamat;
+                    } else {
+                        const errorText = await response.text();
+                        console.log(errorText);
                     }
-                });
-            });
+                } catch (error) {
+                    console.error('Terjadi kesalahan:', error);
+                }
+            }
+ 
+            profil();
+        });
     </script>
 @endsection

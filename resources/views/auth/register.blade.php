@@ -16,7 +16,15 @@
                             @csrf
                             <div class="mb-2">
                                 <label for="name">Nama Lengkap</label>
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input
+                                    id="name"
+                                    type="text"
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    name="name"
+                                    value="{{ old('name') }}"
+                                    autocomplete="name"
+                                    required
+                                    autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -27,7 +35,14 @@
 
                             <div class="mb-2">
                                 <label for="email">Alamat Email</label>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input
+                                    id="email"
+                                    type="email"
+                                    class="form-control @error('email') is-invalid @enderror"
+                                    name="email"
+                                    value="{{ old('email') }}"
+                                    autocomplete="email"
+                                    required>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -37,9 +52,15 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-md-6 pe-md-1">
+                                <div class="col-md-6 pe-md-1 mb-2 mb-md-0">
                                     <label for="password">Password</label>
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                    <input
+                                        id="password"
+                                        type="password"
+                                        class="form-control @error('password') is-invalid @enderror"
+                                        name="password"
+                                        autocomplete="new-password"
+                                        required>
     
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -50,7 +71,13 @@
 
                                 <div class="col-md-6 ps-md-1">
                                     <label for="password-confirm">Ulangi Password</label>
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    <input
+                                        id="password-confirm"
+                                        type="password"
+                                        class="form-control"
+                                        name="password_confirmation"
+                                        autocomplete="new-password"
+                                        required>
                                 </div>
                             </div>
 

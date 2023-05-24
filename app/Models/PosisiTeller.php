@@ -5,17 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PenggunaAntrian extends Model
+class PosisiTeller extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'bagian',
+        'posisi',
+    ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    
-    public function antrian()
+
+    public function panggilan()
     {
-        return $this->belongsTo(Antrian::class);
+        return $this->hasMany(Panggilan::class);
     }
 }
