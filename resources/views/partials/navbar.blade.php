@@ -29,6 +29,9 @@
               <a class="nav-link" href="{{ route('panggil.index') }}">Panggil Antrian</a>
             </li>
           @endrole
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('traffic.index') }}">Traffic</a>
+          </li>
           @guest
           @if (Route::has('login'))
               <li class="nav-item">

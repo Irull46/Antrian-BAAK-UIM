@@ -1,3 +1,4 @@
+/* Tombol Putih */
 .click1:hover {
     background: linear-gradient(to bottom, #259c41 5%, #198754 100%);
 }
@@ -7,6 +8,7 @@
     transform: translateY(1px);
 }
 
+/* Tombol Hijau */
 .click2:hover {
     background: linear-gradient(to bottom, #dbdada 5%, #ffffff 100%);
 }
@@ -14,4 +16,111 @@
 .click2:active {
     background: linear-gradient(to top, #dbdada 5%, #ffffff 100%);
     transform: translateY(1px);
+}
+
+/* Ukuran Font Default*/
+#nomor_antrian,
+#posisi {
+    margin: 0;
+    padding: 0;
+    font-size: 8rem;
+}
+
+#sisaA,
+#sisaB {
+    margin: 0;
+    padding: 0;
+    font-size: 4.55rem;
+}
+
+/* Ukuran Large */
+@media screen and (max-width: 992px) {
+    #nomor_antrian,
+    #posisi {
+        margin: 0;
+        padding: 0;
+        font-size: 3rem;
+    }
+
+    #sisaA,
+    #sisaB {
+        margin: 0;
+        padding: 0;
+        font-size: 2.03rem;
+    }
+}
+
+/* Ukuran Medium */
+@media screen and (max-width: 768px) {
+    #nomor_antrian,
+    #posisi {
+        margin: 0;
+        padding: 0;
+        font-size: 3rem;
+    }
+
+    #sisaA,
+    #sisaB {
+        margin: 0;
+        padding: 0;
+        font-size: 2rem;
+    }
+}
+
+/* Ukuran Small */
+@media screen and (max-width: 576px) {
+    #nomor_antrian,
+    #posisi {
+        margin: 0;
+        padding: 0;
+        font-size: 2.5rem;
+    }
+
+    #sisaA,
+    #sisaB {
+        margin: 0;
+        padding: 0;
+        font-size: 1.5rem;
+    }
+}
+
+.clock {
+    height: 10.6vh;
+    color: black;
+    font-size: 7vh;
+    font-family: sans-serif;
+    line-height: 10.4vh;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    /* background: #198754; */
+    overflow: hidden;
+}
+.clock::before,
+.clock::after {
+    content: "";
+    width: 7ch;
+    height: 3vh;
+    position: absolute;
+    z-index: 2;
+}
+.clock > div {
+    display: flex;
+}
+.tick {
+    line-height: 9vh;
+}
+.tick-hidden {
+    opacity: 0;
+}
+.move {
+    animation: move linear 1s infinite;
+}
+@keyframes move {
+    from {
+        transform: translateY(-5vh);
+    }
+    to {
+        transform: translateY(-15vh);
+    }
 }

@@ -7,19 +7,17 @@
         <div class="col-md-8 col-lg-9">
             {{-- Nomor Antrian --}}
             <div class="container-fluid">
-                <div class="row bg-dark py-4 py-sm-5 mb-4">
+                <div class="row bg-success py-4 py-sm-5 mb-4">
                     <div class="col-md-8 pb-3 pb-md-0">
                         <div class="ms-md-5 bg-white border border-5">
                             <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Nomor Antrian</h2>
-                            <div class="text-center m-0 py-3 py-sm-4 py-md-5 d-flex justify-content-center">
-                                <h1 class="fw-bold" id="nomor_antrian">-</h1>
-                            </div>
+                            <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="nomor_antrian">-</h1>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="me-md-5 bg-white border border-5">
                             <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Teller</h2>
-                            <h1 class="fw-bold text-center m-0 py-3 py-sm-4 py-md-5" id="posisi">-</h1>
+                            <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="posisi">-</h1>
                         </div>
                     </div>
                 </div>
@@ -28,10 +26,10 @@
         
         {{-- Grid Kanan --}}
         <div class="col-md-4 col-lg-3">
-            <div class="bg-dark pt-3 pb-1 px-2">
+            <div class="bg-success pt-3 pb-1 px-2">
                 <h4 class="fw-bold text-center text-light">Sisa Antrian <span id="bagian"></span></h4>
             </div>
-            <div class="bg-secondary px-3 py-3 mb-md-4">
+            <div class="bg-white px-3 py-3 mb-md-4">
                 <h1 class="fw-bold text-center" id="sisa">-</h1>
             </div>
 

@@ -7,6 +7,7 @@ use App\Models\Panggilan;
 use App\Models\PosisiTeller;
 use App\Models\Traffic;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class PanggilController extends Controller
 {
@@ -154,9 +155,17 @@ class PanggilController extends Controller
 
         $traffic = Traffic::where('antrian_id', $nomorAntrian->id)->first();
         $traffic->selesai_pelayanan = now();
-        // $traffic->durasi_pelayanan = $traffic->mulai_pelayanan->diffInMinutes($traffic->selesai_pelayanan);
-        $traffic->save();
 
+        $mulai = $traffic->mulai_pelayanan;
+        $selesai = Carbon::now();
+        
+        $carbon1 = Carbon::parse($mulai);
+        $carbon2 = Carbon::parse($selesai);
+        
+        $diff = $carbon1->diff($carbon2);
+        $traffic->durasi_pelayanan = $diff->format('%H:%I:%S');
+
+        $traffic->save();
         $nomorAntrian->delete();
         
         return response()->json(['nomor_antrian' => 'Antrian ' . $nomor_antrian . ' selesai']);

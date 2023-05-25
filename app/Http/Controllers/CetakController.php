@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Antrian;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\CapabilityProfile;
+use Mike42\Escpos\Printer;
 
 class CetakController extends Controller
 {
@@ -93,7 +93,22 @@ class CetakController extends Controller
                 }
             }
         }
+
+        // // Opsi 1 - Print menggunakan capability profile
+        // $connector = new FilePrintConnector("/dev/ttyS0");
+        // $printer = new Printer($connector);
+
+        // // Opsi 2 - Print menggunakan serial printer
+        // $profile = CapabilityProfile::load("simple");
+        // $connector = new WindowsPrintConnector("smb://computer/printer");
+        // $printer = new Printer($connector, $profile);
         
-        return redirect()->back()->with('message', 'Nomor antrian berhasil dibuat.');
+        // // Tata letak, format, dan konten cetakan
+        // $printer->text("Nomor Antrian: " . $antrian->nomor_antrian . "\n");
+        
+        // $printer->cut();
+        // $printer->close();
+        
+        return redirect()->back()->with('message', 'Nomor antrian berhasil dicetak.');
     }
 }

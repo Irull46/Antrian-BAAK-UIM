@@ -6,6 +6,7 @@ use App\Http\Controllers\PanggilController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PanggilanController;
+use App\Http\Controllers\TrafficController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,4 +40,8 @@ Route::group(['prefix' => 'panggil', 'middleware' => ['role:teller']], function 
     Route::post('/ajax', [PanggilController::class, 'ajax'])->name('panggil.ajax');
     Route::post('/lanjut', [PanggilController::class, 'lanjut'])->name('panggil.lanjut');
     Route::post('/selesai', [PanggilController::class, 'selesai'])->name('panggil.selesai');
+});
+
+Route::group(['prefix' => 'traffic'], function () {
+    Route::get('/', [TrafficController::class, 'index'])->name('traffic.index');
 });
