@@ -45,11 +45,11 @@ class PanggilController extends Controller
 
         // Mengembalikan response dalam bentuk json
         return response()->json([
-            'nomor_antrian' => $panggilan ? $panggilan->antrian->nomor_antrian : 'zonk',
-            'bagian' => $posisi_teller ? $posisi_teller->bagian : 'zonk',
-            'posisi' => $posisi_teller ? $posisi_teller->posisi : 'zonk',
-            'sisaA' => $sisaA ? $sisaA : 'zonk',
-            'sisaB' => $sisaB ? $sisaB : 'zonk',
+            'nomor_antrian' => $panggilan ? $panggilan->antrian->nomor_antrian : '-',
+            'bagian' => $posisi_teller ? $posisi_teller->bagian : '-',
+            'posisi' => $posisi_teller ? $posisi_teller->posisi : '-',
+            'sisaA' => $sisaA ? $sisaA : '-',
+            'sisaB' => $sisaB ? $sisaB : '-',
         ]);
     }
 
@@ -58,7 +58,7 @@ class PanggilController extends Controller
         $user_id = $request->input('id');
         $nomor_antrian = $request->input('nomor_antrian');
 
-        if ($nomor_antrian !== 'zonk') {
+        if ($nomor_antrian !== '-') {
             // Get antrian berdasarkan nomor antrian yang statusnya proses
             $antrian = Antrian::where('nomor_antrian', $nomor_antrian)
                 ->whereIn('status', ['proses', 'terlambat'])

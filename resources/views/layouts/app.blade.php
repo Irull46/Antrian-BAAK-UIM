@@ -19,7 +19,7 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 </head>
-<body>
+<body class="bg-white">
     <div id="app">
         @include('partials.navbar')
         

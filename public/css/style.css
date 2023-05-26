@@ -20,7 +20,7 @@
 
 /* Ukuran Font Default*/
 #nomor_antrian,
-#posisi {
+h1#posisi {
     margin: 0;
     padding: 0;
     font-size: 8rem;
@@ -36,7 +36,7 @@
 /* Ukuran Large */
 @media screen and (max-width: 992px) {
     #nomor_antrian,
-    #posisi {
+    h1#posisi {
         margin: 0;
         padding: 0;
         font-size: 3rem;
@@ -53,7 +53,7 @@
 /* Ukuran Medium */
 @media screen and (max-width: 768px) {
     #nomor_antrian,
-    #posisi {
+    h1#posisi {
         margin: 0;
         padding: 0;
         font-size: 3rem;
@@ -70,7 +70,7 @@
 /* Ukuran Small */
 @media screen and (max-width: 576px) {
     #nomor_antrian,
-    #posisi {
+    h1#posisi {
         margin: 0;
         padding: 0;
         font-size: 2.5rem;
