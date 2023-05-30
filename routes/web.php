@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\CallController;
 use App\Http\Controllers\CetakController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PanggilController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\PanggilanController;
 use App\Http\Controllers\TrafficController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -45,3 +45,5 @@ Route::group(['prefix' => 'panggil', 'middleware' => ['role:teller']], function 
 Route::group(['prefix' => 'traffic'], function () {
     Route::get('/', [TrafficController::class, 'index'])->name('traffic.index');
 });
+
+Route::post('/call', [CallController::class, 'call'])->name('call');

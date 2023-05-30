@@ -138,7 +138,36 @@
     </div>
 </div>
 
+<div class="audio">
+    <audio id="bell_in" src="{{ asset('audio/in.mp3') }}"></audio>
+    <audio id="bell_out" src="{{ asset('audio/out.mp3') }}"></audio>
+    <audio id="nomorAntrian" src="{{ asset('audio/nomor antrian.mp3') }}"></audio>
+    <audio id="bagian_A" src="{{ asset('audio/a.mp3') }}"></audio>
+    <audio id="bagian_B" src="{{ asset('audio/b.mp3') }}"></audio>
+    <audio id="nomor1" src="{{ asset('audio/1.mp3') }}"></audio>
+    <audio id="nomor2" src="{{ asset('audio/2.mp3') }}"></audio>
+    <audio id="nomor3" src="{{ asset('audio/3.mp3') }}"></audio>
+    <audio id="nomor4" src="{{ asset('audio/4.mp3') }}"></audio>
+    <audio id="nomor5" src="{{ asset('audio/5.mp3') }}"></audio>
+    <audio id="nomor6" src="{{ asset('audio/6.mp3') }}"></audio>
+    <audio id="nomor7" src="{{ asset('audio/7.mp3') }}"></audio>
+    <audio id="nomor8" src="{{ asset('audio/8.mp3') }}"></audio>
+    <audio id="nomor9" src="{{ asset('audio/9.mp3') }}"></audio>
+    <audio id="nomor10" src="{{ asset('audio/10.mp3') }}"></audio>
+    <audio id="nomor11" src="{{ asset('audio/11.mp3') }}"></audio>
+    <audio id="nomor100" src="{{ asset('audio/100.mp3') }}"></audio>
+    <audio id="belas" src="{{ asset('audio/belas.mp3') }}"></audio>
+    <audio id="puluh" src="{{ asset('audio/puluh.mp3') }}"></audio>
+    <audio id="ratus" src="{{ asset('audio/ratus.mp3') }}"></audio>
+    <audio id="teller1" src="{{ asset('audio/teller1.mp3') }}"></audio>
+    <audio id="teller2" src="{{ asset('audio/teller2.mp3') }}"></audio>
+    <audio id="teller3" src="{{ asset('audio/teller3.mp3') }}"></audio>
+    <audio id="teller4" src="{{ asset('audio/teller4.mp3') }}"></audio>
+    <audio id="teller5" src="{{ asset('audio/teller5.mp3') }}"></audio>
+</div>
+
 <script>
+    // Get Queue Number, Teller Position, Teller Name, and Rest of The Queue
     setInterval(async function() {
         try {
             const response = await fetch('{{ route('home.ajax') }}', {
@@ -164,7 +193,392 @@
             console.log(error);
         }
     }, 1000);
+    
 
+    // Call Queue Number
+    let flag = false;
+    let queue = [];
+
+    async function panggil(data) {
+        if (flag) {
+            queue.push(data);
+        } else {
+            // Get Value from Data Parameter
+            let bagian = data.data[0];
+            let nilai = data.data[1];
+            let posisi = data.data[2];
+            
+            // Get Audio by Id in Home View
+            const bell_in = document.getElementById("bell_in");
+            const bell_out = document.getElementById("bell_out");
+            const nomorAntrian = document.getElementById("nomorAntrian");
+
+            let ab = document.getElementById(`bagian_${bagian}`); 
+            let nomor = document.getElementById(`nomor${nilai}`);
+            let teller = document.getElementById(`teller${posisi}`);
+
+            const sepuluh = document.getElementById(`nomor10`);
+            const sebelas = document.getElementById(`nomor11`);
+            const seratus = document.getElementById(`nomor100`);
+
+            const puluh = document.getElementById("puluh");
+            const belas = document.getElementById("belas");
+            const ratus = document.getElementById("ratus");
+
+
+            function opening() {
+                bell_in.play();
+
+                setTimeout(() => {
+                    nomorAntrian.play();
+                }, bell_in.duration * 1000);
+
+                setTimeout(() => {
+                    ab.play();
+                }, (bell_in.duration + nomorAntrian.duration) * 1000);
+
+                return bell_in.duration + nomorAntrian.duration + ab.duration; // Jumlah durasi audio opening (bell_in, nomorAntrian, dan ab)
+            }
+
+            function closing(jeda) {
+                setTimeout(() => {
+                    teller.play();
+                }, jeda);
+
+                teller.addEventListener("ended", function () {
+                    bell_out.play();
+                });
+            }
+
+            function putar() {
+                flag = true;
+
+                let durasi = opening();
+
+                if (nilai <= 9) {
+                    setTimeout(() => {
+                        nomor.play();
+                    }, (durasi - 0.3) * 1000);
+
+                    closing((durasi + nomor.duration - 0.3) * 1000);
+                } else if (nilai >= 10 && nilai <= 99) {
+                    let puluhan = parseInt(nilai.charAt(0));
+                    let satuan = parseInt(nilai.charAt(1));
+                    let nomor_puluhan = document.getElementById(`nomor${puluhan}`);
+                    let nomor_satuan = document.getElementById(`nomor${satuan}`);
+
+                    if (puluhan == 1 && satuan == 0) {
+                        setTimeout(() => {
+                            sepuluh.play();
+                        }, (durasi - 0.3) * 1000);
+
+                        closing((durasi + sepuluh.duration - 0.3) * 1000);
+                    } else if (puluhan == 1 && satuan == 1) {
+                        setTimeout(() => {
+                            sebelas.play();
+                        }, (durasi - 0.3) * 1000);
+
+                        closing((durasi + sebelas.duration - 0.3) * 1000);
+                    } else if (puluhan == 1 && satuan > 1) {
+                        setTimeout(() => {
+                            nomor_satuan.play();
+                        }, (durasi - 0.3) * 1000);
+                        setTimeout(() => {
+                            belas.play();
+                        }, (durasi + nomor_satuan.duration - 0.4) * 1000);
+
+                        closing(
+                            (durasi +
+                                nomor_satuan.duration +
+                                belas.duration -
+                                0.4) *
+                                1000
+                        );
+                    } else if (puluhan > 1 && satuan == 0) {
+                        setTimeout(() => {
+                            nomor_puluhan.play();
+                        }, (durasi - 0.3) * 1000);
+                        setTimeout(() => {
+                            puluh.play();
+                        }, (durasi + nomor_puluhan.duration - 0.44) * 1000);
+
+                        closing(
+                            (durasi +
+                                nomor_puluhan.duration +
+                                puluh.duration -
+                                0.44) *
+                                1000
+                        );
+                    } else if (puluhan > 1 && satuan > 0) {
+                        setTimeout(() => {
+                            nomor_puluhan.play();
+                        }, (durasi - 0.3) * 1000);
+                        setTimeout(() => {
+                            puluh.play();
+                        }, (durasi + nomor_puluhan.duration - 0.43) * 1000);
+                        setTimeout(() => {
+                            nomor_satuan.play();
+                        }, (durasi + nomor_puluhan.duration + puluh.duration - 0.55) * 1000);
+
+                        closing(
+                            (durasi +
+                                nomor_puluhan.duration +
+                                puluh.duration +
+                                nomor_satuan.duration -
+                                0.55) *
+                                1000
+                        );
+                    } else {
+                        closing((durasi - 0.3) * 1000);
+                    }
+                } else if (nilai >= 100 && nilai <= 999) {
+                    let ratusan = parseInt(nilai.charAt(0));
+                    let puluhan = parseInt(nilai.charAt(1));
+                    let satuan = parseInt(nilai.charAt(2));
+                    let nomor_ratusan = document.getElementById(`nomor${ratusan}`);
+                    let nomor_puluhan = document.getElementById(`nomor${puluhan}`);
+                    let nomor_satuan = document.getElementById(`nomor${satuan}`);
+
+                    if (ratusan == 1) {
+                        // * Ratusan dimulai angka 1
+                        setTimeout(() => {
+                            seratus.play();
+                        }, (durasi - 0.3) * 1000);
+
+                        if (puluhan == 0 && satuan > 0) {
+                            setTimeout(() => {
+                                nomor_satuan.play();
+                            }, (durasi + seratus.duration - 0.56) * 1000);
+
+                            closing(
+                                (durasi +
+                                    seratus.duration +
+                                    nomor_satuan.duration -
+                                    0.56) *
+                                    1000
+                            );
+                        } else if (puluhan == 1 && satuan == 0) {
+                            setTimeout(() => {
+                                sepuluh.play();
+                            }, (durasi + seratus.duration - 0.56) * 1000);
+
+                            closing(
+                                (durasi +
+                                    seratus.duration +
+                                    sepuluh.duration -
+                                    0.56) *
+                                    1000
+                            );
+                        } else if (puluhan == 1 && satuan == 1) {
+                            setTimeout(() => {
+                                sebelas.play();
+                            }, (durasi + seratus.duration - 0.56) * 1000);
+
+                            closing(
+                                (durasi +
+                                    seratus.duration +
+                                    sebelas.duration -
+                                    0.56) *
+                                    1000
+                            );
+                        } else if (puluhan == 1 && satuan > 1) {
+                            setTimeout(() => {
+                                nomor_satuan.play();
+                            }, (durasi + seratus.duration - 0.59) * 1000);
+                            setTimeout(() => {
+                                belas.play();
+                            }, (durasi + seratus.duration + nomor_satuan.duration - 0.84) * 1000);
+
+                            closing(
+                                (durasi +
+                                    seratus.duration +
+                                    nomor_satuan.duration +
+                                    belas.duration -
+                                    0.83) *
+                                    1000
+                            );
+                        } else if (puluhan > 1 && satuan == 0) {
+                            setTimeout(() => {
+                                nomor_puluhan.play();
+                            }, (durasi + seratus.duration - 0.59) * 1000);
+                            setTimeout(() => {
+                                puluh.play();
+                            }, (durasi + seratus.duration + nomor_puluhan.duration - 0.83) * 1000);
+
+                            closing(
+                                (durasi +
+                                    seratus.duration +
+                                    nomor_puluhan.duration +
+                                    puluh.duration -
+                                    0.83) *
+                                    1000
+                            );
+                        } else if (puluhan > 1 && satuan > 0) {
+                            setTimeout(() => {
+                                nomor_puluhan.play();
+                            }, (durasi + seratus.duration - 0.59) * 1000);
+                            setTimeout(() => {
+                                puluh.play();
+                            }, (durasi + seratus.duration + nomor_puluhan.duration - 0.83) * 1000);
+                            setTimeout(() => {
+                                nomor_satuan.play();
+                            }, (durasi + seratus.duration + nomor_puluhan.duration + puluh.duration - 1) * 1000);
+
+                            closing(
+                                (durasi +
+                                    seratus.duration +
+                                    nomor_puluhan.duration +
+                                    puluh.duration +
+                                    nomor_satuan.duration -
+                                    1) *
+                                    1000
+                            );
+                        } else {
+                            closing((durasi + seratus.duration - 0.3) * 1000);
+                        }
+                    } else if (ratusan > 1) {
+                        // * Ratusan tidak dimulai angka 1
+                        setTimeout(() => {
+                            nomor_ratusan.play();
+                        }, (durasi - 0.3) * 1000);
+                        setTimeout(() => {
+                            ratus.play();
+                        }, (durasi + nomor_ratusan.duration - 0.47) * 1000);
+
+                        if (puluhan == 0 && satuan > 0) {
+                            setTimeout(() => {
+                                nomor_satuan.play();
+                            }, (durasi + nomor_ratusan.duration + ratus.duration - 0.65) * 1000);
+
+                            closing(
+                                (durasi +
+                                    nomor_ratusan.duration +
+                                    ratus.duration +
+                                    nomor_satuan.duration -
+                                    0.65) *
+                                    1000
+                            );
+                        } else if (puluhan == 1 && satuan == 0) {
+                            setTimeout(() => {
+                                sepuluh.play();
+                            }, (durasi + nomor_ratusan.duration + ratus.duration - 0.67) * 1000);
+
+                            closing(
+                                (durasi +
+                                    nomor_ratusan.duration +
+                                    ratus.duration +
+                                    sepuluh.duration -
+                                    0.67) *
+                                    1000
+                            );
+                        } else if (puluhan == 1 && satuan == 1) {
+                            setTimeout(() => {
+                                sebelas.play();
+                            }, (durasi + nomor_ratusan.duration + ratus.duration - 0.67) * 1000);
+
+                            closing(
+                                (durasi +
+                                    nomor_ratusan.duration +
+                                    ratus.duration +
+                                    sebelas.duration -
+                                    0.67) *
+                                    1000
+                            );
+                        } else if (puluhan == 1 && satuan > 1) {
+                            setTimeout(() => {
+                                nomor_satuan.play();
+                            }, (durasi + nomor_ratusan.duration + ratus.duration - 0.66) * 1000);
+                            setTimeout(() => {
+                                belas.play();
+                            }, (durasi + nomor_ratusan.duration + ratus.duration + nomor_satuan.duration - 0.84) * 1000);
+
+                            closing(
+                                (durasi +
+                                    nomor_ratusan.duration +
+                                    ratus.duration +
+                                    nomor_satuan.duration +
+                                    belas.duration -
+                                    0.84) *
+                                    1000
+                            );
+                        } else if (puluhan > 1 && satuan == 0) {
+                            setTimeout(() => {
+                                nomor_puluhan.play();
+                            }, (durasi + nomor_ratusan.duration + ratus.duration - 0.66) * 1000);
+                            setTimeout(() => {
+                                puluh.play();
+                            }, (durasi + nomor_ratusan.duration + ratus.duration + nomor_puluhan.duration - 0.85) * 1000);
+
+                            closing(
+                                (durasi +
+                                    nomor_ratusan.duration +
+                                    ratus.duration +
+                                    nomor_puluhan.duration +
+                                    puluh.duration -
+                                    0.85) *
+                                    1000
+                            );
+                        } else if (puluhan > 1 && satuan > 0) {
+                            setTimeout(() => {
+                                nomor_puluhan.play();
+                            }, (durasi + nomor_ratusan.duration + ratus.duration - 0.8) * 1000);
+                            setTimeout(() => {
+                                puluh.play();
+                            }, (durasi + nomor_ratusan.duration + ratus.duration + nomor_puluhan.duration - 0.98) * 1000);
+                            setTimeout(() => {
+                                nomor_satuan.play();
+                            }, (durasi + nomor_ratusan.duration + ratus.duration + nomor_puluhan.duration + puluh.duration - 1.1) * 1000);
+
+                            closing(
+                                (durasi +
+                                    nomor_ratusan.duration +
+                                    ratus.duration +
+                                    nomor_puluhan.duration +
+                                    puluh.duration +
+                                    nomor_satuan.duration -
+                                    1.1) *
+                                    1000
+                            );
+                        } else {
+                            closing(
+                                (durasi +
+                                    nomor_ratusan.duration +
+                                    ratus.duration -
+                                    0.6) *
+                                    1000
+                            );
+                        }
+                    }
+                }
+            }
+
+            function lanjutPutar() {
+                if (queue.length > 0) {
+                    panggil(queue[0]);
+                    queue.shift();
+                }
+            }
+
+            bell_out.onended = function () {
+                flag = false;
+                lanjutPutar();
+            };
+
+            putar();
+        }
+    }
+
+    // Listening For Event Broadcasts
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        Echo.channel(`call-execute`)
+            .listen('CallExecute', (data) => {
+                panggil(data);
+                console.log(`${data.data[0]} / ${data.data[1]} / ${data.data[2]}`);
+            });
+    });
+
+
+    // Digital Clock
     let hoursContainer = document.querySelector('.hours')
     let minutesContainer = document.querySelector('.minutes')
     let secondsContainer = document.querySelector('.seconds')
@@ -238,6 +652,7 @@
         }, 990)
     }
 
-    setInterval(updateTime, 100)
+    setInterval(updateTime, 100);
 </script>
+
 @endsection

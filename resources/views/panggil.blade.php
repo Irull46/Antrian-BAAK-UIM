@@ -35,7 +35,7 @@
 
             <div class="mt-2 d-flex flex-column">
                 <button ondblclick="btnLanjuts()" onclick="btnLanjut()" class="btn btn-outline-success btn-lg click1 mb-2">LANJUT</button>
-                <button onclick="panggil()" class="btn btn-outline-success btn-lg click1 mb-2">PANGGIL</button>
+                <button onclick="btnPanggil()" class="btn btn-outline-success btn-lg click1 mb-2">PANGGIL</button>
                 <button onclick="btnSelesai()" class="btn btn-outline-success btn-lg click1 mb-2">SELESAI</button>
                 <a href="{{ route('home.index') }}" class="btn btn-outline-success btn-lg click1 mb-2">KELUAR</a>
             </div>
@@ -43,7 +43,7 @@
     </div>
 </div>
 
-<div class="audio">
+{{-- <div class="audio">
     <audio id="bell_in" src="{{ asset('audio/in.mp3') }}"></audio>
     <audio id="bell_out" src="{{ asset('audio/out.mp3') }}"></audio>
     <audio id="nomorAntrian" src="{{ asset('audio/nomor antrian.mp3') }}"></audio>
@@ -69,9 +69,10 @@
     <audio id="teller3" src="{{ asset('audio/teller3.mp3') }}"></audio>
     <audio id="teller4" src="{{ asset('audio/teller4.mp3') }}"></audio>
     <audio id="teller5" src="{{ asset('audio/teller5.mp3') }}"></audio>
-</div>
+</div> --}}
 
 <script>
+    // Get Queue Number, Teller Position, and Rest of The Queue
     setInterval(async function() {
         const user_id = "{{ Auth::user()->id }}";
 
@@ -106,6 +107,8 @@
         }
     }, 1000);
 
+
+    // Change Queue Status 'Menunggu' or 'Terlambat' to 'Proses', 'Proses' to 'Terlambat' and Save Start Time to Traffic Table
     async function btnLanjut() {
         const user_id = "{{ Auth::user()->id }}";
         let nomor_antrian = document.getElementById('nomor_antrian').innerText;
@@ -134,10 +137,44 @@
         }
     }
 
+
+    // If There is a Double Click
     function btnLanjuts() {
         console.log('');
     }
 
+
+    // Send Event (CallExecute Event)
+    async function btnPanggil() {
+        let nomor_antrian = document.getElementById('nomor_antrian').innerText;
+        let bagian = nomor_antrian.charAt(0);
+        let nomor = nomor_antrian.slice(1);
+        let posisi = document.getElementById("posisi").innerText;
+        
+        try {
+            const response = await fetch('./call', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    _token: "{{ csrf_token() }}",
+                    bagian: bagian,
+                    nomor: nomor,
+                    posisi: posisi,
+                }),
+            });
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log(responseData);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    // Change Queue Status 'Proses' to 'Selesai', Save Finishing Time to Traffic Table and Clear Queue Data from Antrian table
     async function btnSelesai() {
         let nomor_antrian = document.getElementById('nomor_antrian').textContent;
 
@@ -165,5 +202,5 @@
     };
 </script>
 
-<script src="{{ asset('js/call.js') }}"></script>
+{{-- <script src="{{ asset('js/call.js') }}"></script> --}}
 @endsection
