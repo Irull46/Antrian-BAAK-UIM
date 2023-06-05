@@ -52,6 +52,16 @@ class RoleController extends Controller
             }
         }
         
-        return redirect()->back()->with('success', 'Role pengguna berhasil diperbarui!');
+        return redirect()->back()->with('message', 'Role pengguna berhasil diperbarui!');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+
+        return response()->json([
+            'message' => 'Data user berhasil dihapus'
+        ]);
     }
 }

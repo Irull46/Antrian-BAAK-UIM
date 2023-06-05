@@ -28,6 +28,7 @@ Route::group(['prefix' => 'role', 'middleware' => ['role:admin']], function () {
     Route::get('/', [RoleController::class, 'index'])->name('role.index');
     Route::get('/datatable', [RoleController::class, 'datatable'])->name('role.datatable');
     Route::patch('/update', [RoleController::class, 'update'])->name('role.update');
+    Route::delete('/delete/{id}', [RoleController::class, 'destroy'])->name('role.destroy');
 });
 
 Route::group(['prefix' => 'cetak', 'middleware' => ['role:admin']], function () {

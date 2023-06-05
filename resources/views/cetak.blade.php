@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="h-100 pt-80-sip">
     @if(session('message'))
         <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -76,4 +77,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

@@ -22,7 +22,7 @@ class TrafficFactory extends Factory
 
         $durasi_pelayanan = CarbonInterval::minutes($duration)->cascade()->format('%H:%I:%S');
 
-        $startDate = Carbon::create(null, 5, $this->faker->numberBetween(1, 30));
+        $startDate = Carbon::create(null, 6, $this->faker->numberBetween(1, 30));
         $createdAt = $startDate->setTimeFromTimeString($mulai_pelayanan);
 
         return [

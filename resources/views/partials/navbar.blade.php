@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-success border-bottom shadow-sm fixed-top">
+<nav class="navbar navbar-dark bg-success shadow-sm fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ route('home.index') }}"><img src="{{ asset('images/BAAK Logo.png') }}" alt="BAAK Logo" height="40"></a>
 

@@ -1,4 +1,4 @@
-/* Tombol Putih */
+/* Tombol Hijau */
 .click1:hover {
     background: linear-gradient(to bottom, #259c41 5%, #198754 100%);
 }
@@ -8,7 +8,17 @@
     transform: translateY(1px);
 }
 
-/* Tombol Hijau */
+/* Tombol Merah */
+.click3:hover {
+    background: linear-gradient(to bottom, #9c2525 5%, #871919 100%);
+}
+
+.click3:active {
+    background: linear-gradient(to top, #9c2525 5%, #871919 100%);
+    transform: translateY(1px);
+}
+
+/* Tombol Putih */
 .click2:hover {
     background: linear-gradient(to bottom, #dbdada 5%, #ffffff 100%);
 }
@@ -16,6 +26,17 @@
 .click2:active {
     background: linear-gradient(to top, #dbdada 5%, #ffffff 100%);
     transform: translateY(1px);
+}
+
+/* Viewport 100 */
+.view-100-sip {
+    height: 100vh;
+    /* background-color: #fffb00; */
+}
+
+/* Margin Top - Before Content */
+.pt-80-sip {
+    padding-top: 80px;
 }
 
 /* Ukuran Font Default*/
@@ -65,6 +86,10 @@ h1#posisi {
         padding: 0;
         font-size: 2rem;
     }
+
+    .d-clock {
+        margin-bottom: 10px;
+    }
 }
 
 /* Ukuran Small */
@@ -82,14 +107,18 @@ h1#posisi {
         padding: 0;
         font-size: 1.5rem;
     }
+
+    .d-clock {
+        display: none;
+    }
 }
 
 .clock {
-    height: 10.6vh;
+    height: 1.5em;
     color: black;
-    font-size: 7vh;
+    font-size: 3.5em;
     font-family: sans-serif;
-    line-height: 10.4vh;
+    line-height: 1.5em;
     display: flex;
     justify-content: center;
     position: relative;
@@ -108,13 +137,13 @@ h1#posisi {
     display: flex;
 }
 .tick {
-    line-height: 9vh;
+    line-height: 1.4em;
 }
 .tick-hidden {
     opacity: 0;
 }
 .move {
-    animation: move linear 1s infinite;
+    /* animation: move linear 1s infinite; */
 }
 @keyframes move {
     from {

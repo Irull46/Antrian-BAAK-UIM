@@ -1,75 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        {{-- Grid Kiri --}}
-        <div class="col-md-8 col-lg-9">
-            {{-- Nomor Antrian --}}
-            <div class="container-fluid">
-                <div class="row bg-success py-4 py-sm-5 mb-4">
-                    <div class="col-md-8 pb-3 pb-md-0">
-                        <div class="ms-md-5 bg-white border border-5">
-                            <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Nomor Antrian</h2>
-                            <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="nomor_antrian">-</h1>
+<div class="h-100 pt-80-sip">
+    <div class="container-fluid">
+        <div class="row">
+            {{-- Left Column --}}
+            <div class="col-md-8 col-lg-9">
+                <div class="container-fluid">
+                    <div class="row bg-success py-3 py-md-5 mb-2">
+                        <div class="col-md-8 pb-2 pb-md-0">
+                            <div class="ms-md-5 bg-white border border-5">
+                                <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Nomor Antrian</h2>
+                                <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="nomor_antrian">-</h1>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="me-md-5 bg-white border border-5">
-                            <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Teller</h2>
-                            <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="posisi">-</h1>
+                        <div class="col-md-4">
+                            <div class="me-md-5 bg-white border border-5">
+                                <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Teller</h2>
+                                <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="posisi">-</h1>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        {{-- Grid Kanan --}}
-        <div class="col-md-4 col-lg-3">
-            <div class="bg-success pt-3 pb-1 px-2">
-                <h4 class="fw-bold text-center text-light">Sisa Antrian <span id="bagian"></span></h4>
-            </div>
-            <div class="bg-white px-3 py-3 mb-md-4">
-                <h1 class="fw-bold text-center" id="sisa">-</h1>
-            </div>
+            
+            {{-- Right Column --}}
+            <div class="col-md-4 col-lg-3">
+                <div class="bg-success pt-3 pb-1 px-2">
+                    <h4 class="fw-bold text-center text-light">Sisa Antrian <span id="bagian"></span></h4>
+                </div>
+                <div class="bg-white px-3 py-3 mb-md-4">
+                    <h1 class="fw-bold text-center" id="sisa">-</h1>
+                </div>
 
-            <div class="mt-2 d-flex flex-column">
-                <button ondblclick="btnLanjuts()" onclick="btnLanjut()" class="btn btn-outline-success btn-lg click1 mb-2">LANJUT</button>
-                <button onclick="btnPanggil()" class="btn btn-outline-success btn-lg click1 mb-2">PANGGIL</button>
-                <button onclick="btnSelesai()" class="btn btn-outline-success btn-lg click1 mb-2">SELESAI</button>
-                <a href="{{ route('home.index') }}" class="btn btn-outline-success btn-lg click1 mb-2">KELUAR</a>
+                <div class="mt-2 d-flex flex-column">
+                    <button ondblclick="btnLanjuts()" onclick="btnLanjut()" class="btn btn-outline-success btn-lg click1 mb-2">LANJUT</button>
+                    <button onclick="btnPanggil()" class="btn btn-outline-success btn-lg click1 mb-2">PANGGIL</button>
+                    <button onclick="btnSelesai()" class="btn btn-outline-success btn-lg click1 mb-2">SELESAI</button>
+                    <a href="{{ route('home.index') }}" class="btn btn-outline-success btn-lg click1 mb-2">KELUAR</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-{{-- <div class="audio">
-    <audio id="bell_in" src="{{ asset('audio/in.mp3') }}"></audio>
-    <audio id="bell_out" src="{{ asset('audio/out.mp3') }}"></audio>
-    <audio id="nomorAntrian" src="{{ asset('audio/nomor antrian.mp3') }}"></audio>
-    <audio id="bagian_A" src="{{ asset('audio/a.mp3') }}"></audio>
-    <audio id="bagian_B" src="{{ asset('audio/b.mp3') }}"></audio>
-    <audio id="nomor1" src="{{ asset('audio/1.mp3') }}"></audio>
-    <audio id="nomor2" src="{{ asset('audio/2.mp3') }}"></audio>
-    <audio id="nomor3" src="{{ asset('audio/3.mp3') }}"></audio>
-    <audio id="nomor4" src="{{ asset('audio/4.mp3') }}"></audio>
-    <audio id="nomor5" src="{{ asset('audio/5.mp3') }}"></audio>
-    <audio id="nomor6" src="{{ asset('audio/6.mp3') }}"></audio>
-    <audio id="nomor7" src="{{ asset('audio/7.mp3') }}"></audio>
-    <audio id="nomor8" src="{{ asset('audio/8.mp3') }}"></audio>
-    <audio id="nomor9" src="{{ asset('audio/9.mp3') }}"></audio>
-    <audio id="nomor10" src="{{ asset('audio/10.mp3') }}"></audio>
-    <audio id="nomor11" src="{{ asset('audio/11.mp3') }}"></audio>
-    <audio id="nomor100" src="{{ asset('audio/100.mp3') }}"></audio>
-    <audio id="belas" src="{{ asset('audio/belas.mp3') }}"></audio>
-    <audio id="puluh" src="{{ asset('audio/puluh.mp3') }}"></audio>
-    <audio id="ratus" src="{{ asset('audio/ratus.mp3') }}"></audio>
-    <audio id="teller1" src="{{ asset('audio/teller1.mp3') }}"></audio>
-    <audio id="teller2" src="{{ asset('audio/teller2.mp3') }}"></audio>
-    <audio id="teller3" src="{{ asset('audio/teller3.mp3') }}"></audio>
-    <audio id="teller4" src="{{ asset('audio/teller4.mp3') }}"></audio>
-    <audio id="teller5" src="{{ asset('audio/teller5.mp3') }}"></audio>
-</div> --}}
 
 <script>
     // Get Queue Number, Teller Position, and Rest of The Queue
@@ -187,7 +160,7 @@
                 body: new URLSearchParams({
                     _token: "{{ csrf_token() }}",
                     nomor_antrian: nomor_antrian,
-                 })
+                })
             });
             if (response.ok) {
                 const responseData = await response.json();
@@ -201,6 +174,4 @@
         }
     };
 </script>
-
-{{-- <script src="{{ asset('js/call.js') }}"></script> --}}
 @endsection

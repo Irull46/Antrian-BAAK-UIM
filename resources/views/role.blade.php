@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    @if(session('success'))
+<div class="h-100 pt-80-sip">
+    @if(session('message'))
         <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -9,7 +10,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-11">
-                                    <p class="text-success m-0">{{ session('success') }}</p>
+                                    <p class="text-success m-0">{{ session('message') }}</p>
                                 </div>
                                 <div class="col-1">
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -121,13 +122,33 @@
                         data: null,
                         searchable: false,
                         orderable: false,
-                        render: function(data, type, row) {
-                            let link = '<button type="button" class="btn btn-outline-success click1" data-bs-toggle="modal" data-bs-target="#form" data-id="' + row.id + '" data-nama="' + row.name + '" data-email="' + row.email + '">Edit Role</button>';
+                        render: function(data, type, row, meta) {
+                            let link = '<button type="button" class="btn btn-outline-success click1" data-bs-toggle="modal" data-bs-target="#form" data-id="' + row.id + '" data-nama="' + row.name + '" data-email="' + row.email + '">Edit</button>'  +
+                            '<button type="button" class="btn btn-outline-danger btnDelete click3" data-id="' + row.id + '" style="margin-left: 8px">Delete</button>';
                             return link;
                         }
                     }
 
                 ]
+            });
+            
+            $('#myTable').on('click', '.btnDelete', function() {
+                const rowId = $(this).data('id');
+                
+                $.ajax({
+                    url: '/role/delete/' + rowId,
+                    type: 'DELETE',
+                    data: {
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        window.location.href = '/role';
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
             });
         });
 
@@ -156,4 +177,5 @@
             }
         }
     </script>
+</div>
 @endsection

@@ -1,169 +1,178 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        {{-- Grid Kiri --}}
-        <div class="col-md-8 col-lg-9">
-            {{-- Nomor Antrian --}}
-            <div class="container-fluid">
-                <div class="row bg-success py-4 py-sm-5 mb-4">
-                    <div class="col-md-8 pb-3 pb-md-0">
-                        <div class="ms-md-5 bg-white border border-5">
-                            <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Nomor Antrian</h2>
-                            <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="nomor_antrian">-</h1>
+<div class="h-100 pt-80-sip">
+    <div class="container-fluid">
+        <div class="row">
+            {{-- Left Column --}}
+            <div class="col-md-8 col-lg-9">
+                <div class="container-fluid">
+                    <div class="row bg-success py-3 py-md-5 mb-2">
+                        <div class="col-md-8 pb-2 pb-md-0">
+                            <div class="ms-md-5 bg-white border border-5">
+                                <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Nomor Antrian</h2>
+                                <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="nomor_antrian">-</h1>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="me-md-5 bg-white border border-5">
+                                <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Teller</h2>
+                                <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="posisi">-</h1>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="me-md-5 bg-white border border-5">
-                            <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Teller</h2>
-                            <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="posisi">-</h1>
+                </div>
+            </div>
+
+            {{-- Right Column --}}
+            <div class="col-md-4 col-lg-3 mb-2 mb-md-0">
+                <div class="bg-success pt-3 pb-1 px-2">
+                    <h4 class="fw-bold text-center text-light">Sisa Antrian A</h4>
+                </div>
+                <div class="bg-warning px-3 py-3 mb-md-4">
+                    <h1 class="fw-bold text-center" id="sisaA">-</h1>
+                </div>
+                <div class="bg-success pt-3 pb-1 px-2">
+                    <h4 class="fw-bold text-center text-light">Sisa Antrian B</h4>
+                </div>
+                <div class="bg-warning px-3 py-3 mb-md-4">
+                    <h1 class="fw-bold text-center" id="sisaB">-</h1>
+                </div>
+            </div>
+        </div>
+            
+        <div class="row">
+            {{-- Left Column --}}
+            <div class="col-md-8 col-lg-9">
+                <div class="row mb-2 mb-md-0">
+                    <div class="col-md">
+                        <div class="bg-success pt-3 pb-1 px-2">
+                            <h4 class="fw-bold text-center text-light">Teller 1</h4>
+                        </div>
+                        <div class="bg-warning px-3 py-3">
+                            <div class="fw-bold text-center d-flex justify-content-center">
+                                <h1 id="nomor_antrian1">-</h1>
+                            </div>
+                            <h5 class="fw-bold text-center" id="nama1">-</h3>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="bg-success pt-3 pb-1 px-2">
+                            <h4 class="fw-bold text-center text-light">Teller 2</h4>
+                        </div>
+                        <div class="bg-warning px-3 py-3">
+                            <div class="fw-bold text-center d-flex justify-content-center">
+                                <h1 id="nomor_antrian2">-</h1>
+                            </div>
+                            <h5 class="fw-bold text-center" id="nama2">-</h3>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="bg-success pt-3 pb-1 px-2">
+                            <h4 class="fw-bold text-center text-light">Teller 3</h4>
+                        </div>
+                        <div class="bg-warning px-3 py-3">
+                            <div class="fw-bold text-center d-flex justify-content-center">
+                                <h1 id="nomor_antrian3">-</h1>
+                            </div>
+                            <h5 class="fw-bold text-center" id="nama3">-</h3>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="bg-success pt-3 pb-1 px-2">
+                            <h4 class="fw-bold text-center text-light">Teller 4</h4>
+                        </div>
+                        <div class="bg-warning px-3 py-3">
+                            <div class="fw-bold text-center d-flex justify-content-center">
+                                <h1 id="nomor_antrian4">-</h1>
+                            </div>
+                            <h5 class="fw-bold text-center" id="nama4">-</h3>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="bg-success pt-3 pb-1 px-2">
+                            <h4 class="fw-bold text-center text-light">Teller 5</h4>
+                        </div>
+                        <div class="bg-warning px-3 py-3">
+                            <div class="fw-bold text-center d-flex justify-content-center">
+                                <h1 id="nomor_antrian5">-</h1>
+                            </div>
+                            <h5 class="fw-bold text-center" id="nama5">-</h3>
                         </div>
                     </div>
                 </div>
             </div>
             
-            {{-- 5 Teller --}}
-            <div class="row mb-4">
-                <div class="col-md">
-                    <div class="bg-success pt-3 pb-1 px-2">
-                        <h4 class="fw-bold text-center text-light">Teller 1</h4>
-                    </div>
-                    <div class="bg-warning px-3 py-3">
-                        <div class="fw-bold text-center d-flex justify-content-center">
-                            <h1 id="nomor_antrian1">-</h1>
-                        </div>
-                        <h5 class="fw-bold text-center" id="nama1">-</h3>
-                    </div>
+            {{-- Right Column --}}
+            <div class="col-md-4 col-lg-3 d-clock">
+                <div class="bg-success pt-3 pb-1 px-2">
+                    <h4 class="fw-bold text-center text-light">Jam Digital</h4>
                 </div>
-                <div class="col-md">
-                    <div class="bg-success pt-3 pb-1 px-2">
-                        <h4 class="fw-bold text-center text-light">Teller 2</h4>
-                    </div>
-                    <div class="bg-warning px-3 py-3">
-                        <div class="fw-bold text-center d-flex justify-content-center">
-                            <h1 id="nomor_antrian2">-</h1>
+                <div class="bg-warning px-3 py-3" style="height: 113px">
+                    <div class="clock">
+                        <div class="hours">
+                            <div class="first">
+                                <div class="number">0</div>
+                            </div>
+                            <div class="second">
+                                <div class="number">0</div>
+                            </div>
                         </div>
-                        <h5 class="fw-bold text-center" id="nama2">-</h3>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="bg-success pt-3 pb-1 px-2">
-                        <h4 class="fw-bold text-center text-light">Teller 3</h4>
-                    </div>
-                    <div class="bg-warning px-3 py-3">
-                        <div class="fw-bold text-center d-flex justify-content-center">
-                            <h1 id="nomor_antrian3">-</h1>
+        
+                        <div class="tick">:</div>
+                        
+                        <div class="minutes">
+                            <div class="first">
+                                <div class="number">0</div>
+                            </div>
+                            <div class="second">
+                                <div class="number">0</div>
+                            </div>
                         </div>
-                        <h5 class="fw-bold text-center" id="nama3">-</h3>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="bg-success pt-3 pb-1 px-2">
-                        <h4 class="fw-bold text-center text-light">Teller 4</h4>
-                    </div>
-                    <div class="bg-warning px-3 py-3">
-                        <div class="fw-bold text-center d-flex justify-content-center">
-                            <h1 id="nomor_antrian4">-</h1>
+        
+                        <div class="tick">:</div>
+                        
+                        <div class="seconds">
+                            <div class="first">
+                                <div class="number">0</div>
+                            </div>
+                            <div class="second infinite">
+                                <div class="number">0</div>
+                            </div>
                         </div>
-                        <h5 class="fw-bold text-center" id="nama4">-</h3>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="bg-success pt-3 pb-1 px-2">
-                        <h4 class="fw-bold text-center text-light">Teller 5</h4>
-                    </div>
-                    <div class="bg-warning px-3 py-3">
-                        <div class="fw-bold text-center d-flex justify-content-center">
-                            <h1 id="nomor_antrian5">-</h1>
-                        </div>
-                        <h5 class="fw-bold text-center" id="nama5">-</h3>
                     </div>
                 </div>
             </div>
         </div>
-        
-        {{-- Grid Kanan --}}
-        <div class="col-md-4 col-lg-3">
-            <div class="bg-success pt-3 pb-1 px-2">
-                <h4 class="fw-bold text-center text-light">Sisa Antrian A</h4>
-            </div>
-            <div class="bg-warning px-3 py-3 mb-md-4">
-                <h1 class="fw-bold text-center" id="sisaA">-</h1>
-            </div>
-            <div class="bg-success pt-3 pb-1 px-2">
-                <h4 class="fw-bold text-center text-light">Sisa Antrian B</h4>
-            </div>
-            <div class="bg-warning px-3 py-3 mb-md-4">
-                <h1 class="fw-bold text-center" id="sisaB">-</h1>
-            </div>
-            <div class="bg-success pt-3 pb-1 px-2">
-                <h4 class="fw-bold text-center text-light">Jam Digital</h4>
-            </div>
-            <div class="bg-warning px-3 py-3">
-                <div class="clock">
-                    <div class="hours">
-                        <div class="first">
-                            <div class="number">0</div>
-                        </div>
-                        <div class="second">
-                            <div class="number">0</div>
-                        </div>
-                    </div>
-    
-                    <div class="tick">:</div>
-                    
-                    <div class="minutes">
-                        <div class="first">
-                            <div class="number">0</div>
-                        </div>
-                        <div class="second">
-                            <div class="number">0</div>
-                        </div>
-                    </div>
-    
-                    <div class="tick">:</div>
-                    
-                    <div class="seconds">
-                        <div class="first">
-                            <div class="number">0</div>
-                        </div>
-                        <div class="second infinite">
-                            <div class="number">0</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+        <div class="audio">
+            <audio id="bell_in" src="{{ asset('audio/in.mp3') }}"></audio>
+            <audio id="bell_out" src="{{ asset('audio/out.mp3') }}"></audio>
+            <audio id="nomorAntrian" src="{{ asset('audio/nomor antrian.mp3') }}"></audio>
+            <audio id="bagian_A" src="{{ asset('audio/a.mp3') }}"></audio>
+            <audio id="bagian_B" src="{{ asset('audio/b.mp3') }}"></audio>
+            <audio id="nomor1" src="{{ asset('audio/1.mp3') }}"></audio>
+            <audio id="nomor2" src="{{ asset('audio/2.mp3') }}"></audio>
+            <audio id="nomor3" src="{{ asset('audio/3.mp3') }}"></audio>
+            <audio id="nomor4" src="{{ asset('audio/4.mp3') }}"></audio>
+            <audio id="nomor5" src="{{ asset('audio/5.mp3') }}"></audio>
+            <audio id="nomor6" src="{{ asset('audio/6.mp3') }}"></audio>
+            <audio id="nomor7" src="{{ asset('audio/7.mp3') }}"></audio>
+            <audio id="nomor8" src="{{ asset('audio/8.mp3') }}"></audio>
+            <audio id="nomor9" src="{{ asset('audio/9.mp3') }}"></audio>
+            <audio id="nomor10" src="{{ asset('audio/10.mp3') }}"></audio>
+            <audio id="nomor11" src="{{ asset('audio/11.mp3') }}"></audio>
+            <audio id="nomor100" src="{{ asset('audio/100.mp3') }}"></audio>
+            <audio id="belas" src="{{ asset('audio/belas.mp3') }}"></audio>
+            <audio id="puluh" src="{{ asset('audio/puluh.mp3') }}"></audio>
+            <audio id="ratus" src="{{ asset('audio/ratus.mp3') }}"></audio>
+            <audio id="teller1" src="{{ asset('audio/teller1.mp3') }}"></audio>
+            <audio id="teller2" src="{{ asset('audio/teller2.mp3') }}"></audio>
+            <audio id="teller3" src="{{ asset('audio/teller3.mp3') }}"></audio>
+            <audio id="teller4" src="{{ asset('audio/teller4.mp3') }}"></audio>
+            <audio id="teller5" src="{{ asset('audio/teller5.mp3') }}"></audio>
         </div>
     </div>
-</div>
-
-<div class="audio">
-    <audio id="bell_in" src="{{ asset('audio/in.mp3') }}"></audio>
-    <audio id="bell_out" src="{{ asset('audio/out.mp3') }}"></audio>
-    <audio id="nomorAntrian" src="{{ asset('audio/nomor antrian.mp3') }}"></audio>
-    <audio id="bagian_A" src="{{ asset('audio/a.mp3') }}"></audio>
-    <audio id="bagian_B" src="{{ asset('audio/b.mp3') }}"></audio>
-    <audio id="nomor1" src="{{ asset('audio/1.mp3') }}"></audio>
-    <audio id="nomor2" src="{{ asset('audio/2.mp3') }}"></audio>
-    <audio id="nomor3" src="{{ asset('audio/3.mp3') }}"></audio>
-    <audio id="nomor4" src="{{ asset('audio/4.mp3') }}"></audio>
-    <audio id="nomor5" src="{{ asset('audio/5.mp3') }}"></audio>
-    <audio id="nomor6" src="{{ asset('audio/6.mp3') }}"></audio>
-    <audio id="nomor7" src="{{ asset('audio/7.mp3') }}"></audio>
-    <audio id="nomor8" src="{{ asset('audio/8.mp3') }}"></audio>
-    <audio id="nomor9" src="{{ asset('audio/9.mp3') }}"></audio>
-    <audio id="nomor10" src="{{ asset('audio/10.mp3') }}"></audio>
-    <audio id="nomor11" src="{{ asset('audio/11.mp3') }}"></audio>
-    <audio id="nomor100" src="{{ asset('audio/100.mp3') }}"></audio>
-    <audio id="belas" src="{{ asset('audio/belas.mp3') }}"></audio>
-    <audio id="puluh" src="{{ asset('audio/puluh.mp3') }}"></audio>
-    <audio id="ratus" src="{{ asset('audio/ratus.mp3') }}"></audio>
-    <audio id="teller1" src="{{ asset('audio/teller1.mp3') }}"></audio>
-    <audio id="teller2" src="{{ asset('audio/teller2.mp3') }}"></audio>
-    <audio id="teller3" src="{{ asset('audio/teller3.mp3') }}"></audio>
-    <audio id="teller4" src="{{ asset('audio/teller4.mp3') }}"></audio>
-    <audio id="teller5" src="{{ asset('audio/teller5.mp3') }}"></audio>
 </div>
 
 <script>
@@ -565,6 +574,10 @@
             };
 
             putar();
+
+            // // Show Queue Number and Teller Position to Home View - based on The Sound Being Played
+            // document.getElementById('nomor_antrian').innerHTML = data.data[0] + data.data[1];
+            // document.getElementById('posisi').innerHTML = data.data[2];
         }
     }
 
@@ -654,5 +667,4 @@
 
     setInterval(updateTime, 100);
 </script>
-
 @endsection

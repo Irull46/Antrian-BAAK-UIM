@@ -18,7 +18,7 @@ class TrafficChart
 
     public function build(): \ArielMejiaDev\LarapexCharts\BarChart
     {
-        $month = 5; // Bulan yang ingin Anda ambil datanya
+        $month = 6; // Bulan yang ingin Anda ambil datanya
         $year = Carbon::now()->year; // Tahun ini
 
         $startDate = Carbon::createFromDate($year, $month, 1)->startOfWeek(); // Tanggal awal

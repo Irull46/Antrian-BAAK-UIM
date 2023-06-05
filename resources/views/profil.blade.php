@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="h-100 pt-80-sip">
     <div class="container py-5">
         <div class="fs-3 fw-bold pb-2 border-bottom">Profil Pengguna</div>
         <div class="fs-5 mb-3">Lengkapi data-datamu setelah membuat akun.</div>
@@ -147,4 +148,5 @@
             profil();
         });
     </script>
+</div>
 @endsection

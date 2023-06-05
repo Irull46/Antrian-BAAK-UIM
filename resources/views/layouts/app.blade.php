@@ -20,12 +20,10 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 </head>
 <body class="bg-white">
-    <div id="app">
-        @include('partials.navbar')
-        
-        <main style="margin-top: 80px;">
-            @yield('content')
-        </main>
-    </div>
+    @include('partials.navbar')
+    
+    <main class="view-100-sip">
+        @yield('content')
+    </main>
 </body>
 </html>
