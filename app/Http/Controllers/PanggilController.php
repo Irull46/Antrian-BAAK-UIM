@@ -8,6 +8,7 @@ use App\Models\PosisiTeller;
 use App\Models\Traffic;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PanggilController extends Controller
 {
@@ -21,10 +22,10 @@ class PanggilController extends Controller
         return view('panggil');
     }
 
-    public function ajax(Request $request)
+    public function ajax()
     {
-        // Get id yang dikirim dari request ajax
-        $user_id = $request->input('id');
+        // Get id user yang sedang login
+        $user_id = Auth::id();
 
         // Get posisi_tellers berdasarkan user_id
         $posisi_teller = PosisiTeller::where('user_id', $user_id)->first();
@@ -45,12 +46,63 @@ class PanggilController extends Controller
 
         // Mengembalikan response dalam bentuk json
         return response()->json([
-            'nomor_antrian' => $panggilan ? $panggilan->antrian->nomor_antrian : '-',
+            'nomor_antrian' => $panggilan && $panggilan->antrian->status == 'proses' ? $panggilan->antrian->nomor_antrian : '-',
             'bagian' => $posisi_teller ? $posisi_teller->bagian : '-',
             'posisi' => $posisi_teller ? $posisi_teller->posisi : '-',
             'sisaA' => $sisaA ? $sisaA : '-',
             'sisaB' => $sisaB ? $sisaB : '-',
         ]);
+    }
+
+    public function kembali()
+    {
+        $user_id = Auth::id();
+
+        $antrianTerlambat = Panggilan::with('antrian')
+            ->where('user_id', $user_id)
+            ->whereHas('antrian', function ($query) {
+                $query->where('status', 'terlambat');
+            }) // Menggunakan whereHas untuk memfilter tabel antrian yang berelasi dengan tabel panggilan
+            ->orderBy('updated_at', 'desc')
+            ->first();
+
+        if ($antrianTerlambat) {
+            // Delete Current Queue in Panggilan Table 
+            $panggilan = Panggilan::with('antrian')
+                ->where('user_id', $user_id)
+                ->orderBy('updated_at', 'desc')
+                ->first();
+
+            $antrian_id = $panggilan->antrian->id;  // Id Antrian Sekarang
+
+            $panggilan->delete();
+
+            // Change Current Queue Status "Proses" to "Menunggu" in Antrian Table
+            $antrian = Antrian::where('id', $antrian_id)->first(); // ! Perlu id antrian sekarang untuk mengubah status
+            $antrian->status = 'menunggu';
+            $antrian->updated_at = $antrian->created_at;
+            $antrian->save();
+
+            // Change The Previous Queue Status "Terlambat" to "Proses" in Antrian Table
+            $antrian = Antrian::where('id', $antrianTerlambat->antrian_id)->first();
+            $antrian->status = 'proses';
+            $antrian->updated_at = now();
+            $antrian->save();
+            
+            // Delete The Current Queue Traffic 
+            $traffic = Traffic::where('antrian_id', $antrian_id)->first(); // ! Perlu id antrian sekarang untuk menghapus
+            $traffic->delete();
+
+            // Update The Previous Queue Traffic 
+            $traffic = Traffic::where('antrian_id', $antrianTerlambat->antrian_id)->first();
+            $traffic->antrian_id = $antrian->id;
+            $traffic->mulai_pelayanan = now();
+            $traffic->save();
+
+            return response()->json([ 'message' => 'Kembali ke antrian ' . $antrianTerlambat->antrian->nomor_antrian ]);
+        } else {
+            return response()->json([ 'message' => 'Tidak ada antrian dengan status terlambat.' ]);
+        }
     }
 
     public function lanjut(Request $request)

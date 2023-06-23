@@ -34,8 +34,11 @@
                 </div>
 
                 <div class="mt-2 d-flex flex-column">
-                    <button ondblclick="btnLanjuts()" onclick="btnLanjut()" class="btn btn-outline-success btn-lg click1 mb-2">LANJUT</button>
-                    <button onclick="btnPanggil()" class="btn btn-outline-success btn-lg click1 mb-2">PANGGIL</button>
+                    <div class="d-flex mb-2">
+                        <button id="btnk" onclick="btnKembali()" class="btn btn-outline-success btn-lg click1 w-50 me-1">KEMBALI</button>
+                        <button id="btnl" onclick="btnLanjut()" class="btn btn-outline-success btn-lg click1 w-50 ms-1">LANJUT</button>
+                    </div>
+                    <button onclick="btnPanggil()" class="btn btn-outline-success btn-lg click1 mb-2">PANGGIL ULANG</button>
                     <button onclick="btnSelesai()" class="btn btn-outline-success btn-lg click1 mb-2">SELESAI</button>
                     <a href="{{ route('home.index') }}" class="btn btn-outline-success btn-lg click1 mb-2">KELUAR</a>
                 </div>
@@ -47,19 +50,8 @@
 <script>
     // Get Queue Number, Teller Position, and Rest of The Queue
     setInterval(async function() {
-        const user_id = "{{ Auth::user()->id }}";
-
         try {
-            const response = await fetch('{{ route('panggil.ajax') }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    _token: "{{ csrf_token() }}",
-                    id: user_id,
-                }),
-            });
+            const response = await fetch('{{ route('panggil.ajax') }}');
             if (response.ok) {
                 const responseData = await response.json();
 
@@ -81,8 +73,32 @@
     }, 1000);
 
 
+    // Back to Previous Queue
+    async function btnKembali() {
+        const btn = document.getElementById('btnk');
+        btn.setAttribute('disabled', true);
+
+        try {
+            const response = await fetch("{{ route('panggil.kembali') }}");
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data.message);
+                setTimeout(() => {
+                    btn.removeAttribute('disabled');
+                }, 500);
+            }
+        } catch (error) {
+            console.error('Terjadi kesalahan:', error);
+            btn.removeAttribute('disabled');
+        }
+    }
+    
+
     // Change Queue Status 'Menunggu' or 'Terlambat' to 'Proses', 'Proses' to 'Terlambat' and Save Start Time to Traffic Table
     async function btnLanjut() {
+        const btn = document.getElementById('btnl');
+        btn.setAttribute('disabled', true);
+
         const user_id = "{{ Auth::user()->id }}";
         let nomor_antrian = document.getElementById('nomor_antrian').innerText;
 
@@ -101,19 +117,19 @@
             if (response.ok) {
                 const responseData = await response.json();
                 console.log(responseData.message);
+                setTimeout(() => {
+                    btn.removeAttribute('disabled');
+                }, 500);
+                setTimeout(btnPanggil, 1000); // Call after after 1 minute
             } else {
                 const errorText = await response.text();
                 console.log(errorText);
+                btn.removeAttribute('disabled');
             }
         } catch (error) {
             console.error('Terjadi kesalahan:', error);
+            btn.removeAttribute('disabled');
         }
-    }
-
-
-    // If There is a Double Click
-    function btnLanjuts() {
-        console.log('');
     }
 
 
@@ -124,25 +140,29 @@
         let nomor = nomor_antrian.slice(1);
         let posisi = document.getElementById("posisi").innerText;
         
-        try {
-            const response = await fetch('./call', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    _token: "{{ csrf_token() }}",
-                    bagian: bagian,
-                    nomor: nomor,
-                    posisi: posisi,
-                }),
-            });
-            if (response.ok) {
-                const responseData = await response.json();
-                console.log(responseData);
+        if (bagian == '-'|| nomor == null){
+            alert('Klik tombol "LANJUT" sebelum memanggil!');
+        } else {
+            try {
+                const response = await fetch('./call', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        _token: "{{ csrf_token() }}",
+                        bagian: bagian,
+                        nomor: nomor,
+                        posisi: posisi,
+                    }),
+                });
+                if (response.ok) {
+                    const responseData = await response.json();
+                    console.log(responseData);
+                }
+            } catch (error) {
+                console.log(error);
             }
-        } catch (error) {
-            console.log(error);
         }
     }
 

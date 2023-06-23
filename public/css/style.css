@@ -90,6 +90,10 @@ h1#posisi {
     .d-clock {
         margin-bottom: 10px;
     }
+
+    .d-run-text {
+        display: none;
+    }
 }
 
 /* Ukuran Small */
@@ -152,4 +156,21 @@ h1#posisi {
     to {
         transform: translateY(-15vh);
     }
+}
+
+/* Running Text */
+.running-text {
+    margin-top: 20px;
+    padding: 15px 0px;
+    background-color: #198754;
+}
+
+marquee {
+    padding-top: 0.3em;
+    font-size: 1.5em;
+    color: #ffffff;
+}
+
+.btn:disabled {
+    opacity: 1;
 }

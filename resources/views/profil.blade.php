@@ -10,7 +10,7 @@
             <div class="row bg-success p-5 rounded">
                 <div class="col-md-4 col-lg-2">
                     <div class="me-4">
-                        <img src="{{ asset('images/avatar.jpg') }}" alt="avatar" height="150" class="rounded-circle">
+                        <img id="avatar-image" alt="avatar" height="150" class="rounded-circle">
                     </div>
                 </div>
                 <div class="col">
@@ -62,9 +62,9 @@
                         <h5 class="modal-title text-white" id="exampleModalLabel">Edit Profil</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post" action="{{ route('profil.update') }}">
-                        @method("patch")
+                    <form method="post" action="{{ route('profil.update') }}" enctype="multipart/form-data">
                         @csrf
+                        @method("patch")
                         <div class="modal-body">
                             <input value="{{ old('id', Auth::user()->id) }}" type="hidden" class="form-control" name="id" required>
                             <div class="mb-2">
@@ -78,6 +78,10 @@
                             <div class="mb-2">
                                 <label for="alamat">Alamat</label>
                                 <input id="alamat" type="text" class="form-control" name="alamat" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="foto">Foto</label>
+                                <input type="file" class="form-control" name="foto" required>
                             </div>
                             <div class="mb-2">
                                 <label>Jenis Kelamin</label>
@@ -106,23 +110,16 @@
     <script>        
         $(document).ready(function() {
             async function profil() {
-                const user_id = "{{ Auth::user()->id }}";
-
                 try {
-                    const response = await fetch("{{ route('profil.ajax') }}", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: new URLSearchParams({
-                            _token: "{{ csrf_token() }}",
-                            id: user_id,
-                        }),
-                    });
+                    const response = await fetch("{{ route('profil.ajax') }}");
                     if (response.ok) {
                         const responseData = await response.json();
 
                         // Halaman Profil
+                        const imageUrl = responseData.foto ? '/userphoto/' + responseData.foto : '/userphoto/avatar.jpg';
+                        const avatarImage = document.getElementById('avatar-image');
+                        avatarImage.setAttribute('src', imageUrl);
+
                         document.getElementById("h6_tanggal_lahir").innerHTML = responseData.tanggal_lahir;
                         document.getElementById("h6_alamat").innerHTML = responseData.alamat;
                         document.getElementById("h6_jenis_kelamin").innerHTML = responseData.jenis_kelamin;

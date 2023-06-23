@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="h-100 pt-80-sip">
+<div class="mh-100 pt-80-sip">
     <div class="container-fluid">
         <div class="row">
             {{-- Left Column --}}
@@ -141,6 +141,14 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="container-fluid d-run-text">
+                <div class="running-text">
+                    @foreach($runningTexts as $runningText)
+                        <marquee direction="scroll">{{ $runningText->content }}</marquee>
+                    @endforeach
                 </div>
             </div>
         </div>

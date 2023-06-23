@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Antrian;
 use App\Models\Panggilan;
 use App\Models\PosisiTeller;
+use App\Models\RunningText;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('home');
+        $runningTexts = RunningText::orderBy('order', 'asc')->get();
+        
+        return view('home', compact('runningTexts'));
     }
 
     public function ajax()

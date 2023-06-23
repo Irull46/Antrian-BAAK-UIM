@@ -19,7 +19,7 @@ Route::group(['prefix' => '/'], function () {
 
 Route::group(['prefix' => 'profil'], function () {
     Route::get('/', [ProfilController::class, 'index'])->name('profil.index');
-    Route::post('/ajax', [ProfilController::class, 'ajax'])->name('profil.ajax');
+    Route::get('/ajax', [ProfilController::class, 'ajax'])->name('profil.ajax');
     Route::post('/ajax-form', [ProfilController::class, 'ajaxForm'])->name('profil.ajaxForm');
     Route::patch('/update', [ProfilController::class, 'update'])->name('profil.update');
 });
@@ -38,7 +38,8 @@ Route::group(['prefix' => 'cetak', 'middleware' => ['role:admin']], function () 
 
 Route::group(['prefix' => 'panggil', 'middleware' => ['role:teller']], function () {
     Route::get('/', [PanggilController::class, 'index'])->name('panggil.index');
-    Route::post('/ajax', [PanggilController::class, 'ajax'])->name('panggil.ajax');
+    Route::get('/ajax', [PanggilController::class, 'ajax'])->name('panggil.ajax');
+    Route::get('/kembali', [PanggilController::class, 'kembali'])->name('panggil.kembali');
     Route::post('/lanjut', [PanggilController::class, 'lanjut'])->name('panggil.lanjut');
     Route::post('/selesai', [PanggilController::class, 'selesai'])->name('panggil.selesai');
 });
@@ -47,4 +48,4 @@ Route::group(['prefix' => 'traffic'], function () {
     Route::get('/', [TrafficController::class, 'index'])->name('traffic.index');
 });
 
-Route::post('/call', [CallController::class, 'call'])->name('call');
+Route::post('/call', [CallController::class, 'call'])->name('call')->middleware('role:teller');

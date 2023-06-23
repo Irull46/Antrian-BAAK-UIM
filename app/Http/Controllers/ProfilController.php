@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Profil;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ProfilController extends Controller
 {
@@ -18,14 +19,17 @@ class ProfilController extends Controller
         return view('profil');
     }
 
-    public function ajax(Request $request)
+    public function ajax()
     {
-        $profil = Profil::where('user_id', $request->id)->first();
+        $userId = Auth::id();
+        $profil = Profil::where('user_id', $userId)->first();
 
         return response()->json([
-            'tanggal_lahir' => isset($profil->tanggal_lahir) ? Carbon::createFromFormat('Y-m-d', $profil->tanggal_lahir)->format('d-m-Y') : 'zonk',
-            'alamat' => isset($profil->alamat) ? $profil->alamat : 'zonk',
-            'jenis_kelamin' => isset($profil->jenis_kelamin) ? $profil->jenis_kelamin : 'zonk',
+            'foto' => isset($profil->foto) ? $profil->foto : 'Belum diisi',
+            'tanggal_lahir' => isset($profil->tanggal_lahir) ? $profil->tanggal_lahir : 'Belum diisi',
+            // 'tanggal_lahir' => isset($profil->tanggal_lahir) ? Carbon::createFromFormat('Y-m-d', $profil->tanggal_lahir)->format('d-m-Y') : 'Belum diisi',
+            'alamat' => isset($profil->alamat) ? $profil->alamat : 'Belum diisi',
+            'jenis_kelamin' => isset($profil->jenis_kelamin) ? $profil->jenis_kelamin : 'Belum diisi',
         ]);
     }
 
@@ -33,11 +37,13 @@ class ProfilController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'foto' => 'image|mimes:jpeg,png,jpg|max:2048',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|max:255',
             'jenis_kelamin' => 'required',
         ], [
             'name.required' => 'Kolom :attribute tidak boleh kosong.',
+            'foto.image' => 'File yang diunggah harus berupa gambar.',
             'tanggal_lahir.required' => 'Kolom :attribute tidak boleh kosong.',
             'alamat.required' => 'Kolom :attribute tidak boleh kosong.',
             'jenis_kelamin.required' => 'Kolom :attribute tidak boleh kosong.',
@@ -46,20 +52,31 @@ class ProfilController extends Controller
         $profil = Profil::where('user_id', $request->id)->first();
         
         if($profil == null) {
-            Profil::create([
+            $data = Profil::create([
                 'user_id' => $request->id,
                 'tanggal_lahir' => $request->tanggal_lahir,
                 'alamat' => $request->alamat,
                 'jenis_kelamin' => $request->jenis_kelamin,
             ]);
+
+            if ($request->hasFile('foto')) {
+                $request->file('foto')->move('userphoto', $request->file('foto')->getClientOriginalname());
+                $data->foto = $request->file('foto')->getClientOriginalname();
+                $data->save();
+            }
+
             return redirect()->back()->with('success', 'Profil berhasil dibuat!');
         } else {
             $profil->tanggal_lahir = $request->tanggal_lahir;
             $profil->alamat = $request->alamat;
             $profil->jenis_kelamin = $request->jenis_kelamin;
+            if ($request->hasFile('foto')) {
+                $request->file('foto')->move('userphoto', $request->file('foto')->getClientOriginalname());
+                $profil->foto = $request->file('foto')->getClientOriginalname();
+            }
             $profil->save();
+            
+            return redirect()->back()->with('success', 'Profil Berhasi diperbarui!');
         }
-        
-        return redirect()->back()->with('success', 'Profil Berhasi diperbarui!');
     }
 }
