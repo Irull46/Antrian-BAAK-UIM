@@ -3,7 +3,6 @@
 @section('content')
 <div class="pt-80-sip text-center">
         <div class="row mb-12">
-            {{-- Left Column --}}
             <div class="col-md-8 col-lg-9">
                 <div class="box">
                     <div class="row bg-success row-1">
@@ -28,10 +27,7 @@
                 </div>
             </div>
 
-            {{-- Right Column --}}
             <div class="col-md-4 col-lg-3 row-1">
-                {{-- <div class="bg-success" style="height: 100%">
-                </div> --}}
                 <div class="sisa-box" style="margin-bottom: 12px">
                     <div class="bg-success d-flex flex-column justify-content-center" style="height: 35%">
                         <h4 class="m-0 fw-bold text-light">Sisa Antrian A</h4>
@@ -53,7 +49,6 @@
         </div>
             
         <div class="row mb-12">
-            {{-- Left Column --}}
             <div class="col-md-8 col-lg-9">
                 <div class="row row-2">
                     <div class="col-md baak-box">
@@ -62,7 +57,6 @@
                         </div>
                         <div class="bg-warning d-flex flex-column justify-content-center" style="height: 67%">
                             <h1 class="m-0 fw-bold" id="nomor_antrian1">-</h1>
-                            {{-- <h5 class="fw-bold" id="nama1">-</h3> --}}
                         </div>
                     </div>
                     <div class="col-md bauk-box">
@@ -71,13 +65,11 @@
                         </div>
                         <div class="bg-warning d-flex flex-column justify-content-center" style="height: 67%">
                             <h1 class="m-0 fw-bold" id="nomor_antrian2">-</h1>
-                            {{-- <h5 class="fw-bold" id="nama2">-</h3> --}}
                         </div>
                     </div>
                 </div>
             </div>
             
-            {{-- Right Column --}}
             <div class="col-md-4 col-lg-3 d-clock" id="row-2">
                 <div class="bg-success d-flex flex-column justify-content-center success-clock" style="height: 33%">
                     <h4 class="m-0 fw-bold text-light">Jam Digital</h4>
@@ -129,8 +121,8 @@
             <audio id="bell_in" src="{{ asset('audio/in.mp3') }}"></audio>
             <audio id="bell_out" src="{{ asset('audio/out.mp3') }}"></audio>
             <audio id="nomorAntrian" src="{{ asset('audio/nomor antrian.mp3') }}"></audio>
-            <audio id="bagian_A" src="{{ asset('audio/a.mp3') }}"></audio> {{-- edit --}}
-            <audio id="bagian_B" src="{{ asset('audio/b.mp3') }}"></audio> {{-- edit --}}
+            <audio id="bagian_A" src="{{ asset('audio/a.mp3') }}"></audio>
+            <audio id="bagian_B" src="{{ asset('audio/b.mp3') }}"></audio>
             <audio id="nomor1" src="{{ asset('audio/1.mp3') }}"></audio>
             <audio id="nomor2" src="{{ asset('audio/2.mp3') }}"></audio>
             <audio id="nomor3" src="{{ asset('audio/3.mp3') }}"></audio>
@@ -154,7 +146,6 @@
 </div>
 
 <script>
-    // Get Queue Number, Teller Position, Teller Name, and Rest of The Queue
     setInterval(async function() {
         try {
             const response = await fetch('{{ route('home.ajax') }}', {
@@ -168,13 +159,9 @@
                 document.getElementById("sisaA").innerHTML = responseData.sisaA;
                 document.getElementById("sisaB").innerHTML = responseData.sisaB;
                 
-                // Looping untuk menampilkan 5 data nomor antrian dan 5 nama teller
                 for (let i = 1; i <= 2; i++) {
                     document.getElementById(`nomor_antrian${i}`).innerHTML = responseData[`nomor_antrian${i}`];
-                    // document.getElementById(`nama${i}`).innerHTML = responseData[`nama${i}`];
                 }
-            } else {
-                console.log('Data tidak ditemukan!');
             }
         } catch (error) {
             console.log(error);
@@ -182,7 +169,6 @@
     }, 1000);
     
 
-    // Call Queue Number
     let flag = false;
     let queue = [];
 
@@ -190,12 +176,10 @@
         if (flag) {
             queue.push(data);
         } else {
-            // Get Value from Data Parameter
             let bagian = data.data[0];
             let nilai = data.data[1];
             let posisi = data.data[2];
             
-            // Get Audio by Id in Home View
             const bell_in = document.getElementById("bell_in");
             const bell_out = document.getElementById("bell_out");
             const nomorAntrian = document.getElementById("nomorAntrian");
@@ -224,7 +208,7 @@
                     ab.play();
                 }, (bell_in.duration + nomorAntrian.duration) * 1000);
 
-                return bell_in.duration + nomorAntrian.duration + ab.duration; // Jumlah durasi audio opening (bell_in, nomorAntrian, dan ab)
+                return bell_in.duration + nomorAntrian.duration + ab.duration;
             }
 
             function closing(jeda) {
@@ -327,7 +311,6 @@
                     let nomor_satuan = document.getElementById(`nomor${satuan}`);
 
                     if (ratusan == 1) {
-                        // * Ratusan dimulai angka 1
                         setTimeout(() => {
                             seratus.play();
                         }, (durasi - 0.3) * 1000);
@@ -424,7 +407,6 @@
                             closing((durasi + seratus.duration - 0.3) * 1000);
                         }
                     } else if (ratusan > 1) {
-                        // * Ratusan tidak dimulai angka 1
                         setTimeout(() => {
                             nomor_ratusan.play();
                         }, (durasi - 0.3) * 1000);
@@ -552,24 +534,17 @@
             };
 
             putar();
-
-            // // Show Queue Number and Teller Position to Home View - based on The Sound Being Played
-            // document.getElementById('nomor_antrian').innerHTML = data.data[0] + data.data[1];
-            // document.getElementById('posisi').innerHTML = data.data[2];
         }
     }
 
-    // Listening For Event Broadcasts
     document.addEventListener("DOMContentLoaded", function(event) { 
         Echo.channel(`call-execute`)
             .listen('CallExecute', (data) => {
                 panggil(data);
-                console.log(`${data.data[0]} / ${data.data[1]} / ${data.data[2]}`);
             });
     });
 
 
-    // Digital Clock
     let hoursContainer = document.querySelector('.hours')
     let minutesContainer = document.querySelector('.minutes')
     let secondsContainer = document.querySelector('.seconds')
@@ -598,7 +573,6 @@
         let lastSeconds = last.getSeconds().toString()
         let nowSeconds = now.getSeconds().toString()
         if (lastSeconds !== nowSeconds) {
-            //tick()
             updateContainer(secondsContainer, nowSeconds)
         }
 

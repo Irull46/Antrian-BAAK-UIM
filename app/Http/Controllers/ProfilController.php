@@ -27,7 +27,6 @@ class ProfilController extends Controller
         return response()->json([
             'foto' => isset($profil->foto) ? $profil->foto : 'Belum diisi',
             'tanggal_lahir' => isset($profil->tanggal_lahir) ? $profil->tanggal_lahir : 'Belum diisi',
-            // 'tanggal_lahir' => isset($profil->tanggal_lahir) ? Carbon::createFromFormat('Y-m-d', $profil->tanggal_lahir)->format('d-m-Y') : 'Belum diisi',
             'alamat' => isset($profil->alamat) ? $profil->alamat : 'Belum diisi',
             'jenis_kelamin' => isset($profil->jenis_kelamin) ? $profil->jenis_kelamin : 'Belum diisi',
         ]);

@@ -64,7 +64,7 @@ class CetakController extends Controller
                     $antrianTerakhir = Antrian::orderByRaw('CAST(SUBSTRING_INDEX(nomor_antrian, "B", -1) AS UNSIGNED) DESC')->first();
                 }
 
-                $antrianTerakhir = substr($antrianTerakhir->nomor_antrian, 1); // Mengambil nilai setelah karakter (jika A99 maka hasilnya 99)
+                $antrianTerakhir = substr($antrianTerakhir->nomor_antrian, 1);
 
                 $jumlah_antrian = $jumlah_antrian + $antrianTerakhir;
 
@@ -95,28 +95,12 @@ class CetakController extends Controller
                 }
             }
         }
-
-        // // Opsi 1 - Print menggunakan capability profile
-        // $connector = new FilePrintConnector("/dev/ttyS0");
-        // $printer = new Printer($connector);
-
-        // // Opsi 2 - Print menggunakan serial printer
-        // $profile = CapabilityProfile::load("simple");
-        // $connector = new WindowsPrintConnector("smb://computer/printer");
-        // $printer = new Printer($connector, $profile);
-        
-        // // Tata letak, format, dan konten cetakan
-        // $printer->text("Nomor Antrian: " . $antrian->nomor_antrian . "\n");
-        
-        // $printer->cut();
-        // $printer->close();
         
         return redirect()->back()->with('message', 'Nomor antrian berhasil disimpan!');
     }
 
     public function clear()
     {
-        // Clear All Data in The Table
         Antrian::query()->delete();
         Panggilan::query()->delete();
 

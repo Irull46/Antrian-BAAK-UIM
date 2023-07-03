@@ -133,7 +133,6 @@
             const roleSelect = document.getElementById('role');
             const bagianSelect = document.getElementById('bagian');
 
-            // On Click Edit Button in Table
             formModal.addEventListener('shown.bs.modal', function(event) {
                 const button = event.relatedTarget;
                 const id = button.dataset.id;
@@ -141,7 +140,6 @@
                 const email = button.dataset.email;
                 const role = button.dataset.role;
                 const bagian = button.dataset.bagian;
-                // alert(bagian) Ada masalah dengan looping "$posisi->bagian" sehingga muncul B terus
 
                 userIdInput.value = id;
                 nameInput.value = nama;
@@ -159,17 +157,14 @@
             });
         });
 
-        // When Selecting Role Teller
         function toggleSecondSelect() {
             const role = document.getElementById('role');
             const show_hide = document.getElementById('show-hide');
 
             if (role.value === 'teller') {
                 show_hide.classList.remove('d-none');
-                console.log('remove display node')
             } else {
                 show_hide.classList.add('d-none');
-                console.log('add display node')
             }
         }
     </script>

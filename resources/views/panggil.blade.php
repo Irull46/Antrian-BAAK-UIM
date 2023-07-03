@@ -49,7 +49,6 @@
 </div>
 
 <script>
-    // Get Queue Number, Teller Position, and Rest of The Queue
     setInterval(async function() {
         try {
             const response = await fetch("{{ route('panggil.ajax') }}", {
@@ -68,8 +67,6 @@
                 document.getElementById("bagian").innerHTML = responseData.bagian;
                 document.getElementById("posisi").innerHTML = (responseData.posisi === '1') ? 'BAAK' : 'BAUK';
                 document.getElementById("sisa").innerHTML = (responseData.bagian === 'A') ? responseData.sisaA : responseData.sisaB;
-            } else {
-                console.log('Data tidak ditemukan!');
             }
         } catch (error) {
             console.log(error);
@@ -77,7 +74,6 @@
     }, 1000);
 
 
-    // Back to Previous Queue
     async function btnKembali() {
         const btn = document.getElementById('btnk');
         btn.setAttribute('disabled', true);
@@ -85,8 +81,6 @@
         try {
             const response = await fetch("{{ route('panggil.kembali') }}");
             if (response.ok) {
-                const data = await response.json();
-                console.log(data.message);
                 setTimeout(() => {
                     btn.removeAttribute('disabled');
                 }, 500);
@@ -98,7 +92,6 @@
     }
     
 
-    // Change Queue Status 'Menunggu' or 'Terlambat' to 'Proses', 'Proses' to 'Terlambat' and Save Start Time to Traffic Table
     async function btnLanjut() {
         const btn = document.getElementById('btnl');
         btn.setAttribute('disabled', true);
@@ -119,16 +112,10 @@
                 }),
             });
             if (response.ok) {
-                const responseData = await response.json();
-                console.log(responseData.message);
                 setTimeout(() => {
                     btn.removeAttribute('disabled');
                 }, 500);
-                setTimeout(btnPanggil, 1000); // Call after after 1 minute
-            } else {
-                const errorText = await response.text();
-                console.log(errorText);
-                btn.removeAttribute('disabled');
+                setTimeout(btnPanggil, 1000);
             }
         } catch (error) {
             console.error('Terjadi kesalahan:', error);
@@ -137,7 +124,6 @@
     }
 
 
-    // Send Event (CallExecute Event)
     async function btnPanggil() {
         let nomor_antrian = document.getElementById('nomor_antrian').innerText;
         let bagian = nomor_antrian.charAt(0);
@@ -161,10 +147,6 @@
                         posisi: posisi,
                     }),
                 });
-                if (response.ok) {
-                    const responseData = await response.json();
-                    console.log(responseData);
-                }
             } catch (error) {
                 console.log(error);
             }
@@ -172,7 +154,6 @@
     }
 
 
-    // Change Queue Status 'Proses' to 'Selesai', Save Finishing Time to Traffic Table and Clear Queue Data from Antrian table
     async function btnSelesai() {
         let nomor_antrian = document.getElementById('nomor_antrian').textContent;
 
@@ -187,13 +168,6 @@
                     nomor_antrian: nomor_antrian,
                 })
             });
-            if (response.ok) {
-                const responseData = await response.json();
-                console.log(responseData.nomor_antrian);
-            } else {
-                const errorText = await response.text();
-                console.log(errorText);
-            }
         } catch (error) {
             console.log(error);
         }

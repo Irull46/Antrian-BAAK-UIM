@@ -1,4 +1,3 @@
-/* Tombol Hijau */
 .click1:hover {
     background: linear-gradient(to bottom, #259c41 5%, #198754 100%);
 }
@@ -8,7 +7,6 @@
     transform: translateY(1px);
 }
 
-/* Tombol Merah */
 .click3:hover {
     background: linear-gradient(to bottom, #facd45 5%, #ffc107 100%);
 }
@@ -18,7 +16,6 @@
     transform: translateY(1px);
 }
 
-/* Tombol Putih */
 .click2:hover {
     background: linear-gradient(to bottom, #dbdada 5%, #ffffff 100%);
 }
@@ -28,13 +25,11 @@
     transform: translateY(1px);
 }
 
-/* Margin Top - Before Content */
 .pt-80-sip {
     padding-top: 80px;
     margin: 0 12px 12px;
 }
 
-/* Nomor Antrian - Menuju - Sisa Antrian */
 .row-1 {
     height: calc(60vh - 80px - 24px);
 }
@@ -57,7 +52,6 @@
     height: calc(50% - 6px);
 }
 
-/* BAAK - BAUK - Jam Digital */
 .row-2 {
     height: calc(35vh - 80px);
 }
@@ -68,7 +62,6 @@
     padding: 0 0 0 6px;
 }
 
-/* Running Text */
 .row-3 {
     height: calc(23vh - 80px);
 }
@@ -86,7 +79,6 @@
     top: 18%;
 }
 
-/* Ukuran Font Default*/
 #nomor_antrian,
 h1#posisi {
     font-size: 8vw;
@@ -102,12 +94,6 @@ h1#posisi {
     font-size: 4vw;
 }
 
-/* Ukuran Large */
-@media screen and (max-width: 992px) {
-    /*  */
-}
-
-/* Ukuran Medium */
 @media screen and (max-width: 768px) {
     .box {
         padding: 0 12px 0;
@@ -145,7 +131,6 @@ h1#posisi {
     }
 }
 
-/* Ukuran Small */
 @media screen and (max-width: 576px) {
     .bauk-box {
         margin-bottom: 0;
@@ -169,7 +154,6 @@ h1#posisi {
     display: flex;
     justify-content: center;
     position: relative;
-    /* background: #198754; */
     overflow: hidden;
 }
 .clock::before,
@@ -189,9 +173,6 @@ h1#posisi {
 .tick-hidden {
     opacity: 0;
 }
-.move {
-    /* animation: move linear 1s infinite; */
-}
 @keyframes move {
     from {
         transform: translateY(-5vh);
@@ -201,7 +182,6 @@ h1#posisi {
     }
 }
 
-/* Running Text */
 marquee {
     font-size: 1.8em;
     color: #ffffff;

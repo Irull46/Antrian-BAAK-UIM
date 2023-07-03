@@ -18,12 +18,10 @@ class HomeController extends Controller
 
     public function ajax()
     {
-        // Get data antrian berdasarkan status proses yang terakhir diupdate
         $antrian = Antrian::where('status', 'proses')
             ->latest('updated_at')
             ->first();
 
-        // Get jumlah antrian yang statusnya menunggu atau terlambat
         $sisaA = Antrian::where('nomor_antrian', 'LIKE', 'A%')
             ->whereIn('status', ['menunggu', 'terlambat'])
             ->count();
@@ -31,12 +29,10 @@ class HomeController extends Controller
             ->whereIn('status', ['menunggu', 'terlambat'])
             ->count();
 
-        // Get data panggilan dengan posisi teller
         $panggilan = Panggilan::with('posisiTeller')
             ->latest('created_at')
             ->first();
 
-        // Get semua data posisi teller dengan relasinya (tabel user, tabel panggilan dengan tabel antrian yang diupdate terakhir)
         $data = PosisiTeller::with(['user', 'panggilan' => function ($query) {
             $query->with(['antrian' => function ($query) {
                 $query->orderBy('id', 'desc');
