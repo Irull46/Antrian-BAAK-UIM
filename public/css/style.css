@@ -10,11 +10,11 @@
 
 /* Tombol Merah */
 .click3:hover {
-    background: linear-gradient(to bottom, #9c2525 5%, #871919 100%);
+    background: linear-gradient(to bottom, #facd45 5%, #ffc107 100%);
 }
 
 .click3:active {
-    background: linear-gradient(to top, #9c2525 5%, #871919 100%);
+    background: linear-gradient(to top, #facd45 5%, #ffc107 100%);
     transform: translateY(1px);
 }
 
@@ -28,67 +28,116 @@
     transform: translateY(1px);
 }
 
-/* Viewport 100 */
-.view-100-sip {
-    height: 100vh;
-    /* background-color: #fffb00; */
-}
-
 /* Margin Top - Before Content */
 .pt-80-sip {
     padding-top: 80px;
+    margin: 0 12px 12px;
+}
+
+/* Nomor Antrian - Menuju - Sisa Antrian */
+.row-1 {
+    height: calc(60vh - 80px - 24px);
+}
+.box {
+    padding: 0 0 0 12px;
+}
+.antrian-box {
+    padding: 36px 12px 36px 36px;
+}
+.menuju-box {
+    padding: 36px 36px 36px 12px;
+}
+.h-33 {
+    height: 33%;
+}
+.h-67 {
+    height: 67%;
+}
+.sisa-box {
+    height: calc(50% - 6px);
+}
+
+/* BAAK - BAUK - Jam Digital */
+.row-2 {
+    height: calc(35vh - 80px);
+}
+.baak-box {
+    padding: 0 6px 0 12px;
+}
+.bauk-box {
+    padding: 0 0 0 6px;
+}
+
+/* Running Text */
+.row-3 {
+    height: calc(23vh - 80px);
+}
+
+.mb-12 {
+    margin-bottom: 12px;
+}
+.top-42 {
+    top: 42%;
+}
+.top-48 {
+    top: 48%;
+}
+.top-18 {
+    top: 18%;
 }
 
 /* Ukuran Font Default*/
 #nomor_antrian,
 h1#posisi {
-    margin: 0;
-    padding: 0;
-    font-size: 8rem;
+    font-size: 8vw;
 }
 
 #sisaA,
 #sisaB {
-    margin: 0;
-    padding: 0;
-    font-size: 4.55rem;
+    font-size: 4vw;
+}
+
+#nomor_antrian1,
+#nomor_antrian2 {
+    font-size: 4vw;
 }
 
 /* Ukuran Large */
 @media screen and (max-width: 992px) {
-    #nomor_antrian,
-    h1#posisi {
-        margin: 0;
-        padding: 0;
-        font-size: 3rem;
-    }
-
-    #sisaA,
-    #sisaB {
-        margin: 0;
-        padding: 0;
-        font-size: 2.03rem;
-    }
+    /*  */
 }
 
 /* Ukuran Medium */
 @media screen and (max-width: 768px) {
-    #nomor_antrian,
-    h1#posisi {
-        margin: 0;
-        padding: 0;
-        font-size: 3rem;
+    .box {
+        padding: 0 12px 0;
+        margin-bottom: 12px;
+    }
+    .antrian-box {
+        padding: 24px 24px 12px 24px;
+    }
+    .menuju-box {
+        padding: 12px 24px 24px 24px;
     }
 
     #sisaA,
-    #sisaB {
-        margin: 0;
-        padding: 0;
-        font-size: 2rem;
+    #sisaB,
+    #nomor_antrian1,
+    #nomor_antrian2 {
+        font-size: 30pt;
     }
 
-    .d-clock {
-        margin-bottom: 10px;
+    .baak-box,
+    .bauk-box {
+        padding: 0 12px;
+        margin-bottom: 12px;
+    }
+
+    .row-2 {
+        height: calc(60vh - 80px);
+    }
+    #row-2 {
+        height: calc(35vh - 80px);
     }
 
     .d-run-text {
@@ -98,21 +147,15 @@ h1#posisi {
 
 /* Ukuran Small */
 @media screen and (max-width: 576px) {
-    #nomor_antrian,
-    h1#posisi {
-        margin: 0;
-        padding: 0;
-        font-size: 2.5rem;
-    }
-
-    #sisaA,
-    #sisaB {
-        margin: 0;
-        padding: 0;
-        font-size: 1.5rem;
+    .bauk-box {
+        margin-bottom: 0;
     }
 
     .d-clock {
+        display: none;
+    }
+
+    .show-hide {
         display: none;
     }
 }
@@ -159,15 +202,8 @@ h1#posisi {
 }
 
 /* Running Text */
-.running-text {
-    margin-top: 20px;
-    padding: 15px 0px;
-    background-color: #198754;
-}
-
 marquee {
-    padding-top: 0.3em;
-    font-size: 1.5em;
+    font-size: 1.8em;
     color: #ffffff;
 }
 

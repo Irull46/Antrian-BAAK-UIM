@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Antrian;
+use App\Models\Panggilan;
 use Illuminate\Http\Request;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
@@ -18,7 +19,8 @@ class CetakController extends Controller
     
     public function index()
     {
-        return view('cetak');
+        $data = Antrian::all();
+        return view('cetak', compact('data'));
     }
 
     public function cetak(Request $request)
@@ -109,6 +111,15 @@ class CetakController extends Controller
         // $printer->cut();
         // $printer->close();
         
-        return redirect()->back()->with('message', 'Nomor antrian berhasil dicetak.');
+        return redirect()->back()->with('message', 'Nomor antrian berhasil disimpan!');
+    }
+
+    public function clear()
+    {
+        // Clear All Data in The Table
+        Antrian::query()->delete();
+        Panggilan::query()->delete();
+
+        return redirect()->route('cetak.index')->with('message', 'Data antrian berhasil dihapus!');
     }
 }

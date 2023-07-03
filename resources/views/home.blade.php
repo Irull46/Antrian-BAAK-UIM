@@ -1,23 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mh-100 pt-80-sip">
-    <div class="container-fluid">
-        <div class="row">
+<div class="pt-80-sip text-center">
+        <div class="row mb-12">
             {{-- Left Column --}}
             <div class="col-md-8 col-lg-9">
-                <div class="container-fluid">
-                    <div class="row bg-success py-3 py-md-5 mb-2">
-                        <div class="col-md-8 pb-2 pb-md-0">
-                            <div class="ms-md-5 bg-white border border-5">
-                                <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Nomor Antrian</h2>
-                                <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="nomor_antrian">-</h1>
+                <div class="box">
+                    <div class="row bg-success row-1">
+                        <div class="col-md-6 antrian-box">
+                            <div class="bg-white h-33 border border-5 d-flex flex-column justify-content-center">
+                                <h2 class="m-0 fw-bold">Nomor Antrian</h2>
+                            </div>
+                            <div class="bg-white h-67 border border-5 border-top-0 d-flex flex-column justify-content-center">
+                                <h1 class="m-0 fw-bold" id="nomor_antrian">-</h1>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="me-md-5 bg-white border border-5">
-                                <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Teller</h2>
-                                <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="posisi">-</h1>
+
+                        <div class="col-md-6 menuju-box">
+                            <div class="bg-white h-33 border border-5 d-flex flex-column justify-content-center">
+                                <h2 class="m-0 fw-bold">Menuju</h2>
+                            </div>
+                            <div class="bg-white h-67 border border-5 border-top-0 d-flex flex-column justify-content-center">
+                                <h1 class="m-0 fw-bold" id="posisi">-</h1>
                             </div>
                         </div>
                     </div>
@@ -25,90 +29,60 @@
             </div>
 
             {{-- Right Column --}}
-            <div class="col-md-4 col-lg-3 mb-2 mb-md-0">
-                <div class="bg-success pt-3 pb-1 px-2">
-                    <h4 class="fw-bold text-center text-light">Sisa Antrian A</h4>
+            <div class="col-md-4 col-lg-3 row-1">
+                {{-- <div class="bg-success" style="height: 100%">
+                </div> --}}
+                <div class="sisa-box" style="margin-bottom: 12px">
+                    <div class="bg-success d-flex flex-column justify-content-center" style="height: 35%">
+                        <h4 class="m-0 fw-bold text-light">Sisa Antrian A</h4>
+                    </div>
+                    <div class="bg-warning d-flex flex-column justify-content-center" style="height: 65%">
+                        <h1 class="m-0 fw-bold" id="sisaA">-</h1>
+                    </div>
                 </div>
-                <div class="bg-warning px-3 py-3 mb-md-4">
-                    <h1 class="fw-bold text-center" id="sisaA">-</h1>
-                </div>
-                <div class="bg-success pt-3 pb-1 px-2">
-                    <h4 class="fw-bold text-center text-light">Sisa Antrian B</h4>
-                </div>
-                <div class="bg-warning px-3 py-3 mb-md-4">
-                    <h1 class="fw-bold text-center" id="sisaB">-</h1>
+                
+                <div class="sisa-box">
+                    <div class="bg-success d-flex flex-column justify-content-center" style="height: 35%">
+                        <h4 class="m-0 fw-bold text-light">Sisa Antrian B</h4>
+                    </div>
+                    <div class="bg-warning d-flex flex-column justify-content-center" style="height: 65%">
+                        <h1 class="m-0 fw-bold" id="sisaB">-</h1>
+                    </div>
                 </div>
             </div>
         </div>
             
-        <div class="row">
+        <div class="row mb-12">
             {{-- Left Column --}}
             <div class="col-md-8 col-lg-9">
-                <div class="row mb-2 mb-md-0">
-                    <div class="col-md">
-                        <div class="bg-success pt-3 pb-1 px-2">
-                            <h4 class="fw-bold text-center text-light">Teller 1</h4>
+                <div class="row row-2">
+                    <div class="col-md baak-box">
+                        <div class="bg-success d-flex flex-column justify-content-center" style="height: 33%">
+                            <h4 class="m-0 fw-bold text-light">BAAK</h4>
                         </div>
-                        <div class="bg-warning px-3 py-3">
-                            <div class="fw-bold text-center d-flex justify-content-center">
-                                <h1 id="nomor_antrian1">-</h1>
-                            </div>
-                            <h5 class="fw-bold text-center" id="nama1">-</h3>
+                        <div class="bg-warning d-flex flex-column justify-content-center" style="height: 67%">
+                            <h1 class="m-0 fw-bold" id="nomor_antrian1">-</h1>
+                            {{-- <h5 class="fw-bold" id="nama1">-</h3> --}}
                         </div>
                     </div>
-                    <div class="col-md">
-                        <div class="bg-success pt-3 pb-1 px-2">
-                            <h4 class="fw-bold text-center text-light">Teller 2</h4>
+                    <div class="col-md bauk-box">
+                        <div class="bg-success d-flex flex-column justify-content-center" style="height: 33%">
+                            <h4 class="m-0 fw-bold text-light">BAUK</h4>
                         </div>
-                        <div class="bg-warning px-3 py-3">
-                            <div class="fw-bold text-center d-flex justify-content-center">
-                                <h1 id="nomor_antrian2">-</h1>
-                            </div>
-                            <h5 class="fw-bold text-center" id="nama2">-</h3>
-                        </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="bg-success pt-3 pb-1 px-2">
-                            <h4 class="fw-bold text-center text-light">Teller 3</h4>
-                        </div>
-                        <div class="bg-warning px-3 py-3">
-                            <div class="fw-bold text-center d-flex justify-content-center">
-                                <h1 id="nomor_antrian3">-</h1>
-                            </div>
-                            <h5 class="fw-bold text-center" id="nama3">-</h3>
-                        </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="bg-success pt-3 pb-1 px-2">
-                            <h4 class="fw-bold text-center text-light">Teller 4</h4>
-                        </div>
-                        <div class="bg-warning px-3 py-3">
-                            <div class="fw-bold text-center d-flex justify-content-center">
-                                <h1 id="nomor_antrian4">-</h1>
-                            </div>
-                            <h5 class="fw-bold text-center" id="nama4">-</h3>
-                        </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="bg-success pt-3 pb-1 px-2">
-                            <h4 class="fw-bold text-center text-light">Teller 5</h4>
-                        </div>
-                        <div class="bg-warning px-3 py-3">
-                            <div class="fw-bold text-center d-flex justify-content-center">
-                                <h1 id="nomor_antrian5">-</h1>
-                            </div>
-                            <h5 class="fw-bold text-center" id="nama5">-</h3>
+                        <div class="bg-warning d-flex flex-column justify-content-center" style="height: 67%">
+                            <h1 class="m-0 fw-bold" id="nomor_antrian2">-</h1>
+                            {{-- <h5 class="fw-bold" id="nama2">-</h3> --}}
                         </div>
                     </div>
                 </div>
             </div>
             
             {{-- Right Column --}}
-            <div class="col-md-4 col-lg-3 d-clock">
-                <div class="bg-success pt-3 pb-1 px-2">
-                    <h4 class="fw-bold text-center text-light">Jam Digital</h4>
+            <div class="col-md-4 col-lg-3 d-clock" id="row-2">
+                <div class="bg-success d-flex flex-column justify-content-center success-clock" style="height: 33%">
+                    <h4 class="m-0 fw-bold text-light">Jam Digital</h4>
                 </div>
-                <div class="bg-warning px-3 py-3" style="height: 113px">
+                <div class="bg-warning d-flex flex-column justify-content-center warning-clock" style="height: 67%">
                     <div class="clock">
                         <div class="hours">
                             <div class="first">
@@ -143,22 +117,20 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="container-fluid d-run-text">
-                <div class="running-text">
-                    @foreach($runningTexts as $runningText)
-                        <marquee direction="scroll">{{ $runningText->content }}</marquee>
-                    @endforeach
-                </div>
-            </div>
+        <div class="bg-success d-run-text d-flex flex-column justify-content-center row-3">
+            @foreach($runningTexts as $runningText)
+                <marquee direction="scroll">{{ $runningText->content }}</marquee>
+            @endforeach
         </div>
 
         <div class="audio">
             <audio id="bell_in" src="{{ asset('audio/in.mp3') }}"></audio>
             <audio id="bell_out" src="{{ asset('audio/out.mp3') }}"></audio>
             <audio id="nomorAntrian" src="{{ asset('audio/nomor antrian.mp3') }}"></audio>
-            <audio id="bagian_A" src="{{ asset('audio/a.mp3') }}"></audio>
-            <audio id="bagian_B" src="{{ asset('audio/b.mp3') }}"></audio>
+            <audio id="bagian_A" src="{{ asset('audio/a.mp3') }}"></audio> {{-- edit --}}
+            <audio id="bagian_B" src="{{ asset('audio/b.mp3') }}"></audio> {{-- edit --}}
             <audio id="nomor1" src="{{ asset('audio/1.mp3') }}"></audio>
             <audio id="nomor2" src="{{ asset('audio/2.mp3') }}"></audio>
             <audio id="nomor3" src="{{ asset('audio/3.mp3') }}"></audio>
@@ -174,13 +146,11 @@
             <audio id="belas" src="{{ asset('audio/belas.mp3') }}"></audio>
             <audio id="puluh" src="{{ asset('audio/puluh.mp3') }}"></audio>
             <audio id="ratus" src="{{ asset('audio/ratus.mp3') }}"></audio>
-            <audio id="teller1" src="{{ asset('audio/teller1.mp3') }}"></audio>
-            <audio id="teller2" src="{{ asset('audio/teller2.mp3') }}"></audio>
-            <audio id="teller3" src="{{ asset('audio/teller3.mp3') }}"></audio>
-            <audio id="teller4" src="{{ asset('audio/teller4.mp3') }}"></audio>
-            <audio id="teller5" src="{{ asset('audio/teller5.mp3') }}"></audio>
+            <audio id="ratus" src="{{ asset('audio/ratus.mp3') }}"></audio>
+            <audio id="ratus" src="{{ asset('audio/ratus.mp3') }}"></audio>
+            <audio id="teller1" src="{{ asset('audio/baak.mp3') }}"></audio>
+            <audio id="teller2" src="{{ asset('audio/bauk.mp3') }}"></audio>
         </div>
-    </div>
 </div>
 
 <script>
@@ -194,14 +164,14 @@
                 const responseData = await response.json();
 
                 document.getElementById("nomor_antrian").innerHTML = responseData.nomor_antrian;
-                document.getElementById("posisi").innerHTML = responseData.posisi;
+                document.getElementById("posisi").innerHTML = (responseData.posisi === '1') ? 'BAAK' : 'BAUK';
                 document.getElementById("sisaA").innerHTML = responseData.sisaA;
                 document.getElementById("sisaB").innerHTML = responseData.sisaB;
                 
                 // Looping untuk menampilkan 5 data nomor antrian dan 5 nama teller
-                for (let i = 1; i <= 5; i++) {
+                for (let i = 1; i <= 2; i++) {
                     document.getElementById(`nomor_antrian${i}`).innerHTML = responseData[`nomor_antrian${i}`];
-                    document.getElementById(`nama${i}`).innerHTML = responseData[`nama${i}`];
+                    // document.getElementById(`nama${i}`).innerHTML = responseData[`nama${i}`];
                 }
             } else {
                 console.log('Data tidak ditemukan!');

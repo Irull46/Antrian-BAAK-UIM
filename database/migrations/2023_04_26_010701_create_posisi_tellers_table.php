@@ -16,7 +16,7 @@ class CreatePosisiTellersTable extends Migration
         Schema::create('posisi_tellers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->enum('posisi', ['1', '2', '3', '4', '5',]);
+            $table->enum('posisi', ['1', '2']);
             $table->enum('bagian', ['A', 'B']);
             $table->timestamps();
         });

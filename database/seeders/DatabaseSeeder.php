@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RolePermissionSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(PosisiTellerSeeder::class);
         $this->call(RunningTextSeeder::class);
     }
 }

@@ -30,17 +30,54 @@
     @endif
 
     <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-sm-8 col-md-7 col-lg-6 col-xl-5">
-                <div class="card p-sm-4 p-lg-5">
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img src="{{ asset('images/BAAK Logo.png') }}" alt="BAAK Logo" height="70" class="mb-2">
-                            <div class="fs-3 fw-bold ">Cetak Antrian</div>
-                            <div class="fs-5 mb-4">Masukkan jumlah antrian</div>
-                        </div>
-                        <form method="post" action="{{ route('cetak.cetak') }}">
-                            @csrf
+        <div class="row d-flex justify-content-between">
+            <div class="col-md">
+                <div class="fs-3 fw-bold">Nomor Antrian</div>
+                <div class="fs-5 mb-3">Membuat/Menghapus Nomor Antrian.</div>
+            </div>
+            <div class="col-md">
+                <div class="mt-2 mb-4 mb-md-0 float-md-end">
+                    <a class="btn btn-warning click3" href="{{ route('cetak.clear') }}" role="button">Hapus Antrian</a>
+                    <button type="button" class="btn btn-success click1" data-bs-toggle="modal" data-bs-target="#form">Buat Antrian</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th>No. Urut</th>
+                        <th>No. Antrian</th>
+                        <th>Dibuat</th>
+                        <th>Diubah</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data->sortBy('nomor_antrian') as $antrian)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $antrian->nomor_antrian }}</td>
+                            <td>{{ $antrian->created_at->format('H:i') }}</td>
+                            <td>{{ $antrian->updated_at->format('H:i') }}</td>
+                            <td>{{ ucfirst($antrian->status) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <div class="modal fade" id="form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-success">
+                        <h5 class="modal-title text-white" id="exampleModalLabel">Buat Antrian</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" action="{{ route('cetak.cetak') }}">
+                        @csrf
+                        <div class="modal-body">
                             <div class="row mb-3">
                                 <div class="col-md-8 pe-md-2 mb-2 mb-md-0">
                                     <label for="jumlah_antrian">Jumlah</label>
@@ -70,9 +107,12 @@
                                     @enderror
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-success click1 w-100">Cetak</button>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-success">Simpan</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

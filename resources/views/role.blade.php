@@ -31,17 +31,47 @@
 
     <div class="container py-5">
         <div class="fs-3 fw-bold">Role Manajemen</div>
-        <div class="fs-5 mb-3">Mengatur Role/Peran Pengguna</div>
+        <div class="fs-5 mb-3">Mengatur Role/Peran Pengguna.</div>
 
-        <table id="myTable" class="display">
-            <thead>
-                <tr>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-        </table>
+        <div class="table-responsive">
+            <table id="myTable" class="table table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            @foreach ($user->roles as $role)
+                                <td>{{ ucfirst($role->name) }}</td>
+                            @endforeach
+                            @foreach ($posisi_teller as $posisi)
+                                @if ($posisi->user_id == $user->id)
+                                    <td class="d-none">{{ $posisi->bagian }}</td>
+                                @endif
+                            @endforeach
+                            <td class="d-flex">
+                                <button type="button" class="btn btn-success me-1 click1 btn-edit" data-bs-toggle="modal" data-bs-target="#form" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $role->name }}" data-bagian="{{ $posisi->bagian }}">Edit</button>
+                                
+                                <form action="{{ route('role.destroy', $user->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-warning click3 btn-delete">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
         <div class="modal fade" id="form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -75,30 +105,16 @@
                                 </select>
                             </div>
 
-                            <div class="row mb-2 d-none" id="show-hide">
-                                <div class="col-md-6 pe-md-1 mb-2 mb-md-0">
-                                    <label for="posisi">Posisi</label>
-                                    <select class="form-select" name="posisi" id="posisi">
-                                        <option selected>Pilih</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-6 ps-md-1">
-                                    <label for="bagian">Bagian</label>
-                                    <select class="form-select" name="bagian" id="bagian">
-                                        <option selected>Pilih</option>
-                                        <option value="A">BAAK</option>
-                                        <option value="B">BAUK</option>
-                                    </select>
-                                </div>
+                            <div class="mb-2 d-none" id="show-hide">
+                                <label for="bagian">Bagian</label>
+                                <select class="form-select" name="bagian" id="bagian">
+                                    <option selected>Pilih</option>
+                                    <option value="A">BAAK</option>
+                                    <option value="B">BAUK</option>
+                                </select>
                             </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-success">Simpan</button>
                         </div>
                     </form>
@@ -107,62 +123,43 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script>
-        $(document).ready(function(){
-            $('#myTable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('role.datatable') }}",
-                columns: [
-                    { data: 'name', name: 'name' },
-                    { data: 'email', name: 'email' },
-                    {
-                        data: null,
-                        searchable: false,
-                        orderable: false,
-                        render: function(data, type, row, meta) {
-                            let link = '<button type="button" class="btn btn-outline-success click1" data-bs-toggle="modal" data-bs-target="#form" data-id="' + row.id + '" data-nama="' + row.name + '" data-email="' + row.email + '">Edit</button>'  +
-                            '<button type="button" class="btn btn-outline-danger btnDelete click3" data-id="' + row.id + '" style="margin-left: 8px">Delete</button>';
-                            return link;
-                        }
-                    }
-                ]
-            });
-            
-            $('#myTable').on('click', '.btnDelete', function() {
-                const rowId = $(this).data('id');
-                
-                $.ajax({
-                    url: '/role/delete/' + rowId,
-                    type: 'DELETE',
-                    data: {
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        window.location.href = '/role';
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(xhr.responseText);
-                    }
-                });
+        document.addEventListener("DOMContentLoaded", function(event) {
+            const formModal = document.getElementById('form');
+            const modalTrigger = document.querySelector('[data-toggle="modal"]');
+            const userIdInput = document.getElementById('user_id');
+            const nameInput = document.getElementById('nama');
+            const emailInput = document.getElementById('email');
+            const roleSelect = document.getElementById('role');
+            const bagianSelect = document.getElementById('bagian');
+
+            // On Click Edit Button in Table
+            formModal.addEventListener('shown.bs.modal', function(event) {
+                const button = event.relatedTarget;
+                const id = button.dataset.id;
+                const nama = button.dataset.name;
+                const email = button.dataset.email;
+                const role = button.dataset.role;
+                const bagian = button.dataset.bagian;
+                // alert(bagian) Ada masalah dengan looping "$posisi->bagian" sehingga muncul B terus
+
+                userIdInput.value = id;
+                nameInput.value = nama;
+                emailInput.value = email;
+
+                if (role === 'admin') {
+                    roleSelect.value = 'admin';
+                } else if (role === 'teller') {
+                    roleSelect.value = 'teller';
+                    bagianSelect.value = (bagian == 'A') ? 'A' : 'B';
+                } else {
+                    roleSelect.value = 'pengunjung';
+                }
+                toggleSecondSelect();
             });
         });
 
-        $('#form').on('shown.bs.modal', function (event){
-            let button = $(event.relatedTarget);
-            let id = button.data('id');
-            let nama = button.data('nama');
-            let email = button.data('email');
-
-            let modal = $(this);
-            modal.find('#user_id').val(id);
-            modal.find('#nama').val(nama);
-            modal.find('#email').val(email);
-        });
-
+        // When Selecting Role Teller
         function toggleSecondSelect() {
             const role = document.getElementById('role');
             const show_hide = document.getElementById('show-hide');

@@ -4,7 +4,7 @@
 <div class="h-100 pt-80-sip">
     <div class="container py-3">
         <div class="fs-2 fw-bold">Traffic</div>
-        <div class="fs-5 mb-4">Memperlihatkan performa pelayanan.</div>
+        <div class="fs-5 mb-4">Memperlihatkan Performa Pelayanan.</div>
         
         <div class="row p-2">
             <div class="col-md-3 border-end mb-3 mb-md-0">

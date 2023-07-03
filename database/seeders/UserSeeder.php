@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -14,43 +15,31 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // Admin
         $user = User::create([
             'name' => 'Admin',
-            'email' => 'admin@example.com',
+            'email' => 'admin@uim.ac.id',
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => Hash::make('>#admin\&!.%')
         ]);
         $user->assignRole('admin');
+
+        // BAAK
+        $user = User::create([
+            'name' => 'BAAK',
+            'email' => 'baak@uim.ac.id',
+            'email_verified_at' => now(),
+            'password' => Hash::make('$@baak*#1/%.')
+        ]);
+        $user->assignRole('teller');
         
+        // BAUK
         $user = User::create([
-            'name' => 'Janice',
-            'email' => 'teller1@example.com',
+            'name' => 'BAUK',
+            'email' => 'bauk@uim.ac.id',
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => Hash::make('$@bauk*#2/!.')
         ]);
-        $user = User::create([
-            'name' => 'Jelita',
-            'email' => 'teller2@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        ]);
-        $user = User::create([
-            'name' => 'Jessy',
-            'email' => 'teller3@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        ]);
-        $user = User::create([
-            'name' => 'Jihan',
-            'email' => 'teller4@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        ]);
-        $user = User::create([
-            'name' => 'Jingga',
-            'email' => 'teller5@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        ]);
+        $user->assignRole('teller');
     }
 }

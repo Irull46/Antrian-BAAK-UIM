@@ -34,11 +34,12 @@ Route::group(['prefix' => 'role', 'middleware' => ['role:admin']], function () {
 Route::group(['prefix' => 'cetak', 'middleware' => ['role:admin']], function () {
     Route::get('/', [CetakController::class, 'index'])->name('cetak.index');
     Route::post('/cetak', [CetakController::class, 'cetak'])->name('cetak.cetak');
+    Route::get('/clear', [CetakController::class, 'clear'])->name('cetak.clear');
 });
 
 Route::group(['prefix' => 'panggil', 'middleware' => ['role:teller']], function () {
     Route::get('/', [PanggilController::class, 'index'])->name('panggil.index');
-    Route::get('/ajax', [PanggilController::class, 'ajax'])->name('panggil.ajax');
+    Route::post('/ajax', [PanggilController::class, 'ajax'])->name('panggil.ajax');
     Route::get('/kembali', [PanggilController::class, 'kembali'])->name('panggil.kembali');
     Route::post('/lanjut', [PanggilController::class, 'lanjut'])->name('panggil.lanjut');
     Route::post('/selesai', [PanggilController::class, 'selesai'])->name('panggil.selesai');

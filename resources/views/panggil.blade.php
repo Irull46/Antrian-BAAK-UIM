@@ -2,45 +2,46 @@
 
 @section('content')
 <div class="h-100 pt-80-sip">
-    <div class="container-fluid">
-        <div class="row">
-            {{-- Left Column --}}
-            <div class="col-md-8 col-lg-9">
-                <div class="container-fluid">
-                    <div class="row bg-success py-3 py-md-5 mb-2">
-                        <div class="col-md-8 pb-2 pb-md-0">
-                            <div class="ms-md-5 bg-white border border-5">
-                                <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Nomor Antrian</h2>
-                                <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="nomor_antrian">-</h1>
-                            </div>
+    <div class="row">
+        {{-- Left Column --}}
+        <div class="col-md-8 col-lg-9">
+            {{-- <div class="container-fluid"> --}}
+                <div class="bg-success p-3 p-md-5 mb-2 mb-md-0">
+                    {{-- <div class="col-md-8 pb-2 pb-md-0"> --}}
+                        <div class="bg-white border border-5">
+                            <h2 class="py-2 border-bottom border-5 fw-bold text-center">Nomor Antrian</h2>
+                            <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="nomor_antrian">-</h1>
                         </div>
-                        <div class="col-md-4">
-                            <div class="me-md-5 bg-white border border-5">
-                                <h2 class="py-2 bg-white border-bottom border-5 fw-bold text-center">Teller</h2>
-                                <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="posisi">-</h1>
-                            </div>
+                    {{-- </div> --}}
+                    {{-- <div class="col-md-4"> --}}
+                        <div class="me-md-5 bg-white border border-5 d-none">
+                            <h2 class="py-2 border-bottom border-5 fw-bold text-center">Menuju</h2>
+                            <h1 class="m-0 py-2 py-sm-3 py-md-4 text-center fw-bold" id="posisi">-</h1>
                         </div>
-                    </div>
+                    {{-- </div> --}}
                 </div>
-            </div>
-            
-            {{-- Right Column --}}
-            <div class="col-md-4 col-lg-3">
+            {{-- </div> --}}
+        </div>
+        
+        {{-- Right Column --}}
+        <div class="col-md-4 col-lg-3 d-md-flex flex-column justify-content-between">
+            <div>
                 <div class="bg-success pt-3 pb-1 px-2">
                     <h4 class="fw-bold text-center text-light">Sisa Antrian <span id="bagian"></span></h4>
                 </div>
-                <div class="bg-white px-3 py-3 mb-md-4">
+                <div class="bg-warning px-3 py-3 mb-md-4">
                     <h1 class="fw-bold text-center" id="sisa">-</h1>
                 </div>
-
-                <div class="mt-2 d-flex flex-column">
-                    <div class="d-flex mb-2">
-                        <button id="btnk" onclick="btnKembali()" class="btn btn-outline-success btn-lg click1 w-50 me-1">KEMBALI</button>
-                        <button id="btnl" onclick="btnLanjut()" class="btn btn-outline-success btn-lg click1 w-50 ms-1">LANJUT</button>
+            </div>
+            
+            <div>
+                <div class="mt-4 mt-md-2 d-flex flex-column">
+                    <div class="d-flex mb-3 mb-md-2">
+                        <button id="btnk" onclick="btnKembali()" class="btn btn-warning btn-lg click3 w-50 me-1">KEMBALI</button>
+                        <button id="btnl" onclick="btnLanjut()" class="btn btn-success btn-lg click1 w-50 ms-1">LANJUT</button>
                     </div>
-                    <button onclick="btnPanggil()" class="btn btn-outline-success btn-lg click1 mb-2">PANGGIL ULANG</button>
-                    <button onclick="btnSelesai()" class="btn btn-outline-success btn-lg click1 mb-2">SELESAI</button>
-                    <a href="{{ route('home.index') }}" class="btn btn-outline-success btn-lg click1 mb-2">KELUAR</a>
+                    <button onclick="btnPanggil()" class="btn btn-success btn-lg click1 mb-3 mb-md-2">PANGGIL ULANG</button>
+                    <button onclick="btnSelesai()" class="btn btn-outline-success btn-lg click1">SELESAI</button>
                 </div>
             </div>
         </div>
@@ -51,19 +52,22 @@
     // Get Queue Number, Teller Position, and Rest of The Queue
     setInterval(async function() {
         try {
-            const response = await fetch('{{ route('panggil.ajax') }}');
+            const response = await fetch("{{ route('panggil.ajax') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    _token: "{{ csrf_token() }}",
+                }),
+            });
             if (response.ok) {
                 const responseData = await response.json();
 
                 document.getElementById("nomor_antrian").innerHTML = responseData.nomor_antrian;
                 document.getElementById("bagian").innerHTML = responseData.bagian;
-                document.getElementById("posisi").innerHTML = responseData.posisi;
-
-                if (responseData.bagian === 'A'){
-                    document.getElementById("sisa").innerHTML = responseData.sisaA;
-                } else {
-                    document.getElementById("sisa").innerHTML = responseData.sisaB;
-                }
+                document.getElementById("posisi").innerHTML = (responseData.posisi === '1') ? 'BAAK' : 'BAUK';
+                document.getElementById("sisa").innerHTML = (responseData.bagian === 'A') ? responseData.sisaA : responseData.sisaB;
             } else {
                 console.log('Data tidak ditemukan!');
             }
@@ -139,6 +143,7 @@
         let bagian = nomor_antrian.charAt(0);
         let nomor = nomor_antrian.slice(1);
         let posisi = document.getElementById("posisi").innerText;
+        posisi = (posisi == 'BAAK') ? 1 : 2;
         
         if (bagian == '-'|| nomor == null){
             alert('Klik tombol "LANJUT" sebelum memanggil!');
