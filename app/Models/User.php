@@ -24,11 +24,6 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function profil()
-    {
-        return $this->hasOne(Profil::class);
-    }
-
     public function posisiTeller()
     {
         return $this->hasOne(PosisiTeller::class);

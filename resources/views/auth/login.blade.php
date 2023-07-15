@@ -37,24 +37,19 @@
                                 @enderror
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-6">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">Ingat Saya</label>
-                                </div>
-
-                                <div class="col-6 text-end">
-                                    @if (Route::has('password.request'))
-                                        <a href="{{ route('password.request') }}">Lupa Password?</a>
-                                    @endif
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <input class="form-check-input" type="checkbox" name="checkbox" id="checkbox">
+                                    <label class="form-check-label" for="checkbox">Lihat Password</label>
                                 </div>
                             </div>
 
-                            <div class="mb-0">
-                                <button type="submit" class="btn btn-success">Login</button>
-
+                            <div>
+                                <button type="submit" class="btn btn-success w-100 mb-4">Login</button>
+                                <div class="text-center text-muted">Belum punya akun? <a href="{{ route('register') }}" class="fw-bold">Daftar</a></div>
                             </div>
+                            
+                            @include('partials.createdby')
                         </form>
                     </div>
                 </div>
@@ -62,4 +57,16 @@
         </div>
     </div>
 </div>
+<script>
+    const password = document.getElementById("password");
+    const checkbox = document.getElementById("checkbox");
+
+    checkbox.addEventListener("click", () => {
+        if (checkbox.checked) {
+            password.type = "text";
+        } else {
+            password.type = "password";
+        }
+    });
+</script>
 @endsection

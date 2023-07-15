@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Charts\TrafficChart;
 use App\Models\Traffic;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class TrafficController extends Controller

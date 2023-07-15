@@ -4,7 +4,7 @@
 <div class="h-100 pt-80-sip">
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-sm-8 col-md-7 col-lg-6 col-xl-5">
+            <div class="col-sm-7 col-md-6 col-lg-5 col-xl-4">
                 <div class="card p-sm-4 p-lg-5">
                     <div class="card-body">
                         <div class="text-center">
@@ -16,7 +16,7 @@
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="mb-2">
-                                <label for="name">Nama Lengkap</label>
+                                <label for="name">Nama</label>
                                 <input
                                     id="name"
                                     type="text"
@@ -24,7 +24,7 @@
                                     name="name"
                                     value="{{ old('name') }}"
                                     autocomplete="name"
-                                    required
+                                    required 
                                     autofocus>
 
                                 @error('name')
@@ -35,7 +35,7 @@
                             </div>
 
                             <div class="mb-2">
-                                <label for="email">Alamat Email</label>
+                                <label for="email">Email</label>
                                 <input
                                     id="email"
                                     type="email"
@@ -52,7 +52,7 @@
                                 @enderror
                             </div>
 
-                            <div class="row mb-3">
+                            <div class="row mb-2">
                                 <div class="col-md-6 pe-md-1 mb-2 mb-md-0">
                                     <label for="password">Password</label>
                                     <input
@@ -71,9 +71,9 @@
                                 </div>
 
                                 <div class="col-md-6 ps-md-1">
-                                    <label for="password-confirm">Ulangi Password</label>
+                                    <label for="passwordConfirm">Ulangi Password</label>
                                     <input
-                                        id="password-confirm"
+                                        id="passwordConfirm"
                                         type="password"
                                         class="form-control"
                                         name="password_confirmation"
@@ -82,9 +82,19 @@
                                 </div>
                             </div>
 
-                            <div>
-                                <button type="submit" class="btn btn-success">Daftar</button>
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <input class="form-check-input" type="checkbox" name="checkbox" id="checkbox">
+                                    <label class="form-check-label" for="checkbox">Lihat Password</label>
+                                </div>
                             </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-success w-100 mb-4">Daftar</button>
+                                <div class="text-center text-muted">Sudah punya akun? <a href="{{ route('login') }}" class="fw-bold">Login</a></div>
+                            </div>
+                            
+                            @include('partials.createdby')
                         </form>
                     </div>
                 </div>
@@ -92,4 +102,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    const password = document.getElementById("password");
+    const passwordConfirm = document.getElementById("passwordConfirm");
+    const checkbox = document.getElementById("checkbox");
+
+    checkbox.addEventListener("click", () => {
+        if (checkbox.checked) {
+            password.type = "text";
+            passwordConfirm.type = "text";
+        } else {
+            password.type = "password";
+            passwordConfirm.type = "password";
+        }
+    });
+</script>
 @endsection

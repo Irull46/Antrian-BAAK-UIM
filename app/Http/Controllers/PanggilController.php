@@ -95,8 +95,8 @@ class PanggilController extends Controller
 
     public function lanjut(Request $request)
     {
-        $user_id = $request->input('id');
-        $nomor_antrian = $request->input('nomor_antrian');
+        $user_id = $request->id;
+        $nomor_antrian = $request->nomor_antrian;
 
         if ($nomor_antrian !== '-') {
             $antrian = Antrian::where('nomor_antrian', $nomor_antrian)
@@ -169,7 +169,7 @@ class PanggilController extends Controller
 
     public function selesai(Request $request)
     {
-        $nomor_antrian = $request->input('nomor_antrian');
+        $nomor_antrian = $request->nomor_antrian;
 
         $nomorAntrian = Antrian::where('nomor_antrian', $nomor_antrian)->first();
         $nomorAntrian->status = 'selesai';

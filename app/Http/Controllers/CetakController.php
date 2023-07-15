@@ -34,8 +34,8 @@ class CetakController extends Controller
             'bagian.in' => 'Pilih BAAK, BAUK atau SEMUA.',
         ]);
 
-        $jumlah_antrian = $request->input('jumlah_antrian');
-        $bagian = $request->input('bagian');
+        $jumlah_antrian = $request->jumlah_antrian;
+        $bagian = $request->bagian;
 
         $total = Antrian::count();
         

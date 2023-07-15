@@ -27,12 +27,20 @@ class RoleController extends Controller
 
     public function update(Request $request)
     {
-        $user = User::findOrFail($request->input('user_id'));
-        $role = Role::where('name', $request->input('role'))->first();
+        $user = User::findOrFail($request->user_id);
+        $role = Role::where('name', $request->role)->first();
         
-        $user->syncRoles($role);
+        if ($user->hasRole('admin')) {
+            return back()->with('message', 'Admin tidak boleh diedit!');
+        }
+        
+        if ($role->name === 'admin') {
+            return back()->with('message', 'Admin tidak boleh lebih dari 1!');
+        }
 
-        $bagian = $request->input('bagian');
+        $user->syncRoles($role->name);
+
+        $bagian = $request->bagian;
         if ($bagian == 'A') {
             $posisi = '1';
         } else {
@@ -62,11 +70,16 @@ class RoleController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+
+        if ($user->hasRole('admin')) {
+            return back()->with('message', 'Admin tidak boleh direset!');
+        }
+
         $user->syncRoles('pengunjung');
 
         $posisi_teller = PosisiTeller::where('user_id', $id)->first();
-        $posisi_teller->delete();
+        $posisi_teller ? $posisi_teller->delete() : '';
 
-        return back()->with('message', 'Role user berhasil dihapus!');
+        return back()->with('message', 'Role user berhasil direset!');
     }
 }

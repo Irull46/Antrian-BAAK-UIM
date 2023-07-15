@@ -95,8 +95,8 @@
 
                                 <div class="col-md-4 ps-md-0">
                                     <label for="bagian">Bagian</label>
-                                    <select class="form-select @error('bagian') is-invalid @enderror" id="bagian" name="bagian">
-                                        <option selected>Pilih</option>
+                                    <select class="form-select @error('bagian') is-invalid @enderror" id="bagian" name="bagian" required>
+                                        <option value="" selected>Pilih</option>
                                         <option value="A">BAAK</option>
                                         <option value="B">BAUK</option>
                                         <option value="AB">SEMUA</option>
@@ -118,4 +118,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('form').addEventListener('shown.bs.modal', function () {
+        const input = document.getElementById('jumlah_antrian');
+        input.focus();
+        input.required = true;
+    });
+</script>
 @endsection

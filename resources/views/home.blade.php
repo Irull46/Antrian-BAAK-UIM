@@ -154,8 +154,14 @@
             if (response.ok) {
                 const responseData = await response.json();
 
+                if (responseData.posisi === '1' ){
+                    responseData.posisi = 'BAAK'
+                } else if (responseData.posisi === '2' ){
+                    responseData.posisi = 'BAUK'
+                }
+
                 document.getElementById("nomor_antrian").innerHTML = responseData.nomor_antrian;
-                document.getElementById("posisi").innerHTML = (responseData.posisi === '1') ? 'BAAK' : 'BAUK';
+                document.getElementById("posisi").innerHTML = responseData.posisi;
                 document.getElementById("sisaA").innerHTML = responseData.sisaA;
                 document.getElementById("sisaB").innerHTML = responseData.sisaB;
                 

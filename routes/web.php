@@ -17,13 +17,6 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/ajax', [HomeController::class, 'ajax'])->name('home.ajax');
 });
 
-Route::group(['prefix' => 'profil'], function () {
-    Route::get('/', [ProfilController::class, 'index'])->name('profil.index');
-    Route::get('/ajax', [ProfilController::class, 'ajax'])->name('profil.ajax');
-    Route::post('/ajax-form', [ProfilController::class, 'ajaxForm'])->name('profil.ajaxForm');
-    Route::patch('/update', [ProfilController::class, 'update'])->name('profil.update');
-});
-
 Route::group(['prefix' => 'role', 'middleware' => ['role:admin']], function () {
     Route::get('/', [RoleController::class, 'index'])->name('role.index');
     Route::get('/datatable', [RoleController::class, 'datatable'])->name('role.datatable');
