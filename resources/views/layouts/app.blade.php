@@ -6,7 +6,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ $title ?? config('app.name') }} - Antrian Digital BAAK</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('images/BAAK Logo.png') }}">
 
     <script src="{{ asset('js/app.js') }}" defer></script>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Panggil Antrian'])
 
 @section('content')
 <div class="h-100 pt-80-sip">
