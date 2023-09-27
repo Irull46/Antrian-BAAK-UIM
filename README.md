@@ -2,9 +2,6 @@
     <a href="https://www.uim.ac.id/" target="_blank">
         <img src="https://github.com/Irull46/Antrian-BAAK-UIM/blob/ReleaseTerbaruV1/public/images/BAAK%20Logo.png" alt="UIM" width="150">
     </a>
-    <a href="https://laravel.com" target="_blank">
-        <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" alt="Laravel" width="400">
-    </a>
 </p>
 
 # Antrian Digital BAAK UIM
